@@ -1,9 +1,12 @@
 <?php require('inc/templates/header.php'); ?>
-   <div class="Concesionarios-contenedor">
-      <?php require('inc/templates/concesionarios-juridico.php'); ?>
-      <?php require('inc/templates/concesionarios-prevalidador.php'); ?>
-   </div>
-   <nav aria-label="Page navigation example">
+	<?php require('inc/functions/querys.php'); ?>
+	<?php $query = consultarUsuarios(); ?>
+	<?php print_r($query); ?>
+   	<div class="Concesionarios-contenedor">
+   	   <?php require('inc/templates/concesionarios-juridico.php'); ?>
+   	   <?php require('inc/templates/concesionarios-prevalidador.php'); ?>
+   	</div>
+   	<nav aria-label="Page navigation example">
     	<ul class="pagination justify-content-center">
 
     		<!-- Link of the first page -->
@@ -33,5 +36,5 @@
     			<a class='page-link' href=''>&gt;&gt;</a>
     		</li>
     	</ul>
-   </nav>
+   	</nav>
 <?php require('inc/templates/footer.php'); ?>
