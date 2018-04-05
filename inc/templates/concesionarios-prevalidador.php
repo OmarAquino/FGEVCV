@@ -1,4 +1,9 @@
-<h3>Prevalidador</h3><button type="button" class="btn btn-primary">Actualizar</button><br></br>
+<h3>Prevalidador</h3>
+<div class="row">
+  <div class="col-6"><input id="buscar" type="text" class="form-control" placeholder="Nombre..."></div>
+  <div class="col-1"><button type="button" class="btn btn-secondary">Buscar</button></div>
+  <div class="col-1"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
+</div>
 <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
   <div class="row">
     <div class="col col-4">Concesionario</div>

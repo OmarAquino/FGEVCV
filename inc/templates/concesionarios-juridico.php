@@ -1,4 +1,9 @@
 <h3>Lista de concesionarios</h3>
+<div class="row">
+  <div class="col-6"><input id="buscar" type="text" class="form-control" placeholder="Nombre..."></div>
+  <div class="col-1"><button type="button" class="btn btn-secondary">Buscar</button></div>
+  <div class="col-1"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
+</div>
 <div class="Concesionarios-lista">
   	<div class="row">
     	<div class="col col-3">Concesionario</div>
