@@ -111,7 +111,8 @@
     </div>
     <div class="row rowDato">
         <div class="col">
-            <button type="button" class="btn btn-secondary">Guardar</button>
+            <!-- <button type="button" class="btn btn-secondary">Guardar</button> -->
+            <button type="button" class="btn btn-primary"><i class="far fa-save"></i> Guardar</button>
         </div>
     </div>
 </div>

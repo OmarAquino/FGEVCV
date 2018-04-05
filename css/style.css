@@ -77,6 +77,9 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 .Concesionarios-lista .row .col button {
 	padding: .3rem 1rem;
 }
+.Concesionarios-lista .row {
+	border-bottom: 1px solid #dee2e6;
+}
 .Concesionarios-lista .row:first-child {
 	background-color: rgba(0,0,0,.05);
 	border-top: 1px solid #dee2e6;
