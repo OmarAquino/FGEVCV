@@ -97,7 +97,7 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 .Concesionarios-lista .row .col:last-child {
 	text-align: center;
 }
-<<<<<<< HEAD
+
 .Concesionarios-listaPrevalidador .row .col:nth-child(1) {
 	border-right: 1px solid #dee2e6;
 }
