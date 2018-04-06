@@ -1,12 +1,13 @@
 <?php
-
+// Consultar usuarios
 function consultarUsuarios() {
 	include('db.php');
 	$query  = "SELECT * FROM usuarios";
 	$result = mysqli_query($con, $query);
-	if(mysqli_num_rows($result) > 0) {
-		$row = mysqli_fetch_object($result);
+	while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+	     $array[] = $row;
 	}
-	return($row);
+	return($array);
+	mysqli_close($con);
 }
 ?>

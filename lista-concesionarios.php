@@ -1,7 +1,10 @@
 <?php require('inc/templates/header.php'); ?>
 	<?php require('inc/functions/querys.php'); ?>
-	<?php $query = consultarUsuarios(); ?>
-	<?php print_r($query); ?>
+	<?php $consulta = consultarUsuarios(); ?>
+	<?php foreach ($consulta as $resultado): ?>
+		<?php echo $resultado['usuario']; ?>
+	<?php endforeach ?>
+
    	<div class="Concesionarios-contenedor">
    	   <?php require('inc/templates/concesionarios-juridico.php'); ?>
    	   <?php require('inc/templates/concesionarios-prevalidador.php'); ?>
