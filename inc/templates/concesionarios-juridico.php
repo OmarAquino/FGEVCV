@@ -6,57 +6,25 @@
 </div>
 <div class="Concesionarios-lista">
   	<div class="row">
-    	<div class="col col-3">Concesionario</div>
+    	<div class="col col-4">Concesionario</div>
     	<div class="col col-1">Estatus</div>
-    	<div class="col col-3">Chofer</div>
+<!--     	<div class="col col-3">Chofer</div>
+    	<div class="col col-1">Estatus</div> -->
+    	<div class="col col-4">Vehículo</div>
     	<div class="col col-1">Estatus</div>
-    	<div class="col col-2">Vehículo</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-1">Acción</div>
+    	<div class="col col-2">Acción</div>
   	</div>
-    <div class="row">
-    	<div class="col col-3">Concesionario</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-3">Chofer</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-2">Vehículo</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-1"><a href="concesionario.php"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
-    </div>
-    <div class="row">
-    	<div class="col col-3">Concesionario</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-3">Chofer</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-2">Vehículo</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-1"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></div>
-    </div>
-    <div class="row">
-    	<div class="col col-3">Concesionario</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-3">Chofer</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-2">Vehículo</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-1"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></div>
-    </div>
-    <div class="row">
-    	<div class="col col-3">Concesionario</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-3">Chofer</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-2">Vehículo</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-1"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></div>
-    </div>
-    <div class="row">
-    	<div class="col col-3">Concesionario</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-3">Chofer</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-2">Vehículo</div>
-    	<div class="col col-1">Estatus</div>
-    	<div class="col col-1"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></div>
-    </div>
+    <?php $consulta = consultarConcesionariosJuridico(); ?>
+    <?php //var_dump($consulta); ?>
+    <?php foreach ($consulta as $resultado): ?>
+        <div class="row">
+            <div class="col col-4"><?php echo $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat']; ?></div>
+            <div class="col col-1"><?php //echo $resultado[''] ?></div>
+            <!-- <div class="col col-3"><?php //echo $resultado[''] ?></div> -->
+            <!-- <div class="col col-1"><?php //echo $resultado[''] ?></div> -->
+            <div class="col col-4"><?php echo $resultado['placa']; ?></div>
+            <div class="col col-1"><?php //echo $resultado[''] ?></div>
+            <div class="col col-2"><a href="concesionario.php?idconcesion=<?php echo $resultado['idconcesion']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+        </div>  
+    <?php endforeach ?>
 </div>
