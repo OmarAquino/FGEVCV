@@ -1,15 +1,14 @@
-
     <div class="Login">
         <?php if (isset($_GET['err'])==1): ?>
             <div class="alert alert-danger">
               <strong>Datos incorrectos</strong>, verifica tus datos por favor.
             </div>
-        <?php endif ?>
+        <?php endif; ?>
 		<div class="card">
             <div class="card-header">Iniciar sesión</div>
             <div class="card-body">
             	<form class="Login-form" method="POST" action="inc/functions/user.php">
-                    <input type="hidden" name="home-url" value="<?php echo homeUrl(); ?>">
+                    <input type="hidden" name="home-url" value="">
             		<div class="form-group row">
             			<label for="user" class="col-md-4 col-form-label text-right">Usuario</label>
             			<div class="col-md-6">
