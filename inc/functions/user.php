@@ -11,13 +11,14 @@ if (isset($_POST['fgevcv-login'])) {
 		session_start();
 		// Store Session Data
 		$_SESSION['user']= $user;
-		// echo $_SESSION['user'];
+		while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+		    $_SESSION['user-type']= $row['indicador'];
+		}
 	   	header("location: http://localhost/fgevcv/lista-concesionarios.php");
 	}else {
 	   	header("location: http://localhost/fgevcv?err=1");
 	}
 	mysqli_close($con);
-	// echo $result;
 }
 
 ?>
