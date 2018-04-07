@@ -63,6 +63,13 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 	display: block;
 }
 
+.Logout {
+    font-size: 1rem;
+    text-decoration: underline;
+    float: right;
+    padding: 1rem;
+}
+
 /*Listado de concesionarios*/
 .Concesionarios-contenedor {
 	max-width: 1000px;
