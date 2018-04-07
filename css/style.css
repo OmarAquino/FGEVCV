@@ -48,6 +48,10 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 	padding-left: 6rem;
 	font-size: 1.5rem;
 }
+.Logout {
+	font-size: 1rem;
+	text-decoration: underline;
+}
 
 /*Login*/
 .Login {

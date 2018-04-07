@@ -1,5 +1,8 @@
 <?php require('inc/templates/header.php'); ?>
     <?php require('inc/functions/session.php'); ?>
+    <?php if (isset($_SESSION['user'])): ?>
+    	<a href="inc/functions/logout.php" class="Logout">Cerrar sesión</a>
+    <?php endif ?>
 	<?php require('inc/functions/querys.php'); ?>
    	<div class="Concesionarios-contenedor">
    		<?php if ($_SESSION['user-type']==1): ?>

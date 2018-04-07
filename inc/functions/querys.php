@@ -31,5 +31,16 @@ function consultarConcesionJuridico($idconcesion) {
 	mysqli_close($con);
 }
 
+function consultarConcesionarioCarpetas($idconcesion) {
+	include('db.php');
+	$query = "select distinct * from ( select distinct invper.idinv_persona,per.id_persona,con.folio folio_concesion,invper.ci,invper.status,'' robado , con.idconcesion  from inv_persona invper inner join persona per on per.id_persona=invper.persona_idpersona inner join conc_persona conper on conper.persona_idpersona=per.id_persona inner join concesion con on con.idconcesion=conper.concesion_idconcesion union all  select distinct invconc.idinv_conc,per.id_persona,con.folio folio_concesion,invconc.ci, '' status, invconc.robado, con.idconcesion  from inv_conc invconc inner join concesion con on con.idconcesion= invconc.concesion_idconcesion inner join conc_persona conper on conper.concesion_idconcesion = con.idconcesion inner join persona per on per.id_persona = conper.persona_idpersona ) sentencia  where sentencia.idconcesion = $idconcesion";
+	$result = mysqli_query($con, $query);
+	while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+		$array[] = $row;
+	}
+	return($array);
+	mysqli_close($con);
+}
+
 
 ?>
