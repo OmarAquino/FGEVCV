@@ -31,6 +31,12 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 	border-top: 3px solid rgba(0,0,0,.1);
 }
 
+/*Paginador*/
+.pagination .page-item.active a {
+	background: #343a40;
+	border-color: #343a40;
+}
+
 /*Header*/
 .Header {
 	background: #222222;

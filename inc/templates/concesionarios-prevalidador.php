@@ -14,13 +14,9 @@
       <?php $consulta = consultarConcesionariosPrevalidador(); ?>
       <?php $resultados = count($consulta); ?>
       <?php
-      /*How many records you want to show in a single page.*/
-      $limit = 3;
-      /*How may adjacent page links should be shown on each side of the current page link.*/
-      $adjacents = 2;
-      /*Get the total number of pages.*/
+      $limit = 10;
+      $adjacents = 1;
       $total_pages = ceil($resultados / $limit);
-
       if(isset($_GET['page']) && $_GET['page'] != "") {
          $page = $_GET['page'];
          $offset = $limit * ($page-1);
@@ -30,6 +26,7 @@
       }
       ?>
       <?php $consultaPaginacion = consultarConcesionariosPrevalidadorPaginacion($offset, $limit); ?>
+      <?php //print_r($consultaPaginacion); ?>
       <?php foreach ($consultaPaginacion as $resultado): ?>
          <div class="row">
             <div class="col col-7"><?php echo $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat']; ?></div>
@@ -56,31 +53,24 @@
             $end   = (1+($adjacents * 2));             //and end will be the (1+($adjacents * 2)).
          }
       }
-
       ?>
- 
    </div>   
    <?php if($total_pages > 1) { ?>
-      <ul class="pagination pagination-sm justify-content-center">
-         <!-- Link of the first page -->
+      <ul class="pagination pagination justify-content-center">
          <li class='page-item <?php ($page <= 1 ? print 'disabled' : '')?>'>
             <a class='page-link' href='?page=1'>&lt;&lt;</a>
          </li>
-         <!-- Link of the previous page -->
          <li class='page-item <?php ($page <= 1 ? print 'disabled' : '')?>'>
             <a class='page-link' href='?page=<?php ($page>1 ? print($page-1) : print 1)?>'>&lt;</a>
          </li>
-         <!-- Links of the pages with page number -->
          <?php for($i=$start; $i<=$end; $i++) { ?>
          <li class='page-item <?php ($i == $page ? print 'active' : '')?>'>
             <a class='page-link' href='?page=<?php echo $i;?>'><?php echo $i;?></a>
          </li>
          <?php } ?>
-         <!-- Link of the next page -->
          <li class='page-item <?php ($page >= $total_pages ? print 'disabled' : '')?>'>
             <a class='page-link' href='?page=<?php ($page < $total_pages ? print($page+1) : print $total_pages)?>'>&gt;</a>
          </li>
-         <!-- Link of the last page -->
          <li class='page-item <?php ($page >= $total_pages ? print 'disabled' : '')?>'>
             <a class='page-link' href='?page=<?php echo $total_pages;?>'>&gt;&gt;</a>
          </li>
