@@ -11,7 +11,7 @@
     <div class="col col-4">Vehículo</div>
     <div class="col col-1">Acción</div>  
   </div>
-  <?php $consulta = consultarConcesionariosJuridico(); ?>
+  <?php $consulta = consultarConcesionariosPrevalidador(); ?>
     <?php foreach ($consulta as $resultado): ?>
   <div class="row">
     <div class="col col-7"><?php echo $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat']; ?></div>
