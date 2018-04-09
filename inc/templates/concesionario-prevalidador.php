@@ -9,6 +9,7 @@
         <?php foreach ($consulta as $resultado): ?>
             <?php
             if ($resultado['tipo']=='P') {
+                $idPersona  = $resultado['id_persona']; 
                 $nombre = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
             ?>
         <div class="col-9"><?php echo $nombre; ?></div>
@@ -32,6 +33,7 @@
     <h4 class="Concesionario-tituloSeccion">Conductor</h4>
     <?php foreach ($consulta as $resultado): ?>
         <?php
+        if ($idPersona!=$resultado['id_persona']) {
         if ($resultado['tipo']=='C') { 
             $nombre = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
         ?>
@@ -53,7 +55,10 @@
                 </div>
             </div>
         </div>
-        <?php } ?>
+        <?php 
+        } 
+        }
+        ?>
 
     <?php endforeach ?>
     
