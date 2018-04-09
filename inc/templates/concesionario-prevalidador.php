@@ -17,15 +17,24 @@
     <div class="row rowDato">
         <div class="col-3">Carpetas de Investigación</div>
         <div class="col-9">
-            <div class="row">
-                <div class="col-1">
-                    <input id="ci-1" type="checkbox" class="css-checkbox">
-                    <label for="ci-1" class="css-label"></label>
-                </div>
-                <div class="col-11">
-                    <a href="#">Carpeta de investigación 1</a>
-                </div>
-            </div>
+            <?php foreach ($consulta as $resultado): ?>
+                <?php $idPersona = $resultado['id_persona']; ?>
+                <?php if ($resultado['tipo']=='P') : ?>
+                    <?php foreach ($consultaCi as $resultado) : ?>
+                        <?php if ($idPersona==$resultado['id_persona']) : ?>
+                            <div class="row">
+                                <div class="col-1">
+                                    <input id="ci-2" type="checkbox" class="css-checkbox">
+                                    <label for="ci-2" class="css-label"></label>
+                                </div>
+                                <div class="col-11">
+                                    <a href="#"><?php echo $resultado['ci']; ?></a>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                <?php endif ?>
+            <?php endforeach ?>
         </div>
     </div>
     <?php } ?>
@@ -44,15 +53,20 @@
         <div class="row rowDato">
             <div class="col-3">Carpetas de Investigación</div>
             <div class="col-9">
-                <div class="row">
-                    <div class="col-1">
-                        <input id="ci-4" type="checkbox" class="css-checkbox">
-                        <label for="ci-4" class="css-label"></label>
-                    </div>
-                    <div class="col-11">
-                        <a href="#">Carpeta de investigación 1</a>
-                    </div>
-                </div>
+                <?php $idPersona = $resultado['id_persona']; ?>
+                <?php foreach ($consultaCi as $resultado) : ?>
+                    <?php if ($idPersona==$resultado['id_persona']) : ?>
+                        <div class="row">
+                            <div class="col-1">
+                                <input id="ci-2" type="checkbox" class="css-checkbox">
+                                <label for="ci-2" class="css-label"></label>
+                            </div>
+                            <div class="col-11">
+                                <a href="#"><?php echo $resultado['ci']; ?></a>
+                            </div>
+                        </div>
+                    <?php endif ?> 
+                <?php endforeach ?>
             </div>
         </div>
         <?php 
