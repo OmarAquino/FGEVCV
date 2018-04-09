@@ -50,7 +50,7 @@ function consultarConcesionariosJuridicoPaginacion($offset, $limit) {
 	return($array);
 	mysqli_close($con);
 }
-function consultarConcesionJuridico($idconcesion) {
+function consultarConcesion($idconcesion) {
 	include('db.php');
 	$query = "select persona.id_persona,persona.nombre, persona.ap_pat, persona.ap_mat, conc_persona.tipo, concesion.placa, concesion.vin, concesion.num_serie, concesion.marca, concesion.submarca from persona inner join conc_persona on persona.id_persona = conc_persona.persona_idpersona inner join concesion on concesion.idconcesion = conc_persona.concesion_idconcesion and concesion.idconcesion = $idconcesion";
 	$result = mysqli_query($con, $query);

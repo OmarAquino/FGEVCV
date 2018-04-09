@@ -1,8 +1,9 @@
 <h3>Detalle de la concesión</h3>
 <div class="Concesionario">
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
-    <?php $idconcesion = $_GET['idconcesion'] ?>
-    <?php $consulta = consultarConcesionJuridico($idconcesion); ?>
+    <?php $idconcesion  = $_GET['idconcesion'] ?>
+    <?php $consulta     = consultarConcesion($idconcesion); ?>
+    <?php $consultaCi   = consultarCarpetas($idconcesion); ?>
     <?php //print_r($consulta); ?>
     <div class="row rowDato">
         <div class="col-3">Nombre:</div>
@@ -76,28 +77,42 @@
     <?php endforeach ?>
     
     <h4 class="Concesionario-tituloSeccion">Vehículo</h4>
-    <?php //foreach ($consulta as $resultado): ?>
-        <div class="row rowDato">
-            <div class="col-3">Placas:</div>
-            <div class="col-9"><?php echo $resultado['placa']; ?></div>
-        </div>
-        <div class="row rowDato">
-            <div class="col-3">VIN:</div>
-            <div class="col-9"><?php echo $resultado['vin']; ?></div>
-        </div>
-        <div class="row rowDato">
-            <div class="col-3">Número de serie:</div>
-            <div class="col-9"><?php echo $resultado['num_serie']; ?></div>
-        </div>
-        <div class="row rowDato">
-            <div class="col-3">Marca:</div>
-            <div class="col-9"><?php echo $resultado['marca']; ?></div>
-        </div>
-        <div class="row rowDato">
-            <div class="col-3">Submarca:</div>
-            <div class="col-9"><?php echo $resultado['submarca']; ?></div>
-        </div> 
-    <?php //endforeach ?>
+    <?php
+    $auto = 1;
+    if($auto == 1) {
+        foreach ($consulta as $resultado):
+            if ($resultado) {
+                $placa      = $resultado['placa'];
+                $vin        = $resultado['vin'];
+                $num_serie  = $resultado['num_serie'];
+                $marca      = $resultado['marca'];
+                $submarca   = $resultado['submarca'];
+             } 
+        $placa = $resultado['placa'];
+        $auto = 0;
+        endforeach; 
+    } 
+    ?>
+    <div class="row rowDato">
+        <div class="col-3">Placas:</div>
+        <div class="col-9"><?php echo $placa; ?></div>
+    </div>
+    <div class="row rowDato">
+        <div class="col-3">VIN:</div>
+        <div class="col-9"><?php echo $vin; ?></div>
+    </div>
+    <div class="row rowDato">
+        <div class="col-3">Número de serie:</div>
+        <div class="col-9"><?php echo $num_serie; ?></div>
+    </div>
+    <div class="row rowDato">
+        <div class="col-3">Marca:</div>
+        <div class="col-9"><?php echo $marca; ?></div>
+    </div>
+    <div class="row rowDato">
+        <div class="col-3">Submarca:</div>
+        <div class="col-9"><?php echo $submarca; ?></div>
+    </div> 
     
     <hr class="u-separador">
     <div class="row rowDato">
