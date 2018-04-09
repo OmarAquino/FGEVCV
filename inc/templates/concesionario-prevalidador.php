@@ -1,10 +1,11 @@
 <h3>Detalle de la concesión</h3>
 <div class="Concesionario">
-    <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
+    <?php if (isset($_GET['idconcesion']) && $_GET['idconcesion']!=NULL): ?>
     <?php $idconcesion  = $_GET['idconcesion'] ?>
     <?php $consulta     = consultarConcesion($idconcesion); ?>
     <?php $consultaCi   = consultarCarpetas($idconcesion); ?>
-    <?php //print_r($consulta); ?>
+    <?php if ($consulta): ?>  
+    <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
         <div class="col-3">Nombre:</div>
         <?php foreach ($consulta as $resultado): ?>
@@ -127,4 +128,14 @@
             <button type="button" class="btn btn-primary"><i class="far fa-save"></i> Guardar</button>
         </div>
     </div>
+    <?php else: ?>
+        <div class="alert alert-info">
+          <strong>No hay resultados para esta consulta</strong>
+        </div>
+    <?php endif ?>
+    <?php else: ?>
+        <div class="alert alert-info">
+          <strong>No hay resultados para esta consulta</strong>
+        </div>
+    <?php endif ?>
 </div>
