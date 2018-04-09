@@ -1,15 +1,18 @@
 <h3>Detalle de la concesión</h3>
 <div class="Concesionario">
+    <?php if (isset($_GET['idconcesion']) && $_GET['idconcesion']!=NULL): ?>
+    <?php $idconcesion  = $_GET['idconcesion'] ?>
+    <?php $consulta     = consultarConcesion($idconcesion); ?>
+    <?php $consultaCi   = consultarCarpetas($idconcesion); ?>
+    <?php if ($consulta): ?>        
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
-    <?php $idconcesion = $_GET['idconcesion'] ?>
-    <?php $consulta = consultarConcesionJuridico($idconcesion); ?>
-    <?php $consultaCi = consultarConcesionarioCarpetas($idconcesion); ?>
     <div class="row rowDato">
         <div class="col-3">Nombre:</div>
         <?php foreach ($consulta as $resultado): ?>
             <?php
             if ($resultado['tipo']=='P') {
-                $nombre = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
+                $idPersona  = $resultado['id_persona']; 
+                $nombre     = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
             }
             ?>
         <?php endforeach ?>
@@ -41,56 +44,77 @@
     <h4 class="Concesionario-tituloSeccion">Conductor</h4>
     <?php foreach ($consulta as $resultado): ?>
         <?php
+        if ($idPersona!=$resultado['id_persona']) {
         if ($resultado['tipo']=='C') { 
             $nombre = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
         ?>
-            <div class="row rowDato">
-                <div class="col-3">Nombre:</div>
-                <div class="col-9"><?php echo $nombre; ?></div>
-            </div>
-            <div class="row rowDato">
-                <div class="col-3">Carpetas de Investigación</div>
-                <div class="col-9">
-                    <?php $idPersona = $resultado['id_persona']; ?>
-                    <?php foreach ($consultaCi as $resultado) : ?>
-                        <?php if ($idPersona==$resultado['id_persona']) : ?>
-                            <div class="row">
-                                <div class="col-1">
-                                    <input id="ci-2" type="checkbox" class="css-checkbox">
-                                    <label for="ci-2" class="css-label"></label>
-                                </div>
-                                <div class="col-11">
-                                    <a href="#"><?php echo $resultado['ci']; ?></a>
-                                </div>
+        <div class="row rowDato">
+            <div class="col-3">Nombre:</div>
+            <div class="col-9"><?php echo $nombre; ?></div>
+        </div>
+        <div class="row rowDato">
+            <div class="col-3">Carpetas de Investigación</div>
+            <div class="col-9">
+                <?php $idPersona = $resultado['id_persona']; ?>
+                <?php foreach ($consultaCi as $resultado) : ?>
+                    <?php if ($idPersona==$resultado['id_persona']) : ?>
+                        <div class="row">
+                            <div class="col-1">
+                                <input id="ci-2" type="checkbox" class="css-checkbox">
+                                <label for="ci-2" class="css-label"></label>
                             </div>
-                        <?php endif ?> 
-                    <?php endforeach ?>
-                </div>
+                            <div class="col-11">
+                                <a href="#"><?php echo $resultado['ci']; ?></a>
+                            </div>
+                        </div>
+                    <?php endif ?> 
+                <?php endforeach ?>
             </div>
-        <?php } ?>
+        </div>
+        <?php 
+        }
+        }
+        ?>
     <?php endforeach ?>
     
     <h4 class="Concesionario-tituloSeccion">Vehículo</h4>
+    <?php
+    $auto = 1;
+    if($auto == 1) {
+        foreach ($consulta as $resultado):
+            if ($resultado) {
+                $placa      = $resultado['placa'];
+                $vin        = $resultado['vin'];
+                $num_serie  = $resultado['num_serie'];
+                $marca      = $resultado['marca'];
+                $submarca   = $resultado['submarca'];
+             } 
+        $placa = $resultado['placa'];
+        $auto = 0;
+        endforeach; 
+    } 
+    ?>
     <div class="row rowDato">
         <div class="col-3">Placas:</div>
-        <div class="col-9"><?php echo $consulta[0]['placa']; ?></div>
+        <div class="col-9"><?php echo $placa; ?></div>
     </div>
     <div class="row rowDato">
         <div class="col-3">VIN:</div>
-        <div class="col-9"><?php echo $consulta[0]['vin']; ?></div>
+        <div class="col-9"><?php echo $vin; ?></div>
     </div>
     <div class="row rowDato">
         <div class="col-3">Número de serie:</div>
-        <div class="col-9"><?php echo $consulta[0]['num_serie']; ?></div>
+        <div class="col-9"><?php echo $num_serie; ?></div>
     </div>
     <div class="row rowDato">
         <div class="col-3">Marca:</div>
-        <div class="col-9"><?php echo $consulta[0]['marca']; ?></div>
+        <div class="col-9"><?php echo $marca; ?></div>
     </div>
     <div class="row rowDato">
         <div class="col-3">Submarca:</div>
-        <div class="col-9"><?php echo $consulta[0]['submarca']; ?></div>
+        <div class="col-9"><?php echo $submarca; ?></div>
     </div> 
+    
     <hr class="u-separador">
     <div class="row rowDato">
         <div class="col-3">Nota:</div>
@@ -111,4 +135,14 @@
             <button type="button" class="btn btn-primary"><i class="far fa-save"></i> Guardar</button>
         </div>
     </div>
+    <?php else: ?>
+        <div class="alert alert-info">
+          <strong>No hay resultados para esta consulta</strong>
+        </div>
+    <?php endif ?>
+    <?php else: ?>
+        <div class="alert alert-info">
+          <strong>No hay resultados para esta consulta</strong>
+        </div>
+    <?php endif ?>
 </div>

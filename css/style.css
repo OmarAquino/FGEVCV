@@ -31,6 +31,12 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 	border-top: 3px solid rgba(0,0,0,.1);
 }
 
+/*Paginador*/
+.pagination .page-item.active a {
+	background: #343a40;
+	border-color: #343a40;
+}
+
 /*Header*/
 .Header {
 	background: #222222;
@@ -45,14 +51,8 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 }
 .Header h1 {
 	color: #fff;
-	padding-left: 6rem;
+	padding-left: 3rem;
 	font-size: 1.5rem;
-}
-.Logout {
-	font-size: 1rem;
-	text-decoration: underline;
-	float: right;
-	padding: 1rem;
 }
 
 /*Login*/
@@ -61,6 +61,13 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 	max-width: 700px;
 	margin: 0 auto;
 	display: block;
+}
+
+.Logout {
+    font-size: 1rem;
+    text-decoration: underline;
+    float: right;
+    padding: 1rem;
 }
 
 /*Listado de concesionarios*/
