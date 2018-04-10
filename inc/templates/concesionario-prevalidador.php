@@ -1,4 +1,11 @@
 <h3>Detalle de la concesión</h3>
+<?php if (isset($_POST['fgevcv-guardar'])): ?>
+    <?php 
+    $idconcesion = $_POST['idconcesion'];
+    $nota = $_POST['fgevcv-nota'];
+    guardarNota($idconcesion,$nota);?>
+<?php endif ?>
+<form method="POST" action="">
 <div class="Concesionario">
     <?php if (isset($_GET['idconcesion']) && $_GET['idconcesion']!=NULL): ?>
     <?php $idconcesion  = $_GET['idconcesion'] ?>
@@ -119,13 +126,13 @@
     <div class="row rowDato">
         <div class="col-3">Nota:</div>
         <div class="col-9">
-            <textarea name="" id="" cols="50" rows="5"></textarea>
+            <textarea name="fgevcv-nota" cols="50" rows="5"></textarea>
         </div>
     </div>
     <div class="row rowDato">
         <div class="col">
-            <!-- <button type="button" class="btn btn-secondary">Guardar</button> -->
-            <button type="button" class="btn btn-primary"><i class="far fa-save"></i> Guardar</button>
+            <input type="hidden" name="idconcesion" value="<?php echo $_GET['idconcesion']; ?>">
+        <input type="submit" name="fgevcv-guardar" value="Guardar">
         </div>
     </div>
     <?php else: ?>
@@ -139,3 +146,4 @@
         </div>
     <?php endif ?>
 </div>
+</form>

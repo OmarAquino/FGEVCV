@@ -78,4 +78,13 @@ function consultarCarpetas($idconcesion) {
 		mysqli_close($con);
 	}
 }
+function guardarNota($idconcesion,$nota){
+	include('db.php');
+	$query = "UPDATE 'concesion' SET 'nota'='$nota' WHERE 'idconcesion'='$idconcesion'";
+	$result = mysqli_query($con,$query);
+	echo $query;
+	mysqli_close($con);
+	// }
+}
+
 ?>
