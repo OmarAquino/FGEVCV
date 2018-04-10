@@ -78,4 +78,24 @@ function consultarCarpetas($idconcesion) {
 		mysqli_close($con);
 	}
 }
+function actualizarCarpetasPropietario($arrayCI) {
+// UPDATE vcv.inv_persona SET status='1' WHERE idinv_persona = 6;
+// SELECT * FROM vcv.inv_persona where persona_idpersona = 1;
+// SELECT * FROM vcv.inv_conc where concesion_idconcesion = 1;
+
+	//include('db.php');
+
+	//$query = "UPDATE vcv.inv_persona SET status='1' WHERE idinv_persona = 6";
+	// if (mysqli_query($con, $query)) {
+	// 	echo '<div class="alert alert-success"><strong>Success!</strong> Indicates a successful or positive action.</div>';
+	// } else {
+	//     echo '<div class="alert alert-warning"><strong>Warning!</strong> Indicates a warning that might need attention.</div>';
+	// }
+	//mysqli_close($con);
+	// foreach ($arrayCI as $key) {
+	// 	 var_dump($key['fulano']);
+	// }
+	var_dump($arrayCI);
+
+}
 ?>

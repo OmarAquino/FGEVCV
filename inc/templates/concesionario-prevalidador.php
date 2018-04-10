@@ -1,9 +1,16 @@
+<?php if (isset($_POST['fgevcv-updateCI'])): ?>
+    <?php actualizarCarpetasPropietario($_POST['ci']); ?>
+<?php endif ?>
+
 <h3>Detalle de la concesión</h3>
-<div class="Concesionario">
+<form method="POST" action="" class="Concesionario">
     <?php if (isset($_GET['idconcesion']) && $_GET['idconcesion']!=NULL): ?>
     <?php $idconcesion  = $_GET['idconcesion'] ?>
     <?php $consulta     = consultarConcesion($idconcesion); ?>
     <?php $consultaCi   = consultarCarpetas($idconcesion); ?>
+    <?php var_dump($consulta); ?>
+    <hr>
+    <?php var_dump($consultaCi); ?>
     <?php if ($consulta): ?>  
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
@@ -11,7 +18,7 @@
         <?php foreach ($consulta as $resultado): ?>
             <?php
             if ($resultado['tipo']=='P') {
-                $idPersona  = $resultado['id_persona']; 
+                $idPersonaPropietario  = $resultado['id_persona']; 
                 $nombre     = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
             }  
             ?>
@@ -22,21 +29,25 @@
         <div class="col-3">Carpetas de Investigación</div>
         <div class="col-9">
             <?php foreach ($consulta as $resultado): ?>
-                <?php $idPersona = $resultado['id_persona']; ?>
                 <?php if ($resultado['tipo']=='P') : ?>
-                    <?php foreach ($consultaCi as $resultado) : ?>
-                        <?php if ($idPersona==$resultado['id_persona']) : ?>
-                            <div class="row">
-                                <div class="col-1">
-                                    <input id="ci-2" type="checkbox" class="css-checkbox">
-                                    <label for="ci-2" class="css-label"></label>
+                    <?php $idPersona = $resultado['id_persona']; ?>
+                    <?php if ($consultaCi): ?>
+                        <?php $labelCounter = 1; ?>
+                        <?php foreach ($consultaCi as $resultado) : ?>
+                            <?php if ($idPersona==$resultado['id_persona']) : ?>
+                                <div class="row">
+                                    <div class="col-1">
+                                        <input id="ci-<?php echo $labelCounter; ?>" name="ci[<?php echo $resultado['idinv_persona']; ?>]" type="checkbox" value="<?php if($resultado['status']==NULL){echo '0';}else{echo $resultado['status'];} ?>" <?php if($resultado['status']==1){echo 'checked';} ?> class="css-checkbox">
+                                        <label for="ci-<?php echo $labelCounter; ?>" class="css-label"></label>
+                                    </div>
+                                    <div class="col-11">
+                                        <a href="#"><?php echo $resultado['ci']; ?></a>
+                                    </div>
                                 </div>
-                                <div class="col-11">
-                                    <a href="#"><?php echo $resultado['ci']; ?></a>
-                                </div>
-                            </div>
-                        <?php endif ?>
-                    <?php endforeach ?>
+                                <?php $labelCounter++; ?>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    <?php endif ?>
                 <?php endif ?>
             <?php endforeach ?>
         </div>
@@ -44,7 +55,7 @@
     <h4 class="Concesionario-tituloSeccion">Conductor</h4>
     <?php foreach ($consulta as $resultado): ?>
         <?php
-        if ($idPersona!=$resultado['id_persona']) {
+        if ($idPersonaPropietario!=$resultado['id_persona']) {
         if ($resultado['tipo']=='C') { 
             $nombre = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
         ?>
@@ -56,19 +67,21 @@
             <div class="col-3">Carpetas de Investigación</div>
             <div class="col-9">
                 <?php $idPersona = $resultado['id_persona']; ?>
-                <?php foreach ($consultaCi as $resultado) : ?>
-                    <?php if ($idPersona==$resultado['id_persona']) : ?>
-                        <div class="row">
-                            <div class="col-1">
-                                <input id="ci-2" type="checkbox" class="css-checkbox">
-                                <label for="ci-2" class="css-label"></label>
+                <?php if ($consultaCi): ?>
+                    <?php foreach ($consultaCi as $resultado) : ?>
+                        <?php if ($idPersona==$resultado['id_persona']) : ?>
+                            <div class="row">
+                                <div class="col-1">
+                                    <input id="ci-2" type="checkbox" class="css-checkbox">
+                                    <label for="ci-2" class="css-label"></label>
+                                </div>
+                                <div class="col-11">
+                                    <a href="#"><?php echo $resultado['ci']; ?></a>
+                                </div>
                             </div>
-                            <div class="col-11">
-                                <a href="#"><?php echo $resultado['ci']; ?></a>
-                            </div>
-                        </div>
-                    <?php endif ?> 
-                <?php endforeach ?>
+                        <?php endif ?> 
+                    <?php endforeach ?>
+                <?php endif ?>
             </div>
         </div>
         <?php 
@@ -125,7 +138,7 @@
     <div class="row rowDato">
         <div class="col">
             <!-- <button type="button" class="btn btn-secondary">Guardar</button> -->
-            <button type="button" class="btn btn-primary"><i class="far fa-save"></i> Guardar</button>
+            <input type="submit" class="btn btn-primary" value="Guardar" name="fgevcv-updateCI"><i class="far fa-save"></i>
         </div>
     </div>
     <?php else: ?>
@@ -138,4 +151,4 @@
           <strong>No hay resultados para esta consulta</strong>
         </div>
     <?php endif ?>
-</div>
+</form>
