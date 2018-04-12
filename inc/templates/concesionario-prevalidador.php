@@ -1,5 +1,11 @@
 <?php if (isset($_POST['fgevcv-guardar'])): ?>
-    <?php actualizarCarpetasPropietario($_POST['ci']); ?>
+    <?php if (isset($_POST['ci'])): ?>
+        <?php actualizarCarpetasPropietario($_POST['ci']); ?>
+    <?php endif ?>
+    <?php if (isset($_POST['cia'])): ?>
+        <?php actualizarCarpetasAuto($_POST['cia']); ?>
+    <?php endif ?>
+    <?php actualizarIndicadorConcesionPrevalidador($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
     <?php
     $nota = $_POST['fgevcv-nota'];
     $idconcesion = $_POST['idconcesion'];
@@ -18,10 +24,10 @@
 <h3>Detalle de la concesión</h3>
 <form method="POST" action="" class="Concesionario">
     <?php if (isset($_GET['idconcesion']) && $_GET['idconcesion']!=NULL): ?>
-    <?php $idconcesion  = $_GET['idconcesion'] ?>
-    <?php $consulta     = consultarConcesion($idconcesion); ?>
-    <?php $consultaCi   = consultarCarpetas($idconcesion); ?>
-    <?php print_r($consultaCi); ?>
+    <?php $idconcesion      = $_GET['idconcesion'] ?>
+    <?php $consulta         = consultarConcesion($idconcesion); ?>
+    <?php $consultaCi       = consultarCarpetas($idconcesion); ?>
+    <?php $consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
     <?php if ($consulta): ?>  
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
@@ -39,12 +45,14 @@
     <div class="row rowDato">
         <div class="col-3">Carpetas de Investigación</div>
         <div class="col-9">
+            <?php $noCiCounter = 1; ?>
             <?php foreach ($consulta as $resultado): ?>
                 <?php if ($resultado['tipo']=='P') : ?>
                     <?php $idPersona = $resultado['id_persona']; ?>
                     <?php if ($consultaCi): ?>
                         <?php $labelCounter = 1; ?>
                         <?php foreach ($consultaCi as $resultado) : ?>
+                            <?php $ciCounter = 1; ?>
                             <?php if ($idPersona==$resultado['id_persona']) : ?>
                                 <div class="row">
                                     <div class="col-1">
@@ -74,9 +82,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                <?php $labelCounter++; ?>
+                                <?php else: ?>
+                                    <?php if ($noCiCounter==1): ?>
+                                        Sin carpetas de investigación
+                                        <?php $noCiCounter=0; ?>
+                                    <?php endif ?>
                             <?php endif ?>
+                            <?php $labelCounter++; ?>
                         <?php endforeach ?>
+                    <?php else: ?>
+                        Sin carpetas de investigación
                     <?php endif ?>
                 <?php endif ?>
             <?php endforeach ?>
@@ -117,15 +132,29 @@
                                     </script>
                                 </div>
                                 <div class="col-11">
-                                    <a href="#"><?php echo $resultado['ci']; ?></a>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <a href="#"><?php echo $resultado['ci']; ?></a>
+                                        </div>
+                                        <?php if ($resultado['borrado']==1): ?>
+                                            <div class="col-3">
+                                                <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
+                                            </div>
+                                        <?php endif ?>
+                                    </div>
                                 </div>
                             </div>
+                        <?php else: ?>
+                            Sin carpetas de investigación
                         <?php endif ?> 
                         <?php $labelCounter2++; ?>
                     <?php endforeach ?>
+                <?php else: ?>
+                    Sin carpetas de investigación
                 <?php endif ?>
             </div>
         </div>
+        <hr>
         <?php 
         } 
         }
@@ -143,11 +172,13 @@
                 $num_serie  = $resultado['num_serie'];
                 $marca      = $resultado['marca'];
                 $submarca   = $resultado['submarca'];
+                $num_eco    = $resultado['num_eco'];
              } 
         $placa = $resultado['placa'];
         $auto = 0;
         endforeach; 
     } 
+    //print_r($consultaCiAuto);
     ?>
     <div class="row rowDato">
         <div class="col-3">Placas:</div>
@@ -169,7 +200,63 @@
         <div class="col-3">Submarca:</div>
         <div class="col-9"><?php echo $submarca; ?></div>
     </div> 
-    
+    <div class="row rowDato">
+        <div class="col-3">Número económico:</div>
+        <div class="col-9"><?php echo $num_eco; ?></div>
+    </div> 
+    <div class="row rowDato">
+        <div class="col-3">Carpetas de investigación:</div>
+        <div class="col-9">
+            <?php //var_dump($consultaCiAuto); ?>
+            <?php if ($consultaCiAuto): ?>
+                <?php $labelCounter3 = 1; ?>
+                <?php foreach ($consultaCiAuto as $resultado) : ?>
+                        <div class="row">
+                            <div class="col-1">
+                                <input id="cih3-<?php echo $labelCounter3; ?>" type="hidden" name="cia[<?php echo $resultado['idinv_conc']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                <input id="ci3-<?php echo $labelCounter3; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                <!-- <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label"></label> -->
+                                <script>
+                                    jQuery("#ci3-<?php echo $labelCounter3; ?>").change(function() {
+                                        if(this.checked) {
+                                            jQuery("#cih3-<?php echo $labelCounter3; ?>").val('1');
+                                        }else {
+                                            jQuery("#cih3-<?php echo $labelCounter3; ?>").val('0');
+                                        }
+                                    });
+                                </script>
+                            </div>
+                            <div class="col-11">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <a href="#"><?php echo $resultado['ci']; ?></a>
+                                    </div>
+                                    <?php if ($resultado['borrado']==1): ?>
+                                        <div class="col-3">
+                                            <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
+                                        </div>
+                                    <?php endif ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php $labelCounter3++; ?>
+                <?php endforeach ?>
+                <?php //var_dump($consultaCi); ?>
+            <?php else: ?> 
+                Sin carpetas de investigación
+            <?php endif ?>
+        </div>
+    </div> 
+    <div class="row rowDato">
+        <div class="col-3">Robado:</div>
+        <div class="col-9">
+            <?php if ($consultaCiAuto): ?>
+                <?php if($resultado['robado']==1){echo 'Sí';}elseif($resultado['robado']==0){echo 'No';}else{echo '---';} ?>
+            <?php else: ?>
+                No
+            <?php endif ?>
+        </div>
+    </div> 
     <hr class="u-separador">
     <div class="row rowDato">
         <div class="col-3">Nota:</div>
@@ -177,30 +264,30 @@
             <textarea name="fgevcv-nota" id="" cols="30" rows="3"></textarea>
         </div>
     </div>
+    <div class="row">
+        <label for="radio1" class="col-3">Pasar a jurídico</label>
+        <div class="col-9"><input class="form-check-input" type="radio" name="actualizarcicon" id="radio1" value="1" checked="checked"></div>
+    </div>
     <div class="row rowDato">
-        <div class="col-3">Aprovado:</div>
-        <div class="col-9">
-            <input id="ci-3" type="checkbox" class="">
-            <!-- <label for="ci-3" class="css-label"></label> -->
-        </div>
+        <label for="radio2" class="col-3">Aprobado</label>
+        <div class="col-9"><input class="form-check-input" type="radio" name="actualizarcicon" id="radio2" value="2"></div>
     </div>
     <div class="row rowDato">
         <div class="col-2">
             <input type="hidden" name="idconcesion" value="<?php echo $_GET['idconcesion']; ?>">
             <!-- <input type="submit" name="fgevcv-guardar" value="Guardar" class="btn btn-primary"> -->
-            <button type="submit" name="fgevcv-guardar" class="btn btn-primary"><i class="far fa-save"></i> Guardar</button>
+            <button type="submit" name="fgevcv-guardar" class="btn btn-dark"><i class="far fa-save"></i> Guardar</button>
         </div>
-    </div>
-    <div class="row rowDato">
         <div class="col-2">
-            <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button></a>
+            <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary" onclick="goBack()"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button></a>
         </div>
+        <script>
+        function goBack() {
+            // document.cookie = name+"=idconcesion%3d1; expires=whenever;path=/";
+            window.history.back()
+        }
+        </script>
     </div>
-<!--     <div class="row rowDato">
-        <div class="col">
-            <input type="submit" class="btn btn-primary" value="Guardar" name="fgevcv-updateCI"><i class="far fa-save"></i>
-        </div>
-    </div> -->
     <?php else: ?>
         <div class="alert alert-info">
           <strong>No hay resultados para esta consulta</strong>
