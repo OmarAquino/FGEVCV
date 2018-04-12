@@ -27,13 +27,31 @@
    ?>
    <?php $consultaPaginacion = consultarConcesionariosPrevalidadorPaginacion($offset, $limit); ?>
    <?php //print_r($consultaPaginacion); ?>
+   <?php $ajaxCounter = 1; ?>
    <?php foreach ($consultaPaginacion as $resultado): ?>
       <div class="row">
          <div class="col col-7"><?php echo $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat']; ?></div>
          <!--<div class="col col-4"></div>-->
          <div class="col col-4"><?php echo $resultado['placa']; ?></div>
-         <div class="col col-1"><a href="concesionario.php?idconcesion=<?php echo $resultado['idconcesion']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+         <div class="col col-1">
+            <a href="concesionario.php?idconcesion=<?php echo $resultado['idconcesion']; ?>">
+               <button id="trigger<?php echo $ajaxCounter; ?>" type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button>
+            </a>
+         </div>
       </div>
+      <script>
+         $("#trigger<?php echo $ajaxCounter; ?>").click(function(){
+            // alert('<?php echo $ajaxCounter; ?>');
+            // function testEnvio() {
+               jQuery.ajax({
+                  type: "POST",
+                  url:  'inc/functions/editando.php',
+                  data: { "idConcesion": '<?php echo $resultado['idconcesion']; ?>' }
+               });
+            // }
+         });
+      </script>
+      <?php $ajaxCounter++; ?>
    <?php endforeach ?>
    <?php
    if($total_pages <= (1+($adjacents * 2))) {

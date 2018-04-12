@@ -30,6 +30,7 @@
     <?php $consulta         = consultarConcesion($idconcesion); ?>
     <?php $consultaCi       = consultarCarpetas($idconcesion); ?>
     <?php $consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
+    <?php //var_dump($consulta); ?>
     <?php if ($consulta): ?>        
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
@@ -74,7 +75,7 @@
                                     <div class="col-11">
                                         <div class="row">
                                             <div class="col-3">
-                                                <a href="#"><?php echo $resultado['ci']; ?></a>
+                                                <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
                                             </div>
                                             <?php if ($resultado['borrado']==1): ?>
                                                 <div class="col-3">
@@ -136,7 +137,7 @@
                                 <div class="col-11">
                                     <div class="row">
                                         <div class="col-3">
-                                            <a href="#"><?php echo $resultado['ci']; ?></a>
+                                            <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
                                         </div>
                                         <?php if ($resultado['borrado']==1): ?>
                                             <div class="col-3">
@@ -264,7 +265,7 @@
     <div class="row rowDato">
         <div class="col-3">Nota:</div>
         <div class="col-9">
-            <textarea name="fgevcv-nota" id="" cols="50" rows="4"><?php echo $resultado['nota']; ?></textarea>
+            <textarea name="fgevcv-nota" id="" cols="50" rows="4"><?php echo $nota; ?></textarea>
         </div>
     </div>
     <div class="row rowDato">
