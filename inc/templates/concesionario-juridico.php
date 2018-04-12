@@ -30,7 +30,6 @@
     <?php $consulta         = consultarConcesion($idconcesion); ?>
     <?php $consultaCi       = consultarCarpetas($idconcesion); ?>
     <?php $consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
-    <?php //print_r($consultaCi); ?>
     <?php if ($consulta): ?>        
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
@@ -176,6 +175,7 @@
                 $marca      = $resultado['marca'];
                 $submarca   = $resultado['submarca'];
                 $num_eco    = $resultado['num_eco'];
+                $nota       = $resultado['nota'];
              } 
         $placa = $resultado['placa'];
         $auto = 0;
@@ -264,7 +264,7 @@
     <div class="row rowDato">
         <div class="col-3">Nota:</div>
         <div class="col-9">
-            <textarea name="fgevcv-nota" id="" cols="30" rows="3"></textarea>
+            <textarea name="fgevcv-nota" id="" cols="50" rows="4"><?php echo $resultado['nota']; ?></textarea>
         </div>
     </div>
     <div class="row rowDato">
