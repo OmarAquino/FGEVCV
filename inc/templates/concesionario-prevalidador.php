@@ -55,10 +55,22 @@
                             <?php $ciCounter = 1; ?>
                             <?php if ($idPersona==$resultado['id_persona']) : ?>
                                 <div class="row">
-                                    <div class="col-1">
+                                    <div class="col-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
+                                            </div>
+           <!--                                  <?php if ($resultado['borrado']==1): ?>
+                                                <div class="col-3">
+                                                    <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
+                                                </div>
+                                            <?php endif ?> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
                                         <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['idinv_persona']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                         <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                        <!-- <label for="ci-<?php echo $labelCounter; ?>" class="css-label"></label> -->
+                                        <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label>
                                         <script>
                                             jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
                                                 if(this.checked) {
@@ -68,18 +80,6 @@
                                                 }
                                             });
                                         </script>
-                                    </div>
-                                    <div class="col-11">
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
-                                            </div>
-                                            <?php if ($resultado['borrado']==1): ?>
-                                                <div class="col-3">
-                                                    <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
-                                                </div>
-                                            <?php endif ?>
-                                        </div>
                                     </div>
                                 </div>
                                 <?php else: ?>
@@ -117,10 +117,22 @@
                     <?php foreach ($consultaCi as $resultado) : ?>
                         <?php if ($idPersona==$resultado['id_persona']) : ?>
                             <div class="row">
-                                <div class="col-1">
+                                <div class="col-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
+                                        </div>
+<!--                                         <?php if ($resultado['borrado']==1): ?>
+                                            <div class="col-3">
+                                                <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
+                                            </div>
+                                        <?php endif ?> -->
+                                    </div>
+                                </div>
+                                <div class="col-5">
                                     <input id="cih2-<?php echo $labelCounter2; ?>" type="hidden" name="ci[<?php echo $resultado['idinv_persona']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                     <input id="ci2-<?php echo $labelCounter2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                    <!-- <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label"></label> -->
+                                    <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label">No relevante</label>
                                     <script>
                                         jQuery("#ci2-<?php echo $labelCounter2; ?>").change(function() {
                                             if(this.checked) {
@@ -130,18 +142,6 @@
                                             }
                                         });
                                     </script>
-                                </div>
-                                <div class="col-11">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
-                                        </div>
-                                        <?php if ($resultado['borrado']==1): ?>
-                                            <div class="col-3">
-                                                <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
-                                            </div>
-                                        <?php endif ?>
-                                    </div>
                                 </div>
                             </div>
                         <?php else: ?>
@@ -212,10 +212,22 @@
                 <?php $labelCounter3 = 1; ?>
                 <?php foreach ($consultaCiAuto as $resultado) : ?>
                         <div class="row">
-                            <div class="col-1">
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="#"><?php echo $resultado['ci']; ?></a>
+                                    </div>
+  <!--                                   <?php if ($resultado['borrado']==1): ?>
+                                        <div class="col-3">
+                                            <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
+                                        </div>
+                                    <?php endif ?> -->
+                                </div>
+                            </div>
+                            <div class="col-5">
                                 <input id="cih3-<?php echo $labelCounter3; ?>" type="hidden" name="cia[<?php echo $resultado['idinv_conc']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                 <input id="ci3-<?php echo $labelCounter3; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                <!-- <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label"></label> -->
+                                <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label">No relevante</label>
                                 <script>
                                     jQuery("#ci3-<?php echo $labelCounter3; ?>").change(function() {
                                         if(this.checked) {
@@ -225,18 +237,6 @@
                                         }
                                     });
                                 </script>
-                            </div>
-                            <div class="col-11">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="#"><?php echo $resultado['ci']; ?></a>
-                                    </div>
-                                    <?php if ($resultado['borrado']==1): ?>
-                                        <div class="col-3">
-                                            <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
-                                        </div>
-                                    <?php endif ?>
-                                </div>
                             </div>
                         </div>
                     <?php $labelCounter3++; ?>
