@@ -5,7 +5,7 @@
         <a href="inc/functions/logout.php" class="Logout"><button type="button" class="btn btn-outline-danger">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button></a>
     <?php endif ?>
     <div class="Concesionarios-contenedor">
-    <h3>Prevalidador</h3>
+    <h3>Jurídico</h3>
 	<form method="POST" action="buscar.php" class="row">
    		<div class="col"><input type="text" name="fgevcv-nombre" class="form-control" placeholder="Nombre..."></textarea></div>
    		<div class="col"><input type="text" name="fgevcv-apat" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
@@ -30,7 +30,7 @@
               		<strong>No ha ingresado criterios para realizar la busqueda</strong>
             	</div>
             <?php else:
-	    	$consulta = buscarNombre($nombre, $apat, $amat);
+	    	$consulta = buscarNombreJur($nombre, $apat, $amat);
 	    	$res=count($consulta);
 	    	if ($res!=0):
     		foreach ($consulta as $resultado): ?>
