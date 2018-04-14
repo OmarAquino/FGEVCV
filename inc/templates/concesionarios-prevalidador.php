@@ -1,9 +1,11 @@
 <h3>Prevalidador</h3>
-<div class="row">
-   <div class="col-6"><input id="buscar" type="text" class="form-control" placeholder="Nombre..."></div>
-   <div class="col-1"><button type="button" class="btn btn-secondary">Buscar</button></div>
+<form method="POST" action="buscar.php" class="row">
+   <div class="col"><input type="text" name="fgevcv-nombre" class="form-control" placeholder="Nombre..."></textarea></div>
+   <div class="col"><input type="text" name="fgevcv-apat" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
+   <div class="col"><input type="text" name="fgevcv-amat" class="form-control" placeholder="Ap. Materno..."></textarea></div>
+   <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
    <div class="col-1"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
-</div>
+</form>
 <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    <div class="row">
       <div class="col col-7">Concesionario</div>
@@ -75,4 +77,4 @@
          <a class='page-link' href='?page=<?php echo $total_pages;?>'>&gt;&gt;</a>
       </li>
    </ul>
-<?php } ?>
+   <?php } ?>

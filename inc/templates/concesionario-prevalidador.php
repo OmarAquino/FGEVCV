@@ -6,10 +6,13 @@
     if ($nota!=""){
         guardarNota($idconcesion,$nota);
     }else{
-       $nota = "Sin observaciones"; 
+       $nota = "Sin Observaciones"; 
        guardarNota($idconcesion,$nota);
     }
     ?>
+    <div class="alert alert-success">
+        <strong>¡Éxito al guardar!</strong> Click aquí <a href="lista-concesionarios.php" class="alert-link">para regresar</a>.
+    </div>
 <?php endif ?>
 <form method="POST" action="">
 <div class="Concesionario">
@@ -136,9 +139,12 @@
         </div>
     </div>
     <div class="row rowDato">
-        <div class="col">
+        <div class="col-1">
             <input type="hidden" name="idconcesion" value="<?php echo $_GET['idconcesion']; ?>">
-        <input type="submit" name="fgevcv-guardar" value="Guardar" class="btn bnt-primary">
+            <input type="submit" name="fgevcv-guardar" value="Guardar" class="btn bnt-secondary">
+        </div>
+        <div class="col-1">
+            <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary">Regresar</button></a>
         </div>
     </div>
     <?php else: ?>
