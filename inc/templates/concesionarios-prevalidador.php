@@ -12,6 +12,7 @@
       <div class="col col-1">Acción</div>  
    </div>
    <?php $consulta = consultarConcesionariosPrevalidador(); ?>
+   <?php //var_dump($consulta); ?>
    <?php $resultados = count($consulta); ?>
    <?php
    $limit = 10;
@@ -30,11 +31,11 @@
    <?php $ajaxCounter = 1; ?>
    <?php foreach ($consultaPaginacion as $resultado): ?>
       <div class="row">
-         <div class="col col-7"><?php echo $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat']; ?></div>
+         <div class="col col-7"><?php echo $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno']; ?></div>
          <!--<div class="col col-4"></div>-->
          <div class="col col-4"><?php echo $resultado['placa']; ?></div>
          <div class="col col-1">
-            <a href="concesionario.php?idconcesion=<?php echo $resultado['idconcesion']; ?>">
+            <a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>">
                <button id="trigger<?php echo $ajaxCounter; ?>" type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button>
             </a>
          </div>
@@ -46,7 +47,7 @@
                jQuery.ajax({
                   type: "POST",
                   url:  'inc/functions/editando.php',
-                  data: { "idConcesion": '<?php echo $resultado['idconcesion']; ?>' }
+                  data: { "id_conc": '<?php echo $resultado['id_conc']; ?>' }
                });
             // }
          });
