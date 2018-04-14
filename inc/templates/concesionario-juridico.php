@@ -24,7 +24,7 @@
 <?php endif ?>
 
 <h3>Detalle de la concesión</h3>
-<form method="POST" action="" class="Concesionario">
+<form method="POST" action="" class="Concesionario" id="concesionario-form">
     <?php if (isset($_GET['idconcesion']) && $_GET['idconcesion']!=NULL): ?>
     <?php $idconcesion      = $_GET['idconcesion'] ?>
     <?php $consulta         = consultarConcesion($idconcesion); ?>
@@ -58,10 +58,22 @@
                             <?php $ciCounter = 1; ?>
                             <?php if ($idPersona==$resultado['id_persona']) : ?>
                                 <div class="row">
-                                    <div class="col-1">
+                                    <div class="col-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
+                                            </div>
+      <!--                                       <?php if ($resultado['borrado']==1): ?>
+                                                <div class="col-3">
+                                                    <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
+                                                </div>
+                                            <?php endif ?> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
                                         <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['idinv_persona']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                         <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                        <!-- <label for="ci-<?php echo $labelCounter; ?>" class="css-label"></label> -->
+                                        <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label>
                                         <script>
                                             jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
                                                 if(this.checked) {
@@ -71,18 +83,6 @@
                                                 }
                                             });
                                         </script>
-                                    </div>
-                                    <div class="col-11">
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
-                                            </div>
-                                            <?php if ($resultado['borrado']==1): ?>
-                                                <div class="col-3">
-                                                    <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
-                                                </div>
-                                            <?php endif ?>
-                                        </div>
                                     </div>
                                 </div>
                                 <?php else: ?>
@@ -120,10 +120,22 @@
                     <?php foreach ($consultaCi as $resultado) : ?>
                         <?php if ($idPersona==$resultado['id_persona']) : ?>
                             <div class="row">
-                                <div class="col-1">
+                                <div class="col-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
+                                        </div>
+           <!--                              <?php if ($resultado['borrado']==1): ?>
+                                            <div class="col-3">
+                                                <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
+                                            </div>
+                                        <?php endif ?> -->
+                                    </div>
+                                </div>
+                                <div class="col-5">
                                     <input id="cih2-<?php echo $labelCounter2; ?>" type="hidden" name="ci[<?php echo $resultado['idinv_persona']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                     <input id="ci2-<?php echo $labelCounter2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                    <!-- <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label"></label> -->
+                                    <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label">No relevante</label>
                                     <script>
                                         jQuery("#ci2-<?php echo $labelCounter2; ?>").change(function() {
                                             if(this.checked) {
@@ -133,18 +145,6 @@
                                             }
                                         });
                                     </script>
-                                </div>
-                                <div class="col-11">
-                                    <div class="row">
-                                        <div class="col-3">
-                                            <a href="http://192.108.24.103/<?php echo $resultado['origen']; ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['ci']; ?>" target="_blank"><?php echo $resultado['ci']; ?></a>
-                                        </div>
-                                        <?php if ($resultado['borrado']==1): ?>
-                                            <div class="col-3">
-                                                <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
-                                            </div>
-                                        <?php endif ?>
-                                    </div>
                                 </div>
                             </div>
                         <?php else: ?>
@@ -216,10 +216,22 @@
                 <?php $labelCounter3 = 1; ?>
                 <?php foreach ($consultaCiAuto as $resultado) : ?>
                         <div class="row">
-                            <div class="col-1">
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="#"><?php echo $resultado['ci']; ?></a>
+                                    </div>
+         <!--                            <?php if ($resultado['borrado']==1): ?>
+                                        <div class="col-3">
+                                            <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
+                                        </div>
+                                    <?php endif ?> -->
+                                </div>
+                            </div>
+                            <div class="col-5">
                                 <input id="cih3-<?php echo $labelCounter3; ?>" type="hidden" name="cia[<?php echo $resultado['idinv_conc']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                 <input id="ci3-<?php echo $labelCounter3; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                <!-- <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label"></label> -->
+                                <label for="ci3-<?php echo $labelCounter3; ?>" class="css-label">No relevante</label>
                                 <script>
                                     jQuery("#ci3-<?php echo $labelCounter3; ?>").change(function() {
                                         if(this.checked) {
@@ -229,18 +241,6 @@
                                         }
                                     });
                                 </script>
-                            </div>
-                            <div class="col-11">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <a href="#"><?php echo $resultado['ci']; ?></a>
-                                    </div>
-                                    <?php if ($resultado['borrado']==1): ?>
-                                        <div class="col-3">
-                                            <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
-                                        </div>
-                                    <?php endif ?>
-                                </div>
                             </div>
                         </div>
                     <?php $labelCounter3++; ?>
@@ -268,28 +268,56 @@
             <textarea name="fgevcv-nota" id="" cols="50" rows="4"><?php echo $nota; ?></textarea>
         </div>
     </div>
-    <div class="row rowDato">
+<!--     <div class="row rowDato">
         <div class="col-3">Aprobado:</div>
         <div class="col-9">
-            <input name="actualizarcicon" value="2" id="ci-3" type="checkbox" class="">
-            <!-- <label for="ci-3" class="css-label"></label> -->
+            <input name="actualizarcicon" value="2" id="aprobarconcesion" type="checkbox" class="">
         </div>
-    </div>
+    </div> -->
+    <script>
+        $( document ).ready(function() {
+            if ($('.css-checkbox:checked').length == $('.css-checkbox').length) {
+                $('#actualizarcicon').val('2');
+            } else {
+                $('#actualizarcicon').val('3');
+            }
+            // $('#concesionario-form-submit').attr('disabled','disabled');
+        });
+        var checkboxes = document.getElementsByClassName('css-checkbox');
+        if (checkboxes.length>0) {
+            var noCiMensaje = 0;
+            $('.css-checkbox').change(function(){
+                if ($('.css-checkbox:checked').length == $('.css-checkbox').length) {
+                    $('#actualizarcicon').val('2');
+                } else {
+                    $('#actualizarcicon').val('3');
+                }
+            });
+        } else {
+            $('#actualizarcicon').val('3');
+            var noCiMensaje = 1;
+        }
+
+        // $('#aprobarconcesion').change(function(){
+        //     if ($('#aprobarconcesion').is(':checked')) {
+        //         $('#concesionario-form-submit').removeAttr('disabled');
+        //     } else {
+        //         $('#concesionario-form-submit').attr('disabled', 'disabled');
+        //     }
+        // });
+    </script>
     <div class="row rowDato">
         <div class="col-2">
             <input type="hidden" name="idconcesion" value="<?php echo $_GET['idconcesion']; ?>">
             <!-- <input type="submit" name="fgevcv-guardar" value="Guardar" class="btn btn-primary"> -->
-            <button type="submit" name="fgevcv-guardar" class="btn btn-dark"><i class="far fa-save"></i> Guardar</button>
+            <input type="hidden" name="actualizarcicon" id="actualizarcicon" value="3">
+            <button id="concesionario-form-submit" type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+                <i class="far fa-save"></i> Guardar
+            </button>
         </div>
         <div class="col-2">
-            <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary" onclick="goBack()"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button></a>
+            <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button></a>
         </div>
-        <script>
-        function goBack() {
-            // document.cookie = name+"=idconcesion%3d1; expires=whenever;path=/";
-            window.history.back()
-        }
-        </script>
     </div>
     <?php else: ?>
         <div class="alert alert-info">
@@ -301,4 +329,39 @@
           <strong>No hay resultados para esta consulta</strong>
         </div>
     <?php endif ?>
-</div>
+
+    <script>
+        $("#concesionario-form-submit").click(function(){
+            var modificacion = $('#actualizarcicon').val();
+            if (modificacion==3) {
+                $('.modal-body').html('No todas las carpetas de investigación fueron marcadas como "no relevante", por lo tanto esta concesión no será aprobada, ¿deseas continuar?');
+            }
+            if (modificacion==2) {
+                if (noCiMensaje==0) {
+                    $('.modal-body').html('Todas las carpetas de investigación fueron marcadas como "no relevante", por lo tanto esta concesión quedará como aprobada, ¿deseas continuar?');
+                } else {
+                    $('.modal-body').html('No hay carpetas por revisar, por lo tanto esta concesión quedará como aprobada, ¿deseas continuar?');
+                }
+            }
+        });
+    </script>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Validación de concesión vehicular</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="submit" name="fgevcv-guardar" class="btn btn-dark">
+                        <i class="far fa-save"></i> Guardar
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

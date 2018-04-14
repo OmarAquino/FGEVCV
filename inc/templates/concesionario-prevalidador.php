@@ -22,7 +22,7 @@
 <?php endif ?>
 
 <h3>Detalle de la concesión</h3>
-<form method="POST" action="" class="Concesionario">
+<form method="POST" action="" class="Concesionario" id="concesionario-form">
     <?php if (isset($_GET['idconcesion']) && $_GET['idconcesion']!=NULL): ?>
     <?php $idconcesion      = $_GET['idconcesion'] ?>
     <?php $consulta         = consultarConcesion($idconcesion); ?>
@@ -227,7 +227,7 @@
                             <div class="col-5">
                                 <input id="cih3-<?php echo $labelCounter3; ?>" type="hidden" name="cia[<?php echo $resultado['idinv_conc']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                 <input id="ci3-<?php echo $labelCounter3; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label">No relevante</label>
+                                <label for="ci3-<?php echo $labelCounter3; ?>" class="css-label">No relevante</label>
                                 <script>
                                     jQuery("#ci3-<?php echo $labelCounter3; ?>").change(function() {
                                         if(this.checked) {
@@ -264,29 +264,40 @@
             <textarea name="fgevcv-nota" id="" cols="30" rows="3"></textarea>
         </div>
     </div>
-    <div class="row">
-        <label for="radio1" class="col-3">Pasar a jurídico</label>
-        <div class="col-9"><input class="form-check-input" type="radio" name="actualizarcicon" id="radio1" value="1" checked="checked"></div>
-    </div>
-    <div class="row rowDato">
-        <label for="radio2" class="col-3">Aprobado</label>
-        <div class="col-9"><input class="form-check-input" type="radio" name="actualizarcicon" id="radio2" value="2"></div>
-    </div>
+    <script>
+        $( document ).ready(function() {
+            if ($('.css-checkbox:checked').length == $('.css-checkbox').length) {
+                $('#actualizarcicon').val('2');
+            } else {
+                $('#actualizarcicon').val('1');
+            }
+        });
+        var checkboxes = document.getElementsByClassName('css-checkbox');
+        if (checkboxes.length>0) {
+            var noCiMensaje = 0;
+            $('.css-checkbox').change(function(){
+                if ($('.css-checkbox:checked').length == $('.css-checkbox').length) {
+                    $('#actualizarcicon').val('2');
+                } else {
+                    $('#actualizarcicon').val('1');
+                }
+            });
+        } else {
+            $('#actualizarcicon').val('2');
+            var noCiMensaje = 1;
+        }
+    </script>
     <div class="row rowDato">
         <div class="col-2">
             <input type="hidden" name="idconcesion" value="<?php echo $_GET['idconcesion']; ?>">
-            <!-- <input type="submit" name="fgevcv-guardar" value="Guardar" class="btn btn-primary"> -->
-            <button type="submit" name="fgevcv-guardar" class="btn btn-dark"><i class="far fa-save"></i> Guardar</button>
+            <input type="hidden" name="actualizarcicon" id="actualizarcicon" value="1">
+            <button id="concesionario-form-submit" type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+                <i class="far fa-save"></i> Guardar
+            </button>
         </div>
         <div class="col-2">
-            <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary" onclick="goBack()"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button></a>
+            <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button></a>
         </div>
-        <script>
-        function goBack() {
-            // document.cookie = name+"=idconcesion%3d1; expires=whenever;path=/";
-            window.history.back()
-        }
-        </script>
     </div>
     <?php else: ?>
         <div class="alert alert-info">
@@ -298,4 +309,39 @@
           <strong>No hay resultados para esta consulta</strong>
         </div>
     <?php endif ?>
+
+    <script>
+        $("#concesionario-form-submit").click(function(){
+            var modificacion = $('#actualizarcicon').val();
+            if (modificacion==1) {
+                $('.modal-body').html('No todas las carpetas de investigación fueron marcadas como "no relevante", por lo tanto esta concesión pasará a revisión con jurídico, ¿deseas continuar?');
+            }
+            if (modificacion==2) {
+                if (noCiMensaje==0) {
+                    $('.modal-body').html('Todas las carpetas de investigación fueron marcadas como "no relevante", por lo tanto esta concesión quedará como aprobada, ¿deseas continuar?');
+                } else {
+                    $('.modal-body').html('No hay carpetas por revisar, por lo tanto esta concesión quedará como aprobada, ¿deseas continuar?');
+                }
+            }
+        });
+    </script>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Validación de concesión vehicular</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="submit" name="fgevcv-guardar" class="btn btn-dark">
+                        <i class="far fa-save"></i> Guardar
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
