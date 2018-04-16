@@ -28,6 +28,7 @@
     <?php $consulta         = consultarConcesion($idconcesion); ?>
     <?php $consultaCi       = consultarCarpetas($idconcesion); ?>
     <?php $consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
+    <?php var_dump($consulta); ?>
     <?php if ($consulta): ?>  
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
@@ -100,7 +101,6 @@
     <h4 class="Concesionario-tituloSeccion">Conductor</h4>
     <?php foreach ($consulta as $resultado): ?>
         <?php
-        if ($idPersonaPropietario!=$resultado['id_persona']) {
         if ($resultado['tipo']=='C') { 
             $nombre = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
         ?>
@@ -108,6 +108,7 @@
             <div class="col-3">Nombre:</div>
             <div class="col-9"><?php echo $nombre; ?></div>
         </div>
+        <?php if ($idPersonaPropietario!=$resultado['id_persona']) { ?>
         <div class="row rowDato">
             <div class="col-3">Carpetas de Investigación</div>
             <div class="col-9">
@@ -154,11 +155,9 @@
                 <?php endif ?>
             </div>
         </div>
+        <?php } ?>
         <hr>
-        <?php 
-        } 
-        }
-        ?>
+        <?php } ?>
     <?php endforeach ?>
     
     <h4 class="Concesionario-tituloSeccion">Vehículo</h4>
