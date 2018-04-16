@@ -17,14 +17,12 @@
     }
     ?>
 <?php endif ?>
-    <?php $consulta         = consultarConcesion(); ?>
-
     <?php //var_dump($consulta); ?>
-
 <h3>Detalle de la concesión</h3>
 <form method="POST" action="" class="Concesionario" id="concesionario-form">
     <?php if (isset($_GET['id_conc']) && $_GET['id_conc']!=NULL): ?>
     <?php $idconcesion      = $_GET['id_conc'] ?>
+    <?php $consulta         = consultarConcesion($idconcesion); ?>
     <?php //$consultaCi       = consultarCarpetas($idconcesion); ?>
     <?php //$consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
     <?php if ($consulta): ?>  

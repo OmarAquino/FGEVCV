@@ -54,7 +54,7 @@ function consultarConcesionariosJuridicoPaginacion($offset, $limit) {
 	return($array);
 	sqlsrv_close($con);
 }
-function consultarConcesion() {
+function consultarConcesion($idconcesion) {
 	// if (is_numeric($idconcesion)) {
 		include('db.php');
 		// $query = "select persona.id_persona,persona.nombre, persona.ap_pat, persona.ap_mat, conc_persona.tipo, concesion.placa, concesion.vin, concesion.num_serie, concesion.num_eco, concesion.marca, concesion.submarca, concesion.nota from persona inner join conc_persona on persona.id_persona = conc_persona.persona_idpersona inner join concesion on concesion.idconcesion = conc_persona.concesion_idconcesion and concesion.idconcesion = $idconcesion";
@@ -63,14 +63,18 @@ function consultarConcesion() {
 [concesiones].[num_economico],[concesiones].[marca], [concesiones].[submarca] 
 from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] =
 [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] =
-[per_conc].[id_conc] and [concesiones].[id_conc] = 30";
+[per_conc].[id_conc] and [concesiones].[id_conc] = $idconcesion";
 		$result = sqlsrv_query($con, $query);
-		echo $result;
+		// echo $result;
 		// if (sqlsrv_num_rows($result)!=0) {
-		// 	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-		// 		$array[] = $row;
-		// 	}
-		// 	return($array);
+			// while(
+				$row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
+			// ) {
+				// $array[] = $row;
+			// }
+			// return($row);
+				echo $row;
+				var_dump($row);
 		// }
 		sqlsrv_close($con);
 	// }
