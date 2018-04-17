@@ -13,7 +13,7 @@
   <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
   <div class="col-2"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
 </form>
-  <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
+  <div class="Concesionarios-lista">
       <div class="row">
       <div class="col col-4">Concesionario</div>
       <div class="col col-1">Estatus</div>
@@ -47,10 +47,13 @@
         $cons=buscarPaginacionJur($nombre,$apat,$amat,$offset,$limit);
         foreach ($cons as $res): ?>
         <div class="row">
-            <div class="col col-7"><?php echo $res['nombre'].' '.$res['ap_pat'].' '.$res['ap_mat']; ?></div>
-            <!--<div class="col col-4"></div>-->
+            <div class="col col-4"><?php echo $res['nombre'].' '.$res['ap_pat'].' '.$res['ap_mat']; ?></div>
+            <div class="col col-1"><?php //echo $resultado[''] ?></div>
+            <!-- <div class="col col-3"><?php //echo $resultado[''] ?></div> -->
+            <!-- <div class="col col-1"><?php //echo $resultado[''] ?></div> -->
             <div class="col col-4"><?php echo $res['placa']; ?></div>
-            <div class="col col-1"><a href="concesionario.php?idconcesion=<?php echo $res['idconcesion']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+            <div class="col col-1"><?php //echo $resultado[''] ?></div>
+            <div class="col col-2"><a href="concesionario.php?idconcesion=<?php echo $res['idconcesion']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
         </div> 
       <?php endforeach ?>
       <?php
