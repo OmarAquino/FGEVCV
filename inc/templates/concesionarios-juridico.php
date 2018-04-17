@@ -1,4 +1,4 @@
-<h3>Lista de concesionarios</h3>
+<h3>Jurídico</h3>
 <div class="row">
    <div class="col-6"><input id="buscar" type="text" class="form-control" placeholder="Nombre..."></div>
    <div class="col-1"><button type="button" class="btn btn-secondary">Buscar</button></div>
@@ -32,13 +32,13 @@
    <?php //print_r($consultaPaginacion); ?>
    <?php foreach ($consultaPaginacion as $resultado): ?>
       <div class="row">
-         <div class="col col-4"><?php echo $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat']; ?></div>
+         <div class="col col-4"><?php echo $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno']; ?></div>
          <div class="col col-1"><?php //echo $resultado[''] ?></div>
          <!-- <div class="col col-3"><?php //echo $resultado[''] ?></div> -->
          <!-- <div class="col col-1"><?php //echo $resultado[''] ?></div> -->
          <div class="col col-4"><?php echo $resultado['placa']; ?></div>
          <div class="col col-1"><?php //echo $resultado[''] ?></div>
-         <div class="col col-2"><a href="concesionario.php?idconcesion=<?php echo $resultado['idconcesion']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+         <div class="col col-2"><a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
       </div>  
    <?php endforeach ?>
    <?php
