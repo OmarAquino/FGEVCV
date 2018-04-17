@@ -5,7 +5,7 @@
         <a href="inc/functions/logout.php" class="Logout"><button type="button" class="btn btn-outline-danger">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button></a>
     <?php endif ?>
     <div class="Concesionarios-contenedor">
-<h3>Prevalidador</h3>
+<h3>Lista de concesionarios</h3>
 <form method="GET" action="buscar.php?p=$_GET['p']&s=$_GET['s']&t=$_GET['t']" class="row">
    	<div class="col-3"><input type="text" name="p" class="form-control" placeholder="Nombre..."></textarea></div>
    	<div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>

@@ -1,31 +1,31 @@
 <?php require('inc/templates/header.php'); ?>
     <?php require('inc/functions/session.php'); ?>
-	<?php require('inc/functions/querys.php'); ?>
+  <?php require('inc/functions/querys.php'); ?>
     <?php if (isset($_SESSION['user'])): ?>
         <a href="inc/functions/logout.php" class="Logout"><button type="button" class="btn btn-outline-danger">Cerrar sesión <i class="fas fa-sign-out-alt"></i></button></a>
     <?php endif ?>
     <div class="Concesionarios-contenedor">
-    <h3>Jurídico</h3>
-	<form method="GET" action="buscarJur.php?p=$_GET['p']&s=$_GET['s']&t=$_GET['t']" class="row">
+<h3>Lista de concesionarios</h3>
+<form method="GET" action="buscarJur.php?p=$_GET['p']&s=$_GET['s']&t=$_GET['t']" class="row">
     <div class="col-3"><input type="text" name="p" class="form-control" placeholder="Nombre..."></textarea></div>
     <div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
     <div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
   <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
   <div class="col-2"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
 </form>
-	<div class="Concesionarios-lista">
-   		<div class="row">
+  <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
+      <div class="row">
       <div class="col col-4">Concesionario</div>
       <div class="col col-1">Estatus</div>
       <div class="col col-4">Vehículo</div>
       <div class="col col-1">Estatus</div>
       <div class="col col-2">Acción</div>
     </div>
-		<?php //if (isset($_POST['fgevcv-buscar'])): 
-    		$nombre = $_POST['fgevcv-nombre'];
-    		$apat = $_POST['fgevcv-apat'];
-    		$amat = $_POST['fgevcv-amat'];
-    		if ($nombre=="" and $apat=="" and $amat==""):?>
+    <?php //if (isset($_GET['fgevcv-buscar'])): 
+        $nombre = $_GET['p'];
+        $apat = $_GET['s'];
+        $amat = $_GET['t'];
+        if ($nombre=="" and $apat=="" and $amat==""):?>
         <br>
           <div class="alert alert-danger" align="center">
                   <strong>No ha ingresado criterios para realizar la busqueda</strong>
