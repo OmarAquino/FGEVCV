@@ -1,10 +1,10 @@
 <h3>Prevalidador</h3>
-<form method="POST" action="buscar.php" class="row">
-   <div class="col"><input type="text" name="fgevcv-nombre" class="form-control" placeholder="Nombre..."></textarea></div>
-   <div class="col"><input type="text" name="fgevcv-apat" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
-   <div class="col"><input type="text" name="fgevcv-amat" class="form-control" placeholder="Ap. Materno..."></textarea></div>
-   <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
-   <div class="col-1"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
+<form method="GET" action="buscar.php" class="row">
+   <div class="col-3"><input type="text" name="p" class="form-control" placeholder="Nombre..."></textarea></div>
+      <div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
+      <div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
+      <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
+      <div class="col-2"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
 </form>
 <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    <div class="row">

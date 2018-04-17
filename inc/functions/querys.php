@@ -181,4 +181,35 @@ function buscarNombreJur($nombre,$apat,$amat){
 
 		}
 }
+function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
+	include('db.php');//nombre y apellido pat
+	if ($nombre !="" and $apat!="" and $amat=="") :
+		$query="SELECT * FROM persona INNER JOIN conc_persona on conc_persona.persona_idpersona=persona.id_persona INNER JOIN concesion on concesion.idconcesion=conc_persona.concesion_idconcesion WHERE concesion.indicador=0 AND conc_persona.tipo='P' and persona.nombre like '%$nombre%' and persona.ap_pat like '%$apat%' limit $offset, $limit";
+		//nombre y apellidos
+	elseif ($nombre!="" and $apat!="" and $amat!="") :
+	$query = "SELECT * from persona INNER JOIN conc_persona ON persona.id_persona=conc_persona.persona_idpersona INNER JOIN concesion on concesion.idconcesion=conc_persona.concesion_idconcesion where conc_persona.tipo='P' and concesion.indicador=0 and persona.nombre like '%$nombre%' and persona.ap_pat like '%$apat%' and persona.ap_mat like '%$amat%' limit $offset, $limit";
+	//Apellidos
+	elseif ($nombre=="" and $apat!="" and $amat!="") :
+		$query="SELECT * from persona INNER JOIN conc_persona ON persona.id_persona=conc_persona.persona_idpersona INNER JOIN concesion on concesion.idconcesion=conc_persona.concesion_idconcesion where conc_persona.tipo='P' and concesion.indicador=0 and persona.ap_pat like '%$apat%' and persona.ap_mat like '%$amat%' limit $offset, $limit";
+		//Nombre
+	elseif ($nombre!="" and $apat=="" and $amat=="") :
+		$query = "SELECT * from persona INNER JOIN conc_persona ON persona.id_persona=conc_persona.persona_idpersona INNER JOIN concesion on concesion.idconcesion=conc_persona.concesion_idconcesion where conc_persona.tipo='P' and concesion.indicador=0 and persona.nombre like '%$nombre%' limit $offset, $limit";
+		//Paterno
+	elseif ($nombre=="" and $apat!="" and $amat=="") :
+		$query = "SELECT * from persona INNER JOIN conc_persona ON persona.id_persona=conc_persona.persona_idpersona INNER JOIN concesion on concesion.idconcesion=conc_persona.concesion_idconcesion where conc_persona.tipo='P' and concesion.indicador=0 and persona.ap_pat like '%$apat%' limit $offset, $limit";
+		//Materno
+	elseif ($nombre=="" and $apat=="" and $amat!="") :
+		$query = "SELECT * from persona INNER JOIN conc_persona ON persona.id_persona=conc_persona.persona_idpersona INNER JOIN concesion on concesion.idconcesion=conc_persona.concesion_idconcesion where conc_persona.tipo='P' and concesion.indicador=0 and persona.ap_mat like '%$amat%' limit $offset, $limit";
+		//Nombre y Materno
+	elseif ($nombre !="" and $apat=="" and $amat!="") :
+		$query = "SELECT * from persona INNER JOIN conc_persona ON persona.id_persona=conc_persona.persona_idpersona INNER JOIN concesion on concesion.idconcesion=conc_persona.concesion_idconcesion where conc_persona.tipo='P' and concesion.indicador=0 and persona.nombre like '%$nombre%' and persona.ap_mat like '%$amat%' limit $offset, $limit";
+	endif;
+	//return($query);
+	$result = mysqli_query($con, $query);
+	while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		$array[] = $row;
+	}
+	return($array);
+	mysqli_close($con);
+}
 ?>
