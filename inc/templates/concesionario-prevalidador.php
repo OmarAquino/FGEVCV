@@ -12,8 +12,8 @@
     if ($nota!=""){
         guardarNota($idconcesion,$nota);
     }else{
-       $nota = "Sin Observaciones";
-       guardarNota($idconcesion,$nota);
+        $nota = "Sin Observaciones";
+        guardarNota($idconcesion,$nota);
     }
     ?>
 <?php endif ?>

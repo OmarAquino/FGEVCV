@@ -38,7 +38,7 @@
          <!-- <div class="col col-1"><?php //echo $resultado[''] ?></div> -->
          <div class="col col-4"><?php echo $resultado['placa']; ?></div>
          <div class="col col-1"><?php //echo $resultado[''] ?></div>
-         <div class="col col-2"><a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+         <div class="col col-2"><a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>" target="_blank"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
       </div>  
    <?php endforeach ?>
    <?php

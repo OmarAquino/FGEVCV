@@ -6,7 +6,7 @@
         <?php actualizarCarpetasAuto($_POST['cia']); ?>
     <?php endif ?>
     <?php if (isset($_POST['actualizarcicon'])): ?>
-        <?php actualizarIndicadorConcesionPrevalidador($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
+        <?php actualizarIndicadorConcesion($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
     <?php endif ?>
     <?php
     $nota = $_POST['fgevcv-nota'];
@@ -100,7 +100,6 @@
         <?php
         if ($idPersonaPropietario!=$resultado['id_per']) {
         if ($resultado['rol']=='C') { 
-            $nombre = $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat'];
             $nombre = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
         ?>
         <div class="row rowDato">

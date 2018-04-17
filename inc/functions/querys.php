@@ -52,7 +52,7 @@ function consultarConcesionariosJuridicoPaginacion($offset, $limit) {
 }
 function consultarConcesion($idconcesion) {
 		include('db.php');
-		$query = "SELECT [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [per_conc].[rol], [concesiones].[placa], [concesiones].[vin], [concesiones].[motor], [concesiones].[num_economico],[concesiones].[marca], [concesiones].[submarca] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[id_conc] = $idconcesion";
+		$query = "SELECT [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [per_conc].[rol], [concesiones].[placa], [concesiones].[vin], [concesiones].[motor], [concesiones].[num_economico],[concesiones].[marca], [concesiones].[submarca], [concesiones].[nota] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[id_conc] = $idconcesion";
 		$result = sqlsrv_query($con, $query);
 		if (sqlsrv_has_rows($result)!=0) {
 			while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
@@ -117,7 +117,7 @@ function actualizarIndicadorConcesion($actualizarIdConcesion,$idconcesion) {
 }
 function guardarNota($idconcesion,$nota) {
     include('db.php');
-    $query = "UPDATE concesion SET nota='$nota' WHERE idconcesion='$idconcesion'";
+	$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET nota = '$nota' WHERE concesiones.id_conc = '$idconcesion'";
     sqlsrv_query($con,$query);
     sqlsrv_close($con);
 }

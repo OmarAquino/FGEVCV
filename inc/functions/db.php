@@ -1,7 +1,7 @@
 <?php
 // Conexión con MS SQL Server
 $serverName = "192.108.24.155\SQLEXPRESS,1433";
-$connectionInfo = array( "Database"=>"SistBusquedas", "UID"=>"sa", "PWD"=>"123456");
+$connectionInfo = array( "Database"=>"SistBusquedas", "UID"=>"sa", "PWD"=>"123456", "CharacterSet" => "UTF-8");
 $con = sqlsrv_connect( $serverName, $connectionInfo);
 if( $con ) {
      // echo "Conexión establecida.<br />";
