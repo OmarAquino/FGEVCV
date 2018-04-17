@@ -80,16 +80,9 @@
                                         </script>
                                     </div>
                                 </div>
-                                <?php else: ?>
-                                    <?php if ($noCiCounter==1): ?>
-                                        Sin carpetas de investigación
-                                        <?php $noCiCounter=0; ?>
-                                    <?php endif ?>
                             <?php endif ?>
                             <?php $labelCounter++; ?>
                         <?php endforeach ?>
-                    <?php else: ?>
-                        Sin carpetas de investigación
                     <?php endif ?>
                 <?php endif ?>
             <?php endforeach ?>
@@ -137,13 +130,9 @@
                                     </script>
                                 </div>
                             </div>
-                        <?php else: ?>
-                            Sin carpetas de investigación
                         <?php endif ?> 
                         <?php $labelCounter2++; ?>
                     <?php endforeach ?>
-                <?php else: ?>
-                    Sin carpetas de investigación
                 <?php endif ?>
             </div>
         </div>
@@ -235,9 +224,6 @@
                         </div>
                     <?php $labelCounter3++; ?>
                 <?php endforeach ?>
-                <?php //var_dump($consultaCi); ?>
-            <?php else: ?> 
-                Sin carpetas de investigación
             <?php endif ?>
         </div>
     </div> 
