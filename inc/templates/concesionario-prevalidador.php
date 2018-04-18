@@ -1,4 +1,5 @@
 <?php if (isset($_POST['fgevcv-guardar'])): ?>
+    <?php //apagarEditandoConcesion($_POST['idconcesion']); ?>
     <?php if (isset($_POST['ci'])): ?>
         <?php actualizarCarpetasPropietario($_POST['ci']); ?>
     <?php endif ?>
@@ -16,34 +17,35 @@
     }
     ?>
     <?php actualizarIndicadorConcesion($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
-    <?php //echo "<script>window.close();</script>"; ?>
 <?php endif ?>
 <h3>Detalle de la concesión</h3>
 <form method="POST" action="" class="Concesionario" id="concesionario-form">
     <?php if (isset($_GET['id_conc']) && $_GET['id_conc']!=NULL): ?>
         <?php $idconcesion      = $_GET['id_conc'] ?>
-        <?php //$editando         = activarEditandoConcesion($idconcesion); ?>
+        <?php $editando         = activarEditandoConcesion($idconcesion); ?>
         <?php $consulta         = consultarConcesion($idconcesion); ?>
         <?php $consultaCi       = consultarCarpetas($idconcesion); ?>
         <?php $consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
+        <?php //apagarEditandoConcesion($idconcesion); ?>
         <script>
-            $(window).load(function(){
-                $.ajax({
-                    type    : 'POST',
-                    url     : 'inc/functions/editando.php',
-                    data    : { 
-                               state       : 1,
-                               idconcesion : '<?php echo $idconcesion; ?>' 
-                              },
-                    success : function(result) {
-                        $('#ajaxresult').html(result);
-                    }
+            $( document ).ready(function() {
+                $('#ajaxtest2').click(function(){
+                    $.ajax({
+                        type : 'POST',
+                        url : 'inc/functions/editando.php',
+                        data : { idconcesion : <?php echo $idconcesion; ?> },
+                        success : function(response) {
+                            $('#ajaxresult').html(response);
+                        }
+                    });
                 });
             });
         </script>
+        <button id="ajaxtest2" type="button">clickme</button>
         <h1 id="ajaxresult"></h1>
-        <?php $currentUser = $_SESSION['editing']; ?>
-        <?php echo $currentUser; ?>
+        <?php //$currentUser = $_SESSION['editing']; ?>
+        <?php echo $editando; ?>
+        <?php if ($editando=='inactivo'): ?>
         <?php if ($consulta): ?>  
             <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
             <div class="row rowDato">
@@ -276,13 +278,20 @@
                     </button>
                 </div>
                 <div class="col-2">
-                    <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button></a>
+                    <a id="regresar-listado" href="lista-concesionarios.php">
+                        <button type="button" class="btn btn-secondary">
+                            <i class="far fa-arrow-alt-circle-left"></i> Regresar
+                        </button>
+                    </a>
                 </div>
             </div>
         <?php else: ?>
             <div class="alert alert-info">
               <strong>No hay resultados para esta consulta</strong>
             </div>
+        <?php endif ?>
+        <?php else: ?>
+            <h1>Editando</h1>
         <?php endif ?>
     <?php else: ?>
         <div class="alert alert-info">
@@ -315,7 +324,7 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="submit" name="fgevcv-guardar" class="btn btn-dark">
+                    <button id="" type="submit" name="fgevcv-guardar" class="btn btn-dark">
                         <i class="far fa-save"></i> Guardar
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

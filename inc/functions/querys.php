@@ -100,45 +100,46 @@ function actualizarCarpetasAuto($arrayCIA) {
 }
 function actualizarIndicadorConcesion($actualizarIdConcesion,$idconcesion) {
 	include('db.php');
-	$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET ind_pre = $actualizarIdConcesion WHERE concesiones.id_conc = $idconcesion";
+	// $query = "UPDATE [SistBusquedas].[dbo].[concesiones] SET ind_pre = $actualizarIdConcesion WHERE concesiones.id_conc = $idconcesion";
+	$query = "update SistBusquedas.dbo.concesiones set bandera = 0, ind_pre = $actualizarIdConcesion where id_conc = $idconcesion";
 	sqlsrv_query($con, $query);
 	sqlsrv_close($con);
 	header('Location: lista-concesionarios.php');
 }
 function guardarNota($idconcesion,$nota) {
     include('db.php');
-	$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET nota = '$nota' WHERE concesiones.id_conc = '$idconcesion'";
+	$query = "UPDATE [SistBusquedas].[dbo].[concesiones] SET nota = '$nota' WHERE concesiones.id_conc = '$idconcesion'";
     sqlsrv_query($con,$query);
     sqlsrv_close($con);
 }
 
 function activarEditandoConcesion($idconcesion) {
 	include('db.php');
-	$query = "SELECT bandera FROM [Sistbusquedas].[dbo].[concesiones] WHERE concesiones.id_conc = $idconcesion";
+	$query = "SELECT bandera FROM [SistBusquedas].[dbo].[concesiones] WHERE concesiones.id_conc = $idconcesion";
 	$result = sqlsrv_query($con, $query);
 	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
 		$array[] = $row;
 	}
 	if ($array[0]['bandera']==0) {
-		$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET bandera = 1 WHERE concesiones.id_conc = $idconcesion";
+		$query = "UPDATE [SistBusquedas].[dbo].[concesiones] SET bandera = 1 WHERE concesiones.id_conc = $idconcesion";
 		$result = sqlsrv_query($con, $query);
 		while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
 			$array[] = $row;
 		}
-		$_SESSION['editing']= 1;
-		$editando = 'libre';
+		$editando = 'inactivo';
 		return($editando);
 	} else {
-		$editando = 'editando';
+		$editando = 'activo';
 		return($editando);
 	}
 	sqlsrv_close($con);
 }
-function apagarEditandoConcesion($idconcesion) {
-	include('db.php');
-	$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET bandera = 0 WHERE concesiones.id_conc = $idconcesion";
-	sqlsrv_query($con, $query);
-	sqlsrv_close($con);
-}
+// function apagarEditandoConcesion($idconcesion) {
+// 	include('db.php');
+// 	$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET bandera = 0 WHERE concesiones.id_conc = 33";
+// 	$result = sqlsrv_query($con, $query);
+// 	sqlsrv_close($con);
+// 	header('Location: lista-concesionarios.php');
+// }
 
 ?>
