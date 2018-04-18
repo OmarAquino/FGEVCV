@@ -1,10 +1,10 @@
 <h3>Lista de concesionarios</h3>
 <form method="GET" action="buscarJur.php" class="row">
-   <div class="col-3"><input type="text" name="p" class="form-control" placeholder="Nombre..."></textarea></div>
-   <div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
-   <div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
-   <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
-   <div class="col-2"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
+    <div class="col-3"><input type="text" name="p" class="form-control" placeholder="Nombre..."></textarea></div>
+    <div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
+    <div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
+  <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
+  <div class="col-2"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
 </form>
 <div class="Concesionarios-lista">
   	<div class="row">
@@ -32,36 +32,36 @@
    ?>
    <?php $consultaPaginacion = consultarConcesionariosJuridicoPaginacion($offset, $limit); ?>
    <?php //print_r($consultaPaginacion); ?>
-    <?php foreach ($consulta as $resultado): ?>
-        <div class="row">
-            <div class="col col-4"><?php echo $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat']; ?></div>
-            <div class="col col-1"><?php //echo $resultado[''] ?></div>
-            <!-- <div class="col col-3"><?php //echo $resultado[''] ?></div> -->
-            <!-- <div class="col col-1"><?php //echo $resultado[''] ?></div> -->
-            <div class="col col-4"><?php echo $resultado['placa']; ?></div>
-            <div class="col col-1"><?php //echo $resultado[''] ?></div>
-            <div class="col col-2"><a href="concesionario.php?idconcesion=<?php echo $resultado['idconcesion']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
-        </div>  
-    <?php endforeach ?>
-    <?php
-    if($total_pages <= (1+($adjacents * 2))) {
-       $start = 1;
-       $end   = $total_pages;
-    } else {
-       if(($page - $adjacents) > 1) {               //Checking if the current page minus adjacent is greateer than one.
-          if(($page + $adjacents) < $total_pages) {  //Checking if current page plus adjacents is less than total pages.
-             $start = ($page - $adjacents);         //If true, then we will substract and add adjacent from and to the current page number  
-             $end   = ($page + $adjacents);         //to get the range of the page numbers which will be display in the pagination.
-          } else {                         //If current page plus adjacents is greater than total pages.
-             $start = ($total_pages - (1+($adjacents*2)));  //then the page range will start from total pages minus 1+($adjacents*2)
-             $end   = $total_pages;                    //and the end will be the last page number that is total pages number.
-          }
-       } else {                            //If the current page minus adjacent is less than one.
-          $start = 1;                                //then start will be start from page number 1
-          $end   = (1+($adjacents * 2));             //and end will be the (1+($adjacents * 2)).
-       }
-    }
-    ?>
+   <?php foreach ($consultaPaginacion as $resultado): ?>
+      <div class="row">
+         <div class="col col-4"><?php echo $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno']; ?></div>
+         <div class="col col-1"><?php //echo $resultado[''] ?></div>
+         <!-- <div class="col col-3"><?php //echo $resultado[''] ?></div> -->
+         <!-- <div class="col col-1"><?php //echo $resultado[''] ?></div> -->
+         <div class="col col-4"><?php echo $resultado['placa']; ?></div>
+         <div class="col col-1"><?php //echo $resultado[''] ?></div>
+         <div class="col col-2"><a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>" target="_blank"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+      </div>  
+   <?php endforeach ?>
+   <?php
+   if($total_pages <= (1+($adjacents * 2))) {
+      $start = 1;
+      $end   = $total_pages;
+   } else {
+      if(($page - $adjacents) > 1) {               //Checking if the current page minus adjacent is greateer than one.
+         if(($page + $adjacents) < $total_pages) {  //Checking if current page plus adjacents is less than total pages.
+            $start = ($page - $adjacents);         //If true, then we will substract and add adjacent from and to the current page number  
+            $end   = ($page + $adjacents);         //to get the range of the page numbers which will be display in the pagination.
+         } else {                         //If current page plus adjacents is greater than total pages.
+            $start = ($total_pages - (1+($adjacents*2)));  //then the page range will start from total pages minus 1+($adjacents*2)
+            $end   = $total_pages;                    //and the end will be the last page number that is total pages number.
+         }
+      } else {                            //If the current page minus adjacent is less than one.
+         $start = 1;                                //then start will be start from page number 1
+         $end   = (1+($adjacents * 2));             //and end will be the (1+($adjacents * 2)).
+      }
+   }
+   ?>
 </div>
 <?php if($total_pages > 1) { ?>
    <ul class="pagination pagination justify-content-center">

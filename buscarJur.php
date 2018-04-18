@@ -47,13 +47,13 @@
         $cons=buscarPaginacionJur($nombre,$apat,$amat,$offset,$limit);
         foreach ($cons as $res): ?>
         <div class="row">
-            <div class="col col-4"><?php echo $res['nombre'].' '.$res['ap_pat'].' '.$res['ap_mat']; ?></div>
+            <div class="col col-4"><?php echo $res['nombre'].' '.$res['a_paterno'].' '.$res['a_materno']; ?></div>
             <div class="col col-1"><?php //echo $resultado[''] ?></div>
             <!-- <div class="col col-3"><?php //echo $resultado[''] ?></div> -->
             <!-- <div class="col col-1"><?php //echo $resultado[''] ?></div> -->
             <div class="col col-4"><?php echo $res['placa']; ?></div>
             <div class="col col-1"><?php //echo $resultado[''] ?></div>
-            <div class="col col-2"><a href="concesionario.php?idconcesion=<?php echo $res['idconcesion']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+            <div class="col col-2"><a href="concesionario.php?id_conc=<?php echo $res['id_conc']; ?>" target="_blank"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
         </div> 
       <?php endforeach ?>
       <?php

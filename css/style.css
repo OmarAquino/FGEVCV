@@ -1,5 +1,5 @@
 /*Utilidad para checkbox*/
-input[type=checkbox].css-checkbox { 
+/*input[type=checkbox].css-checkbox { 
 	position: absolute;  
 	overflow: hidden;  
 	clip: rect(0 0 0 0);  
@@ -24,11 +24,17 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 }  
 .css-label { 
 	background-image:url(../img/lite-x-red.png); 
-}
+}*/
 
 /*Separador*/
 .u-separador {
 	border-top: 3px solid rgba(0,0,0,.1);
+}
+
+/*Alerta personalizada*/
+.custom-alert {
+	padding: 0;
+	text-align: center;
 }
 
 /*Paginador*/
