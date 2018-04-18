@@ -4,21 +4,22 @@ if (isset($_POST['fgevcv-login'])) {
 	$pass = $_POST['fgevcv-password'];
 	$home = $_POST['home-url'];
 	include('db.php');
-	$query  = "SELECT id, indicador FROM usuarios WHERE usuario = '$user' AND pass = '$pass'";
-	$result = mysqli_query($con, $query);
-	$count = mysqli_num_rows($result);
+	$query  = "SELECT [usuarios].[id], [usuarios].[perfil] FROM usuarios WHERE usuario = '$user' AND password = '$pass'";
+	$result = sqlsrv_query($con, $query);
+	$count = sqlsrv_has_rows($result);
 	if($count == 1) {
 		session_start();
 		// Store Session Data
 		$_SESSION['user']= $user;
-		while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-		    $_SESSION['user-type']= $row['indicador'];
+		while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+		    $_SESSION['user-type']= $row['perfil'];
 		}
+		$_SESSION['editing']= 0;
 	   	header("location: http://localhost/fgevcv/lista-concesionarios.php");
 	}else {
 	   	header("location: http://localhost/fgevcv?err=1");
 	}
-	mysqli_close($con);
+	sqlsrv_close($con);
 }
 
 ?>

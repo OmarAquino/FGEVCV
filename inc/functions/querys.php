@@ -1,15 +1,5 @@
 <?php
-// Consultar usuarios
-function consultarUsuarios() {
-	include('db.php');
-	$query  = "SELECT * FROM usuarios";
-	$result = sqlsrv_query($con, $query);
-	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-	     $array[] = $row;
-	}
-	return($array);
-	sqlsrv_close($con);
-}
+
 function consultarConcesionariosPrevalidador() {
 	include('db.php');
 	$query = "SELECT [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [per_conc].[rol], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P'";
@@ -121,4 +111,34 @@ function guardarNota($idconcesion,$nota) {
     sqlsrv_query($con,$query);
     sqlsrv_close($con);
 }
+
+function activarEditandoConcesion($idconcesion) {
+	include('db.php');
+	$query = "SELECT bandera FROM [Sistbusquedas].[dbo].[concesiones] WHERE concesiones.id_conc = $idconcesion";
+	$result = sqlsrv_query($con, $query);
+	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+		$array[] = $row;
+	}
+	if ($array[0]['bandera']==0) {
+		$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET bandera = 1 WHERE concesiones.id_conc = $idconcesion";
+		$result = sqlsrv_query($con, $query);
+		while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+			$array[] = $row;
+		}
+		$_SESSION['editing']= 1;
+		$editando = 'libre';
+		return($editando);
+	} else {
+		$editando = 'editando';
+		return($editando);
+	}
+	sqlsrv_close($con);
+}
+function apagarEditandoConcesion($idconcesion) {
+	include('db.php');
+	$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET bandera = 0 WHERE concesiones.id_conc = $idconcesion";
+	sqlsrv_query($con, $query);
+	sqlsrv_close($con);
+}
+
 ?>
