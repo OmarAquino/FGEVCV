@@ -348,11 +348,9 @@
                     </button>
                 </div>
                 <div class="col-2">
-                    <a id="regresar-listado" href="lista-concesionarios.php">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" onclick="self.close()">
                             <i class="far fa-arrow-alt-circle-left"></i> Regresar
                         </button>
-                    </a>
                 </div>
             </div>
         <?php else: ?>

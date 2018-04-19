@@ -1,9 +1,11 @@
 <h3>Jurídico</h3>
-<div class="row">
-   <div class="col-6"><input id="buscar" type="text" class="form-control" placeholder="Nombre..."></div>
-   <div class="col-1"><button type="button" class="btn btn-secondary">Buscar</button></div>
-   <div class="col-1"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
-</div>
+<form method="GET" action="buscarJur.php" class="row">
+    <div class="col-3"><input type="text" name="p" class="form-control" placeholder="Nombre..."></textarea></div>
+    <div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
+    <div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
+  <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
+  <div class="col-2"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
+</form>
 <div class="Concesionarios-lista">
   	<div class="row">
     	<div class="col col-7">Concesionario</div>
