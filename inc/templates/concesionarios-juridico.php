@@ -16,6 +16,7 @@
     	<div class="col col-1">Acción</div>
   	</div>
    <?php $consulta = consultarConcesionariosJuridico(); ?>
+   <?php if ($consulta): ?>     
    <?php $resultados = count($consulta); ?>
    <?php
    $limit = 10;
@@ -123,8 +124,10 @@
       }
    }
    ?>
+   <?php endif ?>
 </div>
-<?php if($total_pages > 1) { ?>
+<?php if ($consulta): ?>
+  <?php if($total_pages > 1) { ?>
    <ul class="pagination pagination justify-content-center">
       <li class='page-item <?php ($page <= 1 ? print 'disabled' : '')?>'>
          <a class='page-link' href='?page=1'>&lt;&lt;</a>
@@ -145,3 +148,5 @@
       </li>
    </ul>
 <?php } ?>
+<?php endif ?>
+

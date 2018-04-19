@@ -14,10 +14,12 @@ function consultarConcesionariosJuridico() {
 	include('db.php');
 	$query = "SELECT [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [per_conc].[rol], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P'";
 	$result = sqlsrv_query($con, $query);
-	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-		$array[] = $row;
+	if (sqlsrv_has_rows($result)!=0) {
+		while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+			$array[] = $row;
+		}
+		return($array);
 	}
-	return($array);
 	sqlsrv_close($con);
 }
 function consultarConcesionariosPrevalidadorPaginacion($offset, $limit) {
