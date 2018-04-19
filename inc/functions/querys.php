@@ -118,7 +118,8 @@ function actualizarIndicadorConcesion($actualizarIdConcesion,$idconcesion) {
 	// $query = "update SistBusquedas.dbo.concesiones set bandera = 0, ind_pre = $actualizarIdConcesion where id_conc = $idconcesion";
 	sqlsrv_query($con, $query);
 	sqlsrv_close($con);
-	header('Location: lista-concesionarios.php');
+	// header('Location: lista-concesionarios.php');
+	echo '<script>window.close()</script>';
 }
 function guardarNota($idconcesion,$nota) {
     include('db.php');

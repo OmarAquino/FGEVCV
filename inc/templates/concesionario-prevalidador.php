@@ -348,9 +348,9 @@
                     </button>
                 </div>
                 <div class="col-2">
-                        <button type="button" class="btn btn-secondary" onclick="self.close()">
-                            <i class="far fa-arrow-alt-circle-left"></i> Regresar
-                        </button>
+                    <button type="button" class="btn btn-secondary" onclick="self.close()">
+                        <i class="far fa-arrow-alt-circle-left"></i> Regresar
+                    </button>
                 </div>
             </div>
         <?php else: ?>
@@ -411,7 +411,7 @@
       </div>
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-        <button type="button" class="btn btn-dark">Regresar</button>
+        <button  type="button" class="btn btn-dark" onclick="self.close()">Regresar</button>
       </div>
     </div>
   </div>
