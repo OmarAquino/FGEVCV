@@ -1,6 +1,6 @@
 <h3>Jurídico</h3>
 <form method="GET" action="buscarJur.php" class="row">
-    <div class="col-4"><input type="text" name="p" class="form-control" placeholder="Nombre..."></textarea></div>
+    <div class="col-4"><input type="text" name="p" class="form-control" placeholder="Nombre(s)..."></textarea></div>
     <div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
     <div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
   <div class="col-2" align="center"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
