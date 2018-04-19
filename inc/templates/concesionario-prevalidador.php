@@ -1,5 +1,4 @@
 <?php if (isset($_POST['fgevcv-guardar'])): ?>
-    <?php //apagarEditandoConcesion($_POST['idconcesion']); ?>
     <?php if (isset($_POST['ci'])): ?>
         <?php actualizarCarpetasPropietario($_POST['ci']); ?>
     <?php endif ?>
@@ -22,30 +21,63 @@
 <form method="POST" action="" class="Concesionario" id="concesionario-form">
     <?php if (isset($_GET['id_conc']) && $_GET['id_conc']!=NULL): ?>
         <?php $idconcesion      = $_GET['id_conc'] ?>
-        <?php $editando         = activarEditandoConcesion($idconcesion); ?>
         <?php $consulta         = consultarConcesion($idconcesion); ?>
         <?php $consultaCi       = consultarCarpetas($idconcesion); ?>
         <?php $consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
-        <?php //apagarEditandoConcesion($idconcesion); ?>
         <script>
+            var d        = new Date();
+            var dia      = d.getDate();
+            var mesZero  = d.getMonth();
+            var mes      = mesZero+1;
+            var anio     = d.getFullYear();
+            var hora     = d.getHours();
+            var minutos  = d.getMinutes();
+            var segundos = d.getSeconds();
+            var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+            function pruebatimer() {
+                //alert('ola');
+                $.ajax({
+                    type : 'POST',
+                    url : 'inc/functions/editando-activo.php',
+                    data : { 
+                                idconcesion  : <?php echo $idconcesion; ?>,
+                                fechaF       : fechaF 
+                           },
+                    success : function(response) {
+                        $('#ajaxresult2').html(response);
+                    }
+                });
+                //setTimeout(pruebatimer, 120000);
+            }
             $( document ).ready(function() {
-                $('#ajaxtest2').click(function(){
+                // $('#ajaxtest2').click(function(){
                     $.ajax({
                         type : 'POST',
                         url : 'inc/functions/editando.php',
-                        data : { idconcesion : <?php echo $idconcesion; ?> },
+                        data : { 
+                                    idconcesion : <?php echo $idconcesion; ?>,
+                                    fechaF      : fechaF 
+                               },
                         success : function(response) {
-                            $('#ajaxresult').html(response);
+                            var status = response;
+                            console.log(status);
+                            if (status=="editando") {
+                                $('#ajaxresult').val(response);
+                            }
+                            if (status=="libre") {
+                            //     $('#ajaxresult2').val(response);
+                            }
                         }
                     });
-                });
+                // });
             });
         </script>
         <button id="ajaxtest2" type="button">clickme</button>
-        <h1 id="ajaxresult"></h1>
-        <?php //$currentUser = $_SESSION['editing']; ?>
-        <?php echo $editando; ?>
-        <?php if ($editando=='inactivo'): ?>
+        <h4>editando</h4>
+        <input type="text" id="ajaxresult">
+        <hr>
+        <h4>editando</h4>
+        <input type="text" id="ajaxresult2">
         <?php if ($consulta): ?>  
             <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
             <div class="row rowDato">
@@ -289,9 +321,6 @@
             <div class="alert alert-info">
               <strong>No hay resultados para esta consulta</strong>
             </div>
-        <?php endif ?>
-        <?php else: ?>
-            <h1>Editando</h1>
         <?php endif ?>
     <?php else: ?>
         <div class="alert alert-info">
