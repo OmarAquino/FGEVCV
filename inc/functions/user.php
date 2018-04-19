@@ -1,4 +1,5 @@
 <?php
+require('home-url.php');
 if (isset($_POST['fgevcv-login'])) {
 	$user = $_POST['fgevcv-user'];
 	$pass = $_POST['fgevcv-password'];
@@ -15,9 +16,9 @@ if (isset($_POST['fgevcv-login'])) {
 		    $_SESSION['user-type']= $row['perfil'];
 		}
 		$_SESSION['editing']= 0;
-	   	header("location: http://localhost/fgevcv/lista-concesionarios.php");
+	   	header("location: ".pathUrl(__DIR__ . '/../../')."lista-concesionarios.php");
 	}else {
-	   	header("location: http://localhost/fgevcv?err=1");
+	   	header("location: ".pathUrl(__DIR__ . '/../../')."?err=1");
 	}
 	sqlsrv_close($con);
 }

@@ -5,22 +5,19 @@
     <?php if (isset($_POST['cia'])): ?>
         <?php actualizarCarpetasAuto($_POST['cia']); ?>
     <?php endif ?>
-    <?php if (isset($_POST['actualizarcicon'])): ?>
-        <?php actualizarIndicadorConcesion($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
-    <?php endif ?>
     <?php
     $nota = $_POST['fgevcv-nota'];
     $idconcesion = $_POST['idconcesion'];
     if ($nota!=""){
         guardarNota($idconcesion,$nota);
     }else{
-       $nota = "Sin Observaciones";
-       guardarNota($idconcesion,$nota);
+        $nota = "Sin Observaciones";
+        guardarNota($idconcesion,$nota);
     }
     ?>
-<!--     <div class="alert alert-success">
-        <strong>¡Éxito al guardar!</strong> Click aquí <a href="lista-concesionarios.php" class="alert-link">para regresar</a>.
-    </div> -->
+    <?php if (isset($_POST['actualizarcicon'])): ?>
+        <?php actualizarIndicadorConcesion($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
+    <?php endif ?>
 <?php endif ?>
 
 <h3>Detalle de la concesión</h3>
@@ -30,8 +27,55 @@
     <?php $consulta         = consultarConcesion($idconcesion); ?>
     <?php $consultaCi       = consultarCarpetas($idconcesion); ?>
     <?php $consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
-    <?php //var_dump($consulta); ?>
+    <?php $consultaMand     = consultarMandamientos($idconcesion); ?>
     <?php if ($consulta): ?>        
+    <script>
+        $('#editingModal').modal({ show: false});
+        var d        = new Date();
+        var dia      = d.getDate();
+        var mesZero  = d.getMonth();
+        var mes      = mesZero+1;
+        var anio     = d.getFullYear();
+        var hora     = d.getHours();
+        var minutos  = d.getMinutes();
+        var segundos = d.getSeconds();
+        var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+        $( document ).ready(function() {
+            var editando = 'editando';
+            var libre = 'libre';
+            $.ajax({
+                type : 'POST',
+                url : 'inc/functions/editando.php',
+                data : { 
+                            idconcesion : <?php echo $idconcesion; ?>,
+                            fechaF      : fechaF 
+                       },
+                success : function(response) {
+                    var status = response.trim();
+                    console.log(status);
+                    if (status==editando) {
+                        $('#editingModal').modal('show');
+                    }
+                }
+            });
+            function ajaxTimer() {
+                $.ajax({
+                    type : 'POST',
+                    url : 'inc/functions/editando-activo.php',
+                    data : { 
+                                idconcesion  : <?php echo $idconcesion; ?>,
+                                fechaF       : fechaF 
+                           },
+                    success : function(response) {
+                        $('#ajaxresult2').html(response);
+                    }
+                });
+            }        
+            window.setInterval(function(){
+                ajaxTimer();
+            }, 120000);
+        });
+    </script>
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
         <div class="col-3">Nombre:</div>
@@ -88,6 +132,30 @@
             <?php endforeach ?>
         </div>
     </div>
+    <div class="row rowDato">
+        <div class="col-3">Mandamientos judiciales</div>
+        <div class="col-9">
+            <?php foreach ($consulta as $resultado): ?>
+                <?php if ($resultado['rol']=='P') : ?>
+                    <?php if ($consultaMand): ?>
+                        <?php foreach ($consultaMand as $resultado) : ?>
+                            <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span><?php echo $resultado['mand_jud']; ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                <?php endif ?>
+            <?php endforeach ?>
+        </div>
+    </div>
     <h4 class="Concesionario-tituloSeccion">Conductor</h4>
     <?php foreach ($consulta as $resultado): ?>
         <?php
@@ -132,6 +200,26 @@
                             </div>
                         <?php endif ?> 
                         <?php $labelCounter2++; ?>
+                    <?php endforeach ?>
+                <?php endif ?>
+            </div>
+        </div>
+        <div class="row rowDato">
+            <div class="col-3">Mandamientos judiciales</div>
+            <div class="col-9">
+                <?php if ($consultaMand): ?>
+                    <?php foreach ($consultaMand as $resultado) : ?>
+                        <?php if ($idPersona==$resultado['id_per']) : ?>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <span><?php echo $resultado['mand_jud']; ?></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif ?>
                     <?php endforeach ?>
                 <?php endif ?>
             </div>
@@ -341,3 +429,21 @@
         </div>
     </div>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="editingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Concesión en edición</h5>
+      </div>
+      <div class="modal-body">
+        <h3>Esta concesión ya está siendo revisada</h3>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-dark">Regresar</button>
+      </div>
+    </div>
+  </div>
+</div>

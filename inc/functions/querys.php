@@ -67,6 +67,18 @@ function consultarCarpetas($idconcesion) {
 		sqlsrv_close($con);
 	}
 }
+function consultarMandamientos($idconcesion) {
+	include('db.php');
+	$query = "select per_mand.mand_jud, personas.id_per FROM [SistBusquedas].[dbo].[per_mand] inner join SistBusquedas.dbo.personas on per_mand.id_per = personas.id_per inner join SistBusquedas.dbo.per_conc on personas.id_per= per_conc.id_per inner join SistBusquedas.dbo.concesiones on per_conc.id_conc = concesiones.id_conc and concesiones.id_conc = $idconcesion";
+	$result = sqlsrv_query($con, $query);
+	if (sqlsrv_has_rows($result)!=0) {
+		while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+			$array[] = $row;
+		}
+		return($array);
+	}
+	sqlsrv_close($con);
+}
 function consultarCarpetasAuto($idconcesion) {
 	if (is_numeric($idconcesion)) {
 		include('db.php');

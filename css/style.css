@@ -130,7 +130,7 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 	border-right: 1px solid #dee2e6;
 }
 .Concesionarios-lista .row:hover {
-	background-color: rgba(0,0,0,.05);
+	background-color: rgba(0,0,0,.25) !important;
 }
 
 /*Concesionario*/
