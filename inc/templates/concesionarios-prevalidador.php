@@ -7,12 +7,10 @@
 <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    <div class="row">
       <div class="col col-7">Concesionario</div>
-      <!--<div class="col col-4">Conductor</div>-->
       <div class="col col-4">Vehículo</div>
       <div class="col col-1">Acción</div>  
    </div>
    <?php $consulta = consultarConcesionariosPrevalidador(); ?>
-   <?php //var_dump($consulta); ?>
    <?php $resultados = count($consulta); ?>
    <?php
    $limit = 10;
@@ -27,12 +25,21 @@
    }
    ?>
    <?php $consultaPaginacion = consultarConcesionariosPrevalidadorPaginacion($offset, $limit); ?>
-   <?php //print_r($consultaPaginacion); ?>
    <?php $ajaxCounter = 1; ?>
+   <script>
+      var d        = new Date();
+      var dia      = d.getDate();
+      var mesZero  = d.getMonth();
+      var mes      = mesZero+1;
+      var anio     = d.getFullYear();
+      var hora     = d.getHours();
+      var minutos  = d.getMinutes();
+      var segundos = d.getSeconds();
+      var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+   </script>
    <?php foreach ($consultaPaginacion as $resultado): ?>
-      <div class="row">
+      <div id="concesion<?php echo $ajaxCounter; ?>" class="row">
          <div class="col col-7"><?php echo $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno']; ?></div>
-         <!--<div class="col col-4"></div>-->
          <div class="col col-4"><?php echo $resultado['placa']; ?></div>
          <div class="col col-1">
             <a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>" target="_blank">
@@ -41,16 +48,50 @@
          </div>
       </div>
       <script>
-         $("#trigger<?php echo $ajaxCounter; ?>").click(function(){
-            // alert('<?php echo $ajaxCounter; ?>');
-            // function testEnvio() {
-               jQuery.ajax({
-                  type: "POST",
-                  url:  'inc/functions/editando.php',
-                  data: { "id_conc": '<?php echo $resultado['id_conc']; ?>' }
-               });
-            // }
-         });
+         // $( document ).ready(function() {
+            var editando = 'editando';
+            var libre = 'libre';
+            function ajaxTimer<?php echo $ajaxCounter; ?>() {
+               var d        = new Date();
+               var dia      = d.getDate();
+               var mesZero  = d.getMonth();
+               var mes      = mesZero+1;
+               var anio     = d.getFullYear();
+               var hora     = d.getHours();
+               var minutos  = d.getMinutes();
+               var segundos = d.getSeconds();
+               var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+
+               $.ajax({
+                  type : 'POST',
+                  url : 'inc/functions/consultar-editando.php',
+                  data : { 
+                        idconcesion  : <?php echo $resultado['id_conc']; ?>,
+                        fechaF       : fechaF 
+                     },
+                     success : function(response) {
+                        var status = response.trim();
+                        console.log(status+' '+<?php echo $resultado['id_conc']; ?>);
+                        if (status==editando) {
+                           $('#concesion<?php echo $ajaxCounter; ?>').css('background', '#d6d8d9');
+                           $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#1b1e21');
+                           $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-eye');
+                           $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-ban');
+                           $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'none');
+                        }
+                        if (status==libre) {
+                           $('#concesion<?php echo $ajaxCounter; ?>').css('background', 'none');
+                           $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#212529');
+                           $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-ban');
+                           $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-eye');
+                           $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'auto');
+                        }
+                     }
+                  });
+               setTimeout(ajaxTimer<?php echo $ajaxCounter; ?>, 5000);
+            }
+            ajaxTimer<?php echo $ajaxCounter; ?>();
+         // });
       </script>
       <?php $ajaxCounter++; ?>
    <?php endforeach ?>

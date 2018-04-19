@@ -35,40 +35,40 @@
             var minutos  = d.getMinutes();
             var segundos = d.getSeconds();
             var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-            function ajaxTimer() {
+            $( document ).ready(function() {
+                var editando = 'editando';
+                var libre = 'libre';
                 $.ajax({
                     type : 'POST',
-                    url : 'inc/functions/editando-activo.php',
+                    url : 'inc/functions/editando.php',
                     data : { 
-                                idconcesion  : <?php echo $idconcesion; ?>,
-                                fechaF       : fechaF 
+                                idconcesion : <?php echo $idconcesion; ?>,
+                                fechaF      : fechaF 
                            },
                     success : function(response) {
-                        $('#ajaxresult2').html(response);
+                        var status = response.trim();
+                        console.log(status);
+                        if (status==editando) {
+                            $('#editingModal').modal('show');
+                        }
                     }
                 });
-                setTimeout(ajaxTimer, 300000);
-            }
-            ajaxTimer();
-            $( document ).ready(function() {
-                // $('#ajaxtest2').click(function(){
-                    var editando = 'editando';
-                    var libre = 'libre';
+                function ajaxTimer() {
                     $.ajax({
                         type : 'POST',
-                        url : 'inc/functions/editando.php',
+                        url : 'inc/functions/editando-activo.php',
                         data : { 
-                                    idconcesion : <?php echo $idconcesion; ?>,
-                                    fechaF      : fechaF 
+                                    idconcesion  : <?php echo $idconcesion; ?>,
+                                    fechaF       : fechaF 
                                },
                         success : function(response) {
-                            var status = response.trim();
-                            console.log(status);
-                            if (status==editando) {
-                                $('#editingModal').modal('show');
-                            }
+                            $('#ajaxresult2').html(response);
                         }
                     });
+                }        
+                window.setInterval(function(){
+                    ajaxTimer();
+                }, 120000);
             });
         </script>
         <?php if ($consulta): ?>  
