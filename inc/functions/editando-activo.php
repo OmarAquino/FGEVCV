@@ -11,7 +11,7 @@ $getFecha = $array[0]['banderaf']->format('Y-m-d H:i:s');
 $fechaJS = strtotime($fechaF);
 $fechaPHP = strtotime($getFecha);
 echo $getFecha;
-$newtimestamp = strtotime("$getFecha + 3 minute");
+$newtimestamp = strtotime("$getFecha + 2 minute");
 $nuevafecha = date('Y-m-d H:i:s', $newtimestamp) ;
 echo '<br>';
 $query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET banderaf = '$nuevafecha' WHERE concesiones.id_conc = $idconcesion";

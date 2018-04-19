@@ -33,7 +33,7 @@
 		echo 'editando';
 	} else {
 		echo 'libre';
-		$newtimestamp = strtotime("$fechaF + 2 minute");
+		$newtimestamp = strtotime("$fechaF + 5 minute");
 		$nuevafecha = date('Y-m-d H:i:s', $newtimestamp) ;
 		$query = "UPDATE [Sistbusquedas].[dbo].[concesiones] SET banderaf = '$nuevafecha' WHERE concesiones.id_conc = $idconcesion";
 		sqlsrv_query($con, $query);

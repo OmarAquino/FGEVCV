@@ -25,6 +25,7 @@
         <?php $consultaCi       = consultarCarpetas($idconcesion); ?>
         <?php $consultaCiAuto   = consultarCarpetasAuto($idconcesion); ?>
         <script>
+            $('#editingModal').modal({ show: false});
             var d        = new Date();
             var dia      = d.getDate();
             var mesZero  = d.getMonth();
@@ -34,8 +35,7 @@
             var minutos  = d.getMinutes();
             var segundos = d.getSeconds();
             var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-            function pruebatimer() {
-                //alert('ola');
+            function ajaxTimer() {
                 $.ajax({
                     type : 'POST',
                     url : 'inc/functions/editando-activo.php',
@@ -47,10 +47,13 @@
                         $('#ajaxresult2').html(response);
                     }
                 });
-                //setTimeout(pruebatimer, 120000);
+                setTimeout(ajaxTimer, 300000);
             }
+            ajaxTimer();
             $( document ).ready(function() {
                 // $('#ajaxtest2').click(function(){
+                    var editando = 'editando';
+                    var libre = 'libre';
                     $.ajax({
                         type : 'POST',
                         url : 'inc/functions/editando.php',
@@ -59,25 +62,15 @@
                                     fechaF      : fechaF 
                                },
                         success : function(response) {
-                            var status = response;
+                            var status = response.trim();
                             console.log(status);
-                            if (status=="editando") {
-                                $('#ajaxresult').val(response);
-                            }
-                            if (status=="libre") {
-                            //     $('#ajaxresult2').val(response);
+                            if (status==editando) {
+                                $('#editingModal').modal('show');
                             }
                         }
                     });
-                // });
             });
         </script>
-        <button id="ajaxtest2" type="button">clickme</button>
-        <h4>editando</h4>
-        <input type="text" id="ajaxresult">
-        <hr>
-        <h4>editando</h4>
-        <input type="text" id="ajaxresult2">
         <?php if ($consulta): ?>  
             <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
             <div class="row rowDato">
@@ -362,3 +355,23 @@
         </div>
     </div>
 </form>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="editingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Concesión en edición</h5>
+      </div>
+      <div class="modal-body">
+        <h3>Esta concesión ya está siendo revisada</h3>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-dark">Regresar</button>
+      </div>
+    </div>
+  </div>
+</div>
