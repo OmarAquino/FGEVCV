@@ -144,7 +144,8 @@
                                     <div class="col-3">
                                         <div class="row">
                                             <div class="col">
-                                                <span><?php echo $resultado['mand_jud']; ?></span>
+                                                <!-- <span><?php echo $resultado['mand_jud']; ?></span> -->
+                                                <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
                                             </div>
                                         </div>
                                     </div>
@@ -214,7 +215,8 @@
                                 <div class="col-3">
                                     <div class="row">
                                         <div class="col">
-                                            <span><?php echo $resultado['mand_jud']; ?></span>
+                                            <!-- <span><?php echo $resultado['mand_jud']; ?></span> -->
+                                            <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
                                         </div>
                                     </div>
                                 </div>

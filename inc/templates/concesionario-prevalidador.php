@@ -138,9 +138,23 @@
                                             <div class="col-3">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <span><?php echo $resultado['mand_jud']; ?></span>
+                                                        <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-5">
+                                                <!-- <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>"> -->
+                                                <!-- <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox"> -->
+                                                <!-- <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label> -->
+                                                <script>
+                                                    // jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
+                                                    //     if(this.checked) {
+                                                    //         jQuery("#cih-<?php echo $labelCounter; ?>").val('1');
+                                                    //     }else {
+                                                    //         jQuery("#cih-<?php echo $labelCounter; ?>").val('0');
+                                                    //     }
+                                                    // });
+                                                </script>
                                             </div>
                                         </div>
                                     <?php endif ?>
@@ -208,7 +222,8 @@
                                                 <div class="col-3">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <span><?php echo $resultado['mand_jud']; ?></span>
+                                                            <!-- <span><?php echo $resultado['mand_jud']; ?></span> -->
+                                                            <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
                                                         </div>
                                                     </div>
                                                 </div>

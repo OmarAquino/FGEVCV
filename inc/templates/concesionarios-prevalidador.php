@@ -92,7 +92,6 @@
                setTimeout(ajaxTimer<?php echo $ajaxCounter; ?>, 5000);
             }
             ajaxTimer<?php echo $ajaxCounter; ?>();
-         // });
       </script>
       <?php $ajaxCounter++; ?>
    <?php endforeach ?>
