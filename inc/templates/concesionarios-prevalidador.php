@@ -1,9 +1,11 @@
-<h3>Prevalidador</h3>
-<div class="row">
-   <div class="col-6"><input id="buscar" type="text" class="form-control" placeholder="Nombre..."></div>
-   <div class="col-1"><button type="button" class="btn btn-secondary">Buscar</button></div>
-   <div class="col-1"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
-</div>
+<h3>Lista de concesionarios</h3>
+<form method="GET" action="buscar.php" class="row">
+      <div class="col-3"><input type="text" name="p" class="form-control" placeholder="Nombre..."></textarea></div>
+      <div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
+      <div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
+      <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button></div>
+      <div class="col-2"><button type="button" class="btn btn-secondary">Actualizar</button><br></br></div>
+</form>
 <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    <div class="row">
       <div class="col col-7">Concesionario</div>
@@ -12,6 +14,7 @@
       <div class="col col-1">Acción</div>  
    </div>
    <?php $consulta = consultarConcesionariosPrevalidador(); ?>
+   <?php //var_dump($consulta); ?>
    <?php $resultados = count($consulta); ?>
    <?php
    $limit = 10;
@@ -27,13 +30,31 @@
    ?>
    <?php $consultaPaginacion = consultarConcesionariosPrevalidadorPaginacion($offset, $limit); ?>
    <?php //print_r($consultaPaginacion); ?>
+   <?php $ajaxCounter = 1; ?>
    <?php foreach ($consultaPaginacion as $resultado): ?>
       <div class="row">
-         <div class="col col-7"><?php echo $resultado['nombre'].' '.$resultado['ap_pat'].' '.$resultado['ap_mat']; ?></div>
+         <div class="col col-7"><?php echo $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno']; ?></div>
          <!--<div class="col col-4"></div>-->
          <div class="col col-4"><?php echo $resultado['placa']; ?></div>
-         <div class="col col-1"><a href="concesionario.php?idconcesion=<?php echo $resultado['idconcesion']; ?>"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+         <div class="col col-1">
+            <a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>" target="_blank">
+               <button id="trigger<?php echo $ajaxCounter; ?>" type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button>
+            </a>
+         </div>
       </div>
+      <script>
+         $("#trigger<?php echo $ajaxCounter; ?>").click(function(){
+            // alert('<?php echo $ajaxCounter; ?>');
+            // function testEnvio() {
+               jQuery.ajax({
+                  type: "POST",
+                  url:  'inc/functions/editando.php',
+                  data: { "id_conc": '<?php echo $resultado['id_conc']; ?>' }
+               });
+            // }
+         });
+      </script>
+      <?php $ajaxCounter++; ?>
    <?php endforeach ?>
    <?php
    if($total_pages <= (1+($adjacents * 2))) {
