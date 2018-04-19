@@ -40,37 +40,37 @@
                 $( document ).ready(function() {
                     var editando = 'editando';
                     var libre = 'libre';
-                    // $.ajax({
-                    //     type : 'POST',
-                    //     url : 'inc/functions/editando.php',
-                    //     data : { 
-                    //                 idconcesion : <?php echo $idconcesion; ?>,
-                    //                 fechaF      : fechaF 
-                    //            },
-                    //     success : function(response) {
-                    //         var status = response.trim();
-                    //         console.log(status);
-                    //         if (status==editando) {
-                    //             $('#editingModal').modal('show');
-                    //         }
-                    //     }
-                    // });
-                    // function ajaxTimer() {
-                    //     $.ajax({
-                    //         type : 'POST',
-                    //         url : 'inc/functions/editando-activo.php',
-                    //         data : { 
-                    //                     idconcesion  : <?php echo $idconcesion; ?>,
-                    //                     fechaF       : fechaF 
-                    //                },
-                    //         success : function(response) {
-                    //             $('#ajaxresult2').html(response);
-                    //         }
-                    //     });
-                    // }        
-                    // window.setInterval(function(){
-                    //     ajaxTimer();
-                    // }, 120000);
+                    $.ajax({
+                        type : 'POST',
+                        url : 'inc/functions/editando.php',
+                        data : { 
+                                    idconcesion : <?php echo $idconcesion; ?>,
+                                    fechaF      : fechaF 
+                               },
+                        success : function(response) {
+                            var status = response.trim();
+                            console.log(status);
+                            if (status==editando) {
+                                $('#editingModal').modal('show');
+                            }
+                        }
+                    });
+                    function ajaxTimer() {
+                        $.ajax({
+                            type : 'POST',
+                            url : 'inc/functions/editando-activo.php',
+                            data : { 
+                                        idconcesion  : <?php echo $idconcesion; ?>,
+                                        fechaF       : fechaF 
+                                   },
+                            success : function(response) {
+                                $('#ajaxresult2').html(response);
+                            }
+                        });
+                    }        
+                    window.setInterval(function(){
+                        ajaxTimer();
+                    }, 120000);
                 });
             </script>  
             <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
