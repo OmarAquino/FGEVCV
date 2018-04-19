@@ -291,8 +291,7 @@
                 <i class="far fa-save"></i> Guardar
             </button>
         </div>
-        <div class="col-2">
-            <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button></a>
+        <div class="col-2"><button type="button" class="btn btn-secondary" onclick="self.close()"><i class="far fa-arrow-alt-circle-left"></i> Regresar</button>
         </div>
     </div>
     <?php else: ?>

@@ -141,5 +141,128 @@ function apagarEditandoConcesion($idconcesion) {
 	sqlsrv_close($con);
 	header('Location: lista-concesionarios.php');
 }
-
+function buscarNombreJur($nombre,$apat,$amat){
+	include('db.php');//nombre y apellido pat
+	if ($nombre !="" and $apat!="" and $amat=="") :
+		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'";
+		//nombre y apellidos
+	elseif ($nombre!="" and $apat!="" and $amat!="") :
+	$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%'";
+	//Apellidos
+	elseif ($nombre=="" and $apat!="" and $amat!="") :
+		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%'";
+		//Nombre
+	elseif ($nombre!="" and $apat=="" and $amat=="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%'";
+		//Paterno
+	elseif ($nombre=="" and $apat!="" and $amat=="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[a_paterno] LIKE '%$apat%'";
+		//Materno
+	elseif ($nombre=="" and $apat=="" and $amat!="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[a_materno] LIKE '%$amat%'";
+		//Nombre y Materno
+	elseif ($nombre !="" and $apat=="" and $amat!="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_materno] LIKE '%$amat%'";
+	endif;
+	$result = sqlsrv_query($con, $query);
+	if (sqlsrv_has_rows($result)!=0) {
+			while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+				$array[] = $row;
+			}
+			return($array);
+			sqlsrv_close($con);
+		}
+	}
+function buscarPaginacionJur($nombre,$apat,$amat,$offset,$limit){
+	include('db.php');//nombre y apellido pat
+	if ($nombre !="" and $apat!="" and $amat=="") :
+		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//nombre y apellidos
+	elseif ($nombre!="" and $apat!="" and $amat!="") :
+	$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+	//Apellidos
+	elseif ($nombre=="" and $apat!="" and $amat!="") :
+		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//Nombre
+	elseif ($nombre!="" and $apat=="" and $amat=="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//Paterno
+	elseif ($nombre=="" and $apat!="" and $amat=="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//Materno
+	elseif ($nombre=="" and $apat=="" and $amat!="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//Nombre y Materno
+	elseif ($nombre !="" and $apat=="" and $amat!="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+	endif;
+	$result = sqlsrv_query($con, $query);
+	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+		$array[] = $row;
+	}
+	return($array);
+	sqlsrv_close($con);
+}
+function buscarNombre($nombre,$apat,$amat){
+	include('db.php');//nombre y apellido pat
+	if ($nombre !="" and $apat!="" and $amat=="") :
+		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'";
+		//nombre y apellidos
+	elseif ($nombre!="" and $apat!="" and $amat!="") :
+	$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%'";
+	//Apellidos
+	elseif ($nombre=="" and $apat!="" and $amat!="") :
+		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%'";
+		//Nombre
+	elseif ($nombre!="" and $apat=="" and $amat=="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%'";
+		//Paterno
+	elseif ($nombre=="" and $apat!="" and $amat=="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[a_paterno] LIKE '%$apat%'";
+		//Materno
+	elseif ($nombre=="" and $apat=="" and $amat!="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[a_materno] LIKE '%$amat%'";
+		//Nombre y Materno
+	elseif ($nombre !="" and $apat=="" and $amat!="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_materno] LIKE '%$amat%'";
+	endif;
+	$result = sqlsrv_query($con, $query);
+	if (sqlsrv_has_rows($result)!=0) {
+			while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+				$array[] = $row;
+			}
+			return($array);
+			sqlsrv_close($con);
+		}
+	}
+function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
+	include('db.php');//nombre y apellido pat
+	if ($nombre !="" and $apat!="" and $amat=="") :
+		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//nombre y apellidos
+	elseif ($nombre!="" and $apat!="" and $amat!="") :
+	$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+	//Apellidos
+	elseif ($nombre=="" and $apat!="" and $amat!="") :
+		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//Nombre
+	elseif ($nombre!="" and $apat=="" and $amat=="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//Paterno
+	elseif ($nombre=="" and $apat!="" and $amat=="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//Materno
+	elseif ($nombre=="" and $apat=="" and $amat!="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		//Nombre y Materno
+	elseif ($nombre !="" and $apat=="" and $amat!="") :
+		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] INNER JOIN [SistBusquedas].[dbo].[per_conc] ON [personas].[id_per] = [per_conc].[id_per] INNER JOIN [SistBusquedas].[dbo].[concesiones] ON [concesiones].[id_conc] = [per_conc].[id_conc] AND [concesiones].[ind_pre] = 0 and [per_conc].[rol] = 'P' AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+	endif;
+	$result = sqlsrv_query($con, $query);
+	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+		$array[] = $row;
+	}
+	return($array);
+	sqlsrv_close($con);
+}
 ?>
