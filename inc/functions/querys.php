@@ -71,7 +71,8 @@ function consultarCarpetas($idconcesion) {
 }
 function consultarMandamientos($idconcesion) {
 	include('db.php');
-	$query = "select per_mand.mand_jud, personas.id_per FROM [SistBusquedas].[dbo].[per_mand] inner join SistBusquedas.dbo.personas on per_mand.id_per = personas.id_per inner join SistBusquedas.dbo.per_conc on personas.id_per= per_conc.id_per inner join SistBusquedas.dbo.concesiones on per_conc.id_conc = concesiones.id_conc and concesiones.id_conc = $idconcesion";
+	// $query = "select per_mand.mand_jud, personas.id_per FROM [SistBusquedas].[dbo].[per_mand] inner join SistBusquedas.dbo.personas on per_mand.id_per = personas.id_per inner join SistBusquedas.dbo.per_conc on personas.id_per= per_conc.id_per inner join SistBusquedas.dbo.concesiones on per_conc.id_conc = concesiones.id_conc and concesiones.id_conc = $idconcesion";
+	$query = "select per_mand.id, per_mand.mand_jud, per_mand.borrado, personas.id_per FROM [SistBusquedas].[dbo].[per_mand] inner join SistBusquedas.dbo.personas on per_mand.id_per = personas.id_per inner join SistBusquedas.dbo.per_conc on personas.id_per= per_conc.id_per inner join SistBusquedas.dbo.concesiones on per_conc.id_conc = concesiones.id_conc and concesiones.id_conc = $idconcesion";
 	$result = sqlsrv_query($con, $query);
 	if (sqlsrv_has_rows($result)!=0) {
 		while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
@@ -104,6 +105,17 @@ function actualizarCarpetasPropietario($arrayCI) {
 	}
 	sqlsrv_close($con);
 }
+function actualizarMandamientos($arrayCI) {
+	include('db.php');
+	foreach($arrayCI as $personaCI => $statusCI) {
+		// $query = "UPDATE [SistBusquedas].[dbo].[per_carp] SET borrado = '$statusCI' WHERE per_carp.id = '$personaCI'";
+		$query = "update [SistBusquedas].[dbo].[per_mand] set borrado = '$statusCI' where per_mand.id= '$personaCI'";
+		sqlsrv_query($con, $query);
+	}
+	sqlsrv_close($con);
+}
+
+
 function actualizarCarpetasAuto($arrayCIA) {
 	include('db.php');
 	foreach($arrayCIA as $autoCI => $statusCI) {

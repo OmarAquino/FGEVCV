@@ -5,6 +5,9 @@
     <?php if (isset($_POST['cia'])): ?>
         <?php actualizarCarpetasAuto($_POST['cia']); ?>
     <?php endif ?>
+    <?php if (isset($_POST['cim'])): ?>
+        <?php actualizarMandamientos($_POST['cim']); ?>
+    <?php endif ?>
     <?php
     $nota = $_POST['fgevcv-nota'];
     $idconcesion = $_POST['idconcesion'];
@@ -95,37 +98,34 @@
             <?php $noCiCounter = 1; ?>
             <?php foreach ($consulta as $resultado): ?>
                 <?php if ($resultado['rol']=='P') : ?>
-                    <?php $idPersona = $resultado['id_per']; ?>
-                    <?php if ($consultaCi): ?>
-                        <?php $labelCounter = 1; ?>
-                        <?php foreach ($consultaCi as $resultado) : ?>
-                            <?php $ciCounter = 1; ?>
-                            <?php if ($idPersona==$resultado['id_per']) : ?>
+                    <?php if ($consultaMand): ?>
+                        <?php $labelCounterM = 1; ?>
+                        <?php foreach ($consultaMand as $resultado) : ?>
+                            <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
                                 <div class="row">
                                     <div class="col-3">
                                         <div class="row">
                                             <div class="col">
-                                                <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['origen']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
+                                                <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-5">
-                                        <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
-                                        <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                        <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label>
+                                        <input id="cihm-<?php echo $labelCounterM; ?>" type="hidden" name="cim[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                        <input id="cim-<?php echo $labelCounterM; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                        <label for="cim-<?php echo $labelCounterM; ?>" class="css-label">No relevante</label>
                                         <script>
-                                            jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
+                                            jQuery("#cim-<?php echo $labelCounterM; ?>").change(function() {
                                                 if(this.checked) {
-                                                    jQuery("#cih-<?php echo $labelCounter; ?>").val('1');
-                                                }else {
-                                                    jQuery("#cih-<?php echo $labelCounter; ?>").val('0');
+                                                    jQuery("#cihm-<?php echo $labelCounterM; ?>").val('1');
+                                                } else {
+                                                    jQuery("#cihm-<?php echo $labelCounterM; ?>").val('0');
                                                 }
                                             });
                                         </script>
                                     </div>
                                 </div>
                             <?php endif ?>
-                            <?php $labelCounter++; ?>
                         <?php endforeach ?>
                     <?php endif ?>
                 <?php endif ?>
@@ -209,6 +209,7 @@
             <div class="col-3">Mandamientos judiciales</div>
             <div class="col-9">
                 <?php if ($consultaMand): ?>
+                    <?php $labelCounterM2 = 1; ?>
                     <?php foreach ($consultaMand as $resultado) : ?>
                         <?php if ($idPersona==$resultado['id_per']) : ?>
                             <div class="row">
@@ -220,8 +221,23 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-5">
+                                    <input id="cihm2-<?php echo $labelCounterM2; ?>" type="hidden" name="cim[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                    <input id="cim2-<?php echo $labelCounterM2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                    <label for="cim2-<?php echo $labelCounterM2; ?>" class="css-label">No relevante</label>
+                                    <script>
+                                        jQuery("#cim2-<?php echo $labelCounterM2; ?>").change(function() {
+                                            if(this.checked) {
+                                                jQuery("#cihm2-<?php echo $labelCounterM2; ?>").val('1');
+                                            } else {
+                                                jQuery("#cihm2-<?php echo $labelCounterM2; ?>").val('0');
+                                            }
+                                        });
+                                    </script>
+                                </div>
                             </div>
                         <?php endif ?>
+                        <?php $labelCounterM2++; ?>
                     <?php endforeach ?>
                 <?php endif ?>
             </div>
