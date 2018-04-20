@@ -14,11 +14,9 @@
 </form>
   <div class="Concesionarios-lista">
       <div class="row">
-      <div class="col col-4">Concesionario</div>
-      <div class="col col-1">Estatus</div>
+      <div class="col col-7">Concesionario</div>
       <div class="col col-4">Vehículo</div>
-      <div class="col col-1">Estatus</div>
-      <div class="col col-2">Acción</div>
+      <div class="col col-1">Acción</div>
     </div>
     <?php //if (isset($_GET['fgevcv-buscar'])): 
         $nombre = $_GET['p'];
