@@ -43,13 +43,74 @@
    			}
    			if ($res!=0):
    			$cons=buscarPaginacion($nombre,$apat,$amat,$offset,$limit);
-    		foreach ($cons as $res): ?>
-	    	<div class="row">
+   			$ajaxCounter = 1; ?>
+			<script>
+			    var d        = new Date();
+			    var dia      = d.getDate();
+			    var mesZero  = d.getMonth();
+			    var mes      = mesZero+1;
+			    var anio     = d.getFullYear();
+			    var hora     = d.getHours();
+			    var minutos  = d.getMinutes();
+			    var segundos = d.getSeconds();
+			    var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+			</script>
+    		<?php foreach ($cons as $res): ?>
+	    	<div id="concesion<?php echo $ajaxCounter; ?>" class="row">
 	        	<div class="col col-7"><?php echo $res['nombre'].' '.$res['a_paterno'].' '.$res['a_materno']; ?></div>
 	        	<!--<div class="col col-4"></div>-->
 	        	<div class="col col-4"><?php echo $res['placa']; ?></div>
-	        	<div class="col col-1"><a href="concesionario.php?id_conc=<?php echo $res['id_conc']; ?>" target="_blank"><button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button></a></div>
+	        	<div class="col col-1">
+            	<a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>" target="_blank">
+               	<button id="trigger<?php echo $ajaxCounter; ?>" type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button>
+            	</a></div>
 	    	</div> 
+	    	<script>
+         // $( document ).ready(function() {
+            var editando = 'editando';
+            var libre = 'libre';
+            function ajaxTimer<?php echo $ajaxCounter; ?>() {
+               var d        = new Date();
+               var dia      = d.getDate();
+               var mesZero  = d.getMonth();
+               var mes      = mesZero+1;
+               var anio     = d.getFullYear();
+               var hora     = d.getHours();
+               var minutos  = d.getMinutes();
+               var segundos = d.getSeconds();
+               var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+
+               $.ajax({
+                  type : 'POST',
+                  url : 'inc/functions/consultar-editando.php',
+                  data : { 
+                        idconcesion  : <?php echo $res['id_conc']; ?>,
+                        fechaF       : fechaF 
+                     },
+                     success : function(response) {
+                        var status = response.trim();
+                        console.log(status+' '+<?php echo $res['id_conc']; ?>);
+                        if (status==editando) {
+                           $('#concesion<?php echo $ajaxCounter; ?>').css('background', '#d6d8d9');
+                           $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#1b1e21');
+                           $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-eye');
+                           $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-ban');
+                           $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'none');
+                        }
+                        if (status==libre) {
+                           $('#concesion<?php echo $ajaxCounter; ?>').css('background', 'none');
+                           $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#212529');
+                           $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-ban');
+                           $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-eye');
+                           $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'auto');
+                        }
+                     }
+                  });
+               setTimeout(ajaxTimer<?php echo $ajaxCounter; ?>, 5000);
+            }
+            ajaxTimer<?php echo $ajaxCounter; ?>();
+      		</script>
+      		<?php $ajaxCounter++; ?>
 			<?php endforeach ?>
 			<?php
 		   if($total_pages <= (1+($adjacents * 2))) {
