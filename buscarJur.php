@@ -61,7 +61,7 @@
          <div class="col col-7"><?php echo $res['nombre'].' '.$res['a_paterno'].' '.$res['a_materno']; ?></div>
          <div class="col col-4"><?php echo $res['placa']; ?></div>
          <div class="col col-1">
-          <a href="concesionario.php?id_conc=<?php echo $resultado['id_conc']; ?>" target="_blank">
+          <a href="concesionario.php?id_conc=<?php echo $res['id_conc']; ?>" target="_blank">
             <button type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button>
           </a>
           </div>
