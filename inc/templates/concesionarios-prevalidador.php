@@ -50,48 +50,47 @@
       </div>
       <script>
          // $( document ).ready(function() {
-            var editando = 'editando';
-            var libre = 'libre';
-            function ajaxTimer<?php echo $ajaxCounter; ?>() {
-               var d        = new Date();
-               var dia      = d.getDate();
-               var mesZero  = d.getMonth();
-               var mes      = mesZero+1;
-               var anio     = d.getFullYear();
-               var hora     = d.getHours();
-               var minutos  = d.getMinutes();
-               var segundos = d.getSeconds();
-               var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-
-               $.ajax({
-                  type : 'POST',
-                  url : 'inc/functions/consultar-editando.php',
-                  data : { 
-                        idconcesion  : <?php echo $resultado['id_conc']; ?>,
-                        fechaF       : fechaF 
-                     },
-                     success : function(response) {
-                        var status = response.trim();
-                        console.log(status+' '+<?php echo $resultado['id_conc']; ?>);
-                        if (status==editando) {
-                           $('#concesion<?php echo $ajaxCounter; ?>').css('background', '#d6d8d9');
-                           $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#1b1e21');
-                           $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-eye');
-                           $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-ban');
-                           $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'none');
-                        }
-                        if (status==libre) {
-                           $('#concesion<?php echo $ajaxCounter; ?>').css('background', 'none');
-                           $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#212529');
-                           $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-ban');
-                           $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-eye');
-                           $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'auto');
-                        }
-                     }
-                  });
-               setTimeout(ajaxTimer<?php echo $ajaxCounter; ?>, 5000);
-            }
-            ajaxTimer<?php echo $ajaxCounter; ?>();
+         var editando = 'editando';
+         var libre = 'libre';
+         function ajaxTimer<?php echo $ajaxCounter; ?>() {
+            var d        = new Date();
+            var dia      = d.getDate();
+            var mesZero  = d.getMonth();
+            var mes      = mesZero+1;
+            var anio     = d.getFullYear();
+            var hora     = d.getHours();
+            var minutos  = d.getMinutes();
+            var segundos = d.getSeconds();
+            var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+            $.ajax({
+               type : 'POST',
+               url : 'inc/functions/consultar-editando.php',
+               data : { 
+                     idconcesion  : <?php echo $resultado['id_conc']; ?>,
+                     fechaF       : fechaF 
+                  },
+               success : function(response) {
+                  var status = response.trim();
+                  console.log(status+' '+<?php echo $resultado['id_conc']; ?>);
+                  if (status==editando) {
+                     $('#concesion<?php echo $ajaxCounter; ?>').css('background', '#d6d8d9');
+                     $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#1b1e21');
+                     $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-eye');
+                     $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-ban');
+                     $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'none');
+                  }
+                  if (status==libre) {
+                     $('#concesion<?php echo $ajaxCounter; ?>').css('background', 'none');
+                     $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#212529');
+                     $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-ban');
+                     $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-eye');
+                     $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'auto');
+                  }
+               }
+            });
+            setTimeout(ajaxTimer<?php echo $ajaxCounter; ?>, 5000);
+         }
+         ajaxTimer<?php echo $ajaxCounter; ?>();
       </script>
       <?php $ajaxCounter++; ?>
    <?php endforeach ?>
