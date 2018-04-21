@@ -448,7 +448,7 @@
       </div>
       <div class="modal-footer">
         <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-        <button  type="button" class="btn btn-dark" onclick="self.close()">Regresar</button>
+        <button type="button" class="btn btn-dark" onclick="self.close()">Regresar</button>
       </div>
     </div>
   </div>
