@@ -107,15 +107,15 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 .Concesionarios-lista .row:last-child {
 	border-bottom: 1px solid #dee2e6;
 }
+.Concesionarios-lista .row .col:nth-child(1) {
+	border-right: 1px solid #dee2e6;
+}
 .Concesionarios-lista .row .col:nth-child(2) {
 	border-right: 1px solid #dee2e6;
 }
-.Concesionarios-lista .row .col:nth-child(4) {
+/*.Concesionarios-lista .row .col:nth-child(6) {
 	border-right: 1px solid #dee2e6;
-}
-.Concesionarios-lista .row .col:nth-child(6) {
-	border-right: 1px solid #dee2e6;
-}
+}*/
 .Concesionarios-lista .row .col:last-child {
 	text-align: center;
 }
@@ -126,9 +126,9 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
 .Concesionarios-listaPrevalidador .row .col:nth-child(2) {
 	border-right: 1px solid #dee2e6;
 }
-.Concesionarios-listaPrevalidador .row .col:nth-child(3) {
+/*.Concesionarios-listaPrevalidador .row .col:nth-child(3) {
 	border-right: 1px solid #dee2e6;
-}
+}*/
 .Concesionarios-lista .row:hover {
 	background-color: rgba(0,0,0,.25) !important;
 }
