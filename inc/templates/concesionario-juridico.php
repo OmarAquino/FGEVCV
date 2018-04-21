@@ -18,6 +18,7 @@
         guardarNota($idconcesion,$nota);
     }
     ?>
+    <?php actualizarHistorial($_POST['usuario'], $_POST['idconcesion'], $_POST['actualizarcicon']); ?>
     <?php if (isset($_POST['actualizarcicon'])): ?>
         <?php actualizarIndicadorConcesion($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
     <?php endif ?>
@@ -33,51 +34,51 @@
     <?php $consultaMand     = consultarMandamientos($idconcesion); ?>
     <?php if ($consulta): ?>        
     <script>
-        $('#editingModal').modal({ show: false});
-        var d        = new Date();
-        var dia      = d.getDate();
-        var mesZero  = d.getMonth();
-        var mes      = mesZero+1;
-        var anio     = d.getFullYear();
-        var hora     = d.getHours();
-        var minutos  = d.getMinutes();
-        var segundos = d.getSeconds();
-        var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-        $( document ).ready(function() {
-            var editando = 'editando';
-            var libre = 'libre';
-            $.ajax({
-                type : 'POST',
-                url : 'inc/functions/editando.php',
-                data : { 
-                            idconcesion : <?php echo $idconcesion; ?>,
-                            fechaF      : fechaF 
-                       },
-                success : function(response) {
-                    var status = response.trim();
-                    console.log(status);
-                    if (status==editando) {
-                        $('#editingModal').modal('show');
-                    }
-                }
-            });
-            function ajaxTimer() {
-                $.ajax({
-                    type : 'POST',
-                    url : 'inc/functions/editando-activo.php',
-                    data : { 
-                                idconcesion  : <?php echo $idconcesion; ?>,
-                                fechaF       : fechaF 
-                           },
-                    success : function(response) {
-                        $('#ajaxresult2').html(response);
-                    }
-                });
-            }        
-            window.setInterval(function(){
-                ajaxTimer();
-            }, 120000);
-        });
+        // $('#editingModal').modal({ show: false});
+        // var d        = new Date();
+        // var dia      = d.getDate();
+        // var mesZero  = d.getMonth();
+        // var mes      = mesZero+1;
+        // var anio     = d.getFullYear();
+        // var hora     = d.getHours();
+        // var minutos  = d.getMinutes();
+        // var segundos = d.getSeconds();
+        // var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+        // $( document ).ready(function() {
+        //     var editando = 'editando';
+        //     var libre = 'libre';
+        //     $.ajax({
+        //         type : 'POST',
+        //         url : 'inc/functions/editando.php',
+        //         data : { 
+        //                     idconcesion : <?php echo $idconcesion; ?>,
+        //                     fechaF      : fechaF 
+        //                },
+        //         success : function(response) {
+        //             var status = response.trim();
+        //             console.log(status);
+        //             if (status==editando) {
+        //                 $('#editingModal').modal('show');
+        //             }
+        //         }
+        //     });
+        //     function ajaxTimer() {
+        //         $.ajax({
+        //             type : 'POST',
+        //             url : 'inc/functions/editando-activo.php',
+        //             data : { 
+        //                         idconcesion  : <?php echo $idconcesion; ?>,
+        //                         fechaF       : fechaF 
+        //                    },
+        //             success : function(response) {
+        //                 $('#ajaxresult2').html(response);
+        //             }
+        //         });
+        //     }        
+        //     window.setInterval(function(){
+        //         ajaxTimer();
+        //     }, 120000);
+        // });
     </script>
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
@@ -95,7 +96,46 @@
     <div class="row rowDato">
         <div class="col-3">Carpetas de Investigación</div>
         <div class="col-9">
-            <?php $noCiCounter = 1; ?>
+           <?php foreach ($consulta as $resultado): ?>
+                <?php if ($resultado['rol']=='P') : ?>
+                    <?php if ($consultaCi): ?>
+                        <?php $labelCounter = 1; ?>
+                        <?php foreach ($consultaCi as $resultado) : ?>
+                            <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['origen']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                        <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                        <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label>
+                                        <script>
+                                            jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
+                                                if(this.checked) {
+                                                    jQuery("#cih-<?php echo $labelCounter; ?>").val('1');
+                                                }else {
+                                                    jQuery("#cih-<?php echo $labelCounter; ?>").val('0');
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                            <?php $labelCounter++; ?>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                <?php endif ?>
+            <?php endforeach ?>
+        </div>
+    </div>
+    <div class="row rowDato">
+        <div class="col-3">Mandamientos judiciales</div>
+        <div class="col-9">
             <?php foreach ($consulta as $resultado): ?>
                 <?php if ($resultado['rol']=='P') : ?>
                     <?php if ($consultaMand): ?>
@@ -123,31 +163,6 @@
                                                 }
                                             });
                                         </script>
-                                    </div>
-                                </div>
-                            <?php endif ?>
-                        <?php endforeach ?>
-                    <?php endif ?>
-                <?php endif ?>
-            <?php endforeach ?>
-        </div>
-    </div>
-    <div class="row rowDato">
-        <div class="col-3">Mandamientos judiciales</div>
-        <div class="col-9">
-            <?php foreach ($consulta as $resultado): ?>
-                <?php if ($resultado['rol']=='P') : ?>
-                    <?php if ($consultaMand): ?>
-                        <?php foreach ($consultaMand as $resultado) : ?>
-                            <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <div class="row">
-                                            <div class="col">
-                                                <!-- <span><?php echo $resultado['mand_jud']; ?></span> -->
-                                                <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             <?php endif ?>
@@ -391,8 +406,8 @@
     <div class="row rowDato">
         <div class="col-2">
             <input type="hidden" name="idconcesion" value="<?php echo $_GET['id_conc']; ?>">
-            <!-- <input type="submit" name="fgevcv-guardar" value="Guardar" class="btn btn-primary"> -->
             <input type="hidden" name="actualizarcicon" id="actualizarcicon" value="3">
+            <input type="hidden" name="usuario" value="<?php echo $_SESSION['user']; ?>">
             <button id="concesionario-form-submit" type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
                 <i class="far fa-save"></i> Guardar
             </button>

@@ -18,6 +18,7 @@
         guardarNota($idconcesion,$nota);
     }
     ?>
+    <?php actualizarHistorial($_POST['usuario'], $_POST['idconcesion'], $_POST['actualizarcicon']); ?>
     <?php actualizarIndicadorConcesion($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
 <?php endif ?>
 <h3>Detalle de la concesión</h3>
@@ -378,6 +379,7 @@
                 <div class="col-2">
                     <input type="hidden" name="idconcesion" value="<?php echo $_GET['id_conc']; ?>">
                     <input type="hidden" name="actualizarcicon" id="actualizarcicon" value="1">
+                    <input type="hidden" name="usuario" value="<?php echo $_SESSION['user']; ?>">
                     <button id="concesionario-form-submit" type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
                         <i class="far fa-save"></i> Guardar
                     </button>
