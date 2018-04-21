@@ -7,7 +7,7 @@
 </form>
 <div class="Concesionarios-lista">
   	<div class="row">
-    	<div class="col col-7">Concesionario</div>
+    	<div class="col col-7">Concesionarios</div>
     	<!-- <div class="col col-1">Estatus</div> -->
 <!--     	<div class="col col-3">Chofer</div>
     	<div class="col col-1">Estatus</div> -->

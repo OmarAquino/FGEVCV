@@ -7,7 +7,7 @@
 </form>
 <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    <div class="row">
-      <div class="col col-7">Concesionario</div>
+      <div class="col col-7">Concesiones</div>
       <div class="col col-4">Vehículo</div>
       <div class="col col-1">Acción</div>  
    </div>
