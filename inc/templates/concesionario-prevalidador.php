@@ -339,7 +339,7 @@
                 <div class="col-3">Robado:</div>
                 <div class="col-9">
                     <?php if ($consultaCiAuto): ?>
-                        <?php if($resultado['robado']==1){echo 'Sí';}elseif($resultado['robado']==0){echo 'No';}else{echo '---';} ?>
+                        <?php if($resultado['status']==1){echo 'Sí';}elseif($resultado['status']==0){echo 'No';}else{echo '---';} ?>
                     <?php else: ?>
                         No
                     <?php endif ?>
