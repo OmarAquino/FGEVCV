@@ -7,9 +7,9 @@
     <div class="Concesionarios-contenedor">
 <h3>Lista de concesionarios</h3>
 <form method="GET" action="buscar.php?p=$_GET['p']&s=$_GET['s']&t=$_GET['t']" class="row">
-   	<div class="col-4"><input type="text" name="p" class="form-control" placeholder="Nombre(s)..."></textarea></div>
-   	<div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
-   	<div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
+   	<div class="col-3"><input type="text" name="p" class="form-control" value="<?php echo($_GET['p'])?>" placeholder="Nombre(s)..."></textarea></div>
+    <div class="col-3"><input type="text" name="s" class="form-control" value="<?php echo($_GET['s'])?>" placeholder="Ap. Paterno..."></textarea></div>
+    <div class="col-3"><input type="text" name="t" class="form-control" value="<?php echo($_GET['t'])?>" placeholder="Ap. Materno..."></textarea></div>
 	<div class="col-2" align="center"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
 </form>
 	<div class="Concesionarios-lista Concesionarios-listaPrevalidador">
