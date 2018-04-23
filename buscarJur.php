@@ -162,6 +162,7 @@
     </div>    
     <?php endif ?>
   <?php endif ?>
+  <br>
         <div class="col-2" align="center">
               <a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary">Regresar</button></a>
         </div>
