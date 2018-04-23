@@ -319,7 +319,7 @@ function buscarPaginacionJur($nombre,$apat,$amat,$offset,$limit){
 function buscarNombre($nombre,$apat,$amat){
 	include('db.php');//nombre y apellido pat
 	if ($nombre !="" and $apat!="" and $amat=="") :
-		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] 
@@ -327,7 +327,7 @@ function buscarNombre($nombre,$apat,$amat){
 		ORDER BY [personas].[id_per]";
 		//nombre y apellidos
 	elseif ($nombre!="" and $apat!="" and $amat!="") :
-	$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+	$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -336,7 +336,7 @@ function buscarNombre($nombre,$apat,$amat){
 		ORDER BY [personas].[id_per]";
 	//Apellidos
 	elseif ($nombre=="" and $apat!="" and $amat!="") :
-		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -344,7 +344,7 @@ function buscarNombre($nombre,$apat,$amat){
 		ORDER BY [personas].[id_per]";
 		//Nombre
 	elseif ($nombre!="" and $apat=="" and $amat=="") :
-		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -352,7 +352,7 @@ function buscarNombre($nombre,$apat,$amat){
 		ORDER BY [personas].[id_per]";
 		//Paterno
 	elseif ($nombre=="" and $apat!="" and $amat=="") :
-		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -360,7 +360,7 @@ function buscarNombre($nombre,$apat,$amat){
 		ORDER BY [personas].[id_per]";
 		//Materno
 	elseif ($nombre=="" and $apat=="" and $amat!="") :
-		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -368,7 +368,7 @@ function buscarNombre($nombre,$apat,$amat){
 		ORDER BY [personas].[id_per]";
 		//Nombre y Materno
 	elseif ($nombre !="" and $apat=="" and $amat!="") :
-		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -388,7 +388,7 @@ function buscarNombre($nombre,$apat,$amat){
 function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
 	include('db.php');//nombre y apellido pat
 	if ($nombre !="" and $apat!="" and $amat=="") :
-		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] 
@@ -396,7 +396,7 @@ function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
 		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 		//nombre y apellidos
 	elseif ($nombre!="" and $apat!="" and $amat!="") :
-	$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+	$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -405,7 +405,7 @@ function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
 		OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 	//Apellidos
 	elseif ($nombre=="" and $apat!="" and $amat!="") :
-		$query="SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -413,7 +413,7 @@ function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
 		LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 		//Nombre
 	elseif ($nombre!="" and $apat=="" and $amat=="") :
-		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -421,7 +421,7 @@ function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
 		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 		//Paterno
 	elseif ($nombre=="" and $apat!="" and $amat=="") :
-		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -429,7 +429,7 @@ function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
 		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 		//Materno
 	elseif ($nombre=="" and $apat=="" and $amat!="") :
-		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
@@ -437,7 +437,7 @@ function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
 		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 		//Nombre y Materno
 	elseif ($nombre !="" and $apat=="" and $amat!="") :
-		$query = "SELECT * FROM [SistBusquedas].[dbo].[personas] 
+		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
 		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
 		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
 		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
