@@ -29,7 +29,11 @@
           </div>
             <?php else:
         $consulta = buscarNombreJur($nombre, $apat, $amat);
-        $res=count($consulta);
+        if ($consulta) {
+          $res=count($consulta);
+        } else {
+          $res = 0;
+        }
         // echo $res;
         $limit = 10;
         $adjacents = 1;
