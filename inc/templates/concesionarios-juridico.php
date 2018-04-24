@@ -101,6 +101,28 @@
                setTimeout(ajaxTimer<?php echo $ajaxCounter; ?>, 5000);
             }
             ajaxTimer<?php echo $ajaxCounter; ?>();
+
+            function ajaxHide<?php echo $ajaxCounter; ?>() {
+               $.ajax({
+                  type : 'POST',
+                  url : 'inc/functions/consultar-editando-finalizado.php',
+                  data : { 
+                        idconcesion  : <?php echo $resultado['id_conc']; ?>,
+                     },
+                  success : function(response) {
+                     if (response!=1) {
+                        $('#concesion<?php echo $ajaxCounter; ?>').css('background', '#d6d8d9');
+                        $('#concesion<?php echo $ajaxCounter; ?>').css('color', '#1b1e21');
+                        $('#concesion<?php echo $ajaxCounter; ?> a').css('pointer-events', 'none');
+                        $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-eye');
+                        $('#concesion<?php echo $ajaxCounter; ?> i').removeClass('fas fa-ban');
+                        $('#concesion<?php echo $ajaxCounter; ?> i').addClass('fas fa-check');
+                     }
+                  }
+               });
+               setTimeout(ajaxHide<?php echo $ajaxCounter; ?>, 5000);
+            }
+            ajaxHide<?php echo $ajaxCounter; ?>();
          // });
       </script>
       <?php $ajaxCounter++; ?> 
