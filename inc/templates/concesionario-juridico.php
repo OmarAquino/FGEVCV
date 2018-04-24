@@ -23,7 +23,22 @@
         <?php actualizarIndicadorConcesion($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
     <?php endif ?>
 <?php endif ?>
-
+<?php if (isset($_POST['fgevcv-guardar-draft'])): ?>
+    <?php if (isset($_POST['ci'])): ?>
+        <?php actualizarCarpetasPropietario($_POST['ci']); ?>
+    <?php endif ?>
+    <?php if (isset($_POST['cia'])): ?>
+        <?php actualizarCarpetasAuto($_POST['cia']); ?>
+    <?php endif ?>
+    <?php if (isset($_POST['cim'])): ?>
+        <?php actualizarMandamientos($_POST['cim']); ?>
+    <?php endif ?>
+    <?php
+    $nota = $_POST['fgevcv-nota'];
+    $idconcesion = $_POST['idconcesion'];
+    guardarNota($idconcesion,$nota);
+    ?>
+<?php endif ?>
 <h3>Detalle de la concesión</h3>
 <form method="POST" action="" class="Concesionario" id="concesionario-form">
     <?php if (isset($_GET['id_conc']) && $_GET['id_conc']!=NULL): ?>
@@ -34,51 +49,51 @@
     <?php $consultaMand     = consultarMandamientos($idconcesion); ?>
     <?php if ($consulta): ?>        
     <script>
-        // $('#editingModal').modal({ show: false});
-        // var d        = new Date();
-        // var dia      = d.getDate();
-        // var mesZero  = d.getMonth();
-        // var mes      = mesZero+1;
-        // var anio     = d.getFullYear();
-        // var hora     = d.getHours();
-        // var minutos  = d.getMinutes();
-        // var segundos = d.getSeconds();
-        // var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-        // $( document ).ready(function() {
-        //     var editando = 'editando';
-        //     var libre = 'libre';
-        //     $.ajax({
-        //         type : 'POST',
-        //         url : 'inc/functions/editando.php',
-        //         data : { 
-        //                     idconcesion : <?php echo $idconcesion; ?>,
-        //                     fechaF      : fechaF 
-        //                },
-        //         success : function(response) {
-        //             var status = response.trim();
-        //             console.log(status);
-        //             if (status==editando) {
-        //                 $('#editingModal').modal('show');
-        //             }
-        //         }
-        //     });
-        //     function ajaxTimer() {
-        //         $.ajax({
-        //             type : 'POST',
-        //             url : 'inc/functions/editando-activo.php',
-        //             data : { 
-        //                         idconcesion  : <?php echo $idconcesion; ?>,
-        //                         fechaF       : fechaF 
-        //                    },
-        //             success : function(response) {
-        //                 $('#ajaxresult2').html(response);
-        //             }
-        //         });
-        //     }        
-        //     window.setInterval(function(){
-        //         ajaxTimer();
-        //     }, 120000);
-        // });
+        $('#editingModal').modal({ show: false});
+        var d        = new Date();
+        var dia      = d.getDate();
+        var mesZero  = d.getMonth();
+        var mes      = mesZero+1;
+        var anio     = d.getFullYear();
+        var hora     = d.getHours();
+        var minutos  = d.getMinutes();
+        var segundos = d.getSeconds();
+        var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+        $( document ).ready(function() {
+            var editando = 'editando';
+            var libre = 'libre';
+            $.ajax({
+                type : 'POST',
+                url : 'inc/functions/editando.php',
+                data : { 
+                            idconcesion : <?php echo $idconcesion; ?>,
+                            fechaF      : fechaF 
+                       },
+                success : function(response) {
+                    var status = response.trim();
+                    console.log(status);
+                    if (status==editando) {
+                        $('#editingModal').modal('show');
+                    }
+                }
+            });
+            function ajaxTimer() {
+                $.ajax({
+                    type : 'POST',
+                    url : 'inc/functions/editando-activo.php',
+                    data : { 
+                                idconcesion  : <?php echo $idconcesion; ?>,
+                                fechaF       : fechaF 
+                           },
+                    success : function(response) {
+                        $('#ajaxresult2').html(response);
+                    }
+                });
+            }        
+            window.setInterval(function(){
+                ajaxTimer();
+            }, 120000);
+        });
     </script>
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
@@ -231,7 +246,6 @@
                                 <div class="col-3">
                                     <div class="row">
                                         <div class="col">
-                                            <!-- <span><?php echo $resultado['mand_jud']; ?></span> -->
                                             <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
                                         </div>
                                     </div>
@@ -321,11 +335,6 @@
                                     <div class="col">
                                         <a href="#"><?php echo $resultado['carpeta']; ?></a>
                                     </div>
-         <!--                            <?php if ($resultado['borrado']==1): ?>
-                                        <div class="col-3">
-                                            <div class="alert alert-info custom-alert" role="alert">No relevante</div> 
-                                        </div>
-                                    <?php endif ?> -->
                                 </div>
                             </div>
                             <div class="col-5">
@@ -365,12 +374,6 @@
             <textarea name="fgevcv-nota" id="" cols="50" rows="4"><?php echo $nota; ?></textarea>
         </div>
     </div>
-<!--     <div class="row rowDato">
-        <div class="col-3">Aprobado:</div>
-        <div class="col-9">
-            <input name="actualizarcicon" value="2" id="aprobarconcesion" type="checkbox" class="">
-        </div>
-    </div> -->
     <script>
         $( document ).ready(function() {
             if ($('.css-checkbox:checked').length == $('.css-checkbox').length) {
@@ -378,7 +381,6 @@
             } else {
                 $('#actualizarcicon').val('3');
             }
-            // $('#concesionario-form-submit').attr('disabled','disabled');
         });
         var checkboxes = document.getElementsByClassName('css-checkbox');
         if (checkboxes.length>0) {
@@ -394,14 +396,6 @@
             $('#actualizarcicon').val('3');
             var noCiMensaje = 1;
         }
-
-        // $('#aprobarconcesion').change(function(){
-        //     if ($('#aprobarconcesion').is(':checked')) {
-        //         $('#concesionario-form-submit').removeAttr('disabled');
-        //     } else {
-        //         $('#concesionario-form-submit').attr('disabled', 'disabled');
-        //     }
-        // });
     </script>
     <div class="row rowDato">
         <div class="col-2">
@@ -455,6 +449,9 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
+                    <button id="" type="submit" name="fgevcv-guardar-draft" class="btn btn-dark">
+                        <i class="fab fa-firstdraft"></i> Guardar borrador
+                    </button>
                     <button type="submit" name="fgevcv-guardar" class="btn btn-dark">
                         <i class="far fa-save"></i> Guardar
                     </button>
@@ -464,7 +461,13 @@
         </div>
     </div>
 </form>
-
+<script>
+    function cerrarVentana() {
+        jQuery('#cerrar-ventana').click(function(){
+            window.close();
+        });
+    }
+</script>
 <!-- Modal -->
 <div class="modal fade" id="editingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-lg" role="document">
@@ -476,8 +479,7 @@
         <h3>Esta concesión ya está siendo revisada</h3>
       </div>
       <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-        <button type="button" class="btn btn-dark" onclick="self.close()">Regresar</button>
+        <button type="button" class="btn btn-dark" onclick="cerrarVentana();">Regresar</button>
       </div>
     </div>
   </div>

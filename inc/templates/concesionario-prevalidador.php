@@ -21,6 +21,27 @@
     <?php actualizarHistorial($_POST['usuario'], $_POST['idconcesion'], $_POST['actualizarcicon']); ?>
     <?php actualizarIndicadorConcesion($_POST['actualizarcicon'], $_POST['idconcesion']); ?>
 <?php endif ?>
+<?php if (isset($_POST['fgevcv-guardar-draft'])): ?>
+    <?php if (isset($_POST['ci'])): ?>
+        <?php actualizarCarpetasPropietario($_POST['ci']); ?>
+    <?php endif ?>
+    <?php if (isset($_POST['cia'])): ?>
+        <?php actualizarCarpetasAuto($_POST['cia']); ?>
+    <?php endif ?>
+    <?php if (isset($_POST['cim'])): ?>
+        <?php actualizarMandamientos($_POST['cim']); ?>
+    <?php endif ?>
+    <?php
+    $nota = $_POST['fgevcv-nota'];
+    $idconcesion = $_POST['idconcesion'];
+    if ($nota!=""){
+        guardarNota($idconcesion,$nota);
+    }else{
+        $nota = "Sin Observaciones";
+        guardarNota($idconcesion,$nota);
+    }
+    ?>
+<?php endif ?>
 <h3>Detalle de la concesión</h3>
 <form method="POST" action="" class="Concesionario" id="concesionario-form">
     <?php if (isset($_GET['id_conc']) && $_GET['id_conc']!=NULL): ?>
@@ -228,7 +249,6 @@
                                                 <div class="col-3">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <!-- <span><?php echo $resultado['mand_jud']; ?></span> -->
                                                             <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
                                                         </div>
                                                     </div>
@@ -271,6 +291,7 @@
                         $marca      = $resultado['marca'];
                         $submarca   = $resultado['submarca'];
                         $num_eco    = $resultado['num_economico'];
+                        $nota    = $resultado['nota'];
                      } 
                 $placa = $resultado['placa'];
                 $auto = 0;
@@ -349,7 +370,11 @@
             <div class="row rowDato">
                 <div class="col-3">Nota:</div>
                 <div class="col-9">
-                    <textarea name="fgevcv-nota" id="" cols="30" rows="3"></textarea>
+                    <textarea name="fgevcv-nota" id="" cols="30" rows="3">
+                        <?php if ($nota): ?>
+                            <?php echo $resultado['nota']; ?>
+                        <?php endif ?>
+                    </textarea>
                 </div>
             </div>
             <script>
@@ -426,6 +451,9 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
+                    <button id="" type="submit" name="fgevcv-guardar-draft" class="btn btn-dark">
+                        <i class="fab fa-firstdraft"></i> Guardar borrador
+                    </button>
                     <button id="" type="submit" name="fgevcv-guardar" class="btn btn-dark">
                         <i class="far fa-save"></i> Guardar
                     </button>
@@ -435,7 +463,13 @@
         </div>
     </div>
 </form>
-
+<script>
+    function cerrarVentana() {
+        jQuery('#cerrar-ventana').click(function(){
+            window.close();
+        });
+    }
+</script>
 <!-- Modal -->
 <div class="modal fade" id="editingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-lg" role="document">
@@ -447,8 +481,7 @@
         <h3>Esta concesión ya está siendo revisada</h3>
       </div>
       <div class="modal-footer">
-        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-        <button  type="button" class="btn btn-dark" onclick="self.close()">Regresar</button>
+        <button id="cerrar-ventana"  type="button" class="btn btn-dark" onclick="cerrarVentana();">Regresar</button>
       </div>
     </div>
   </div>
