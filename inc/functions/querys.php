@@ -187,90 +187,40 @@ function apagarEditandoConcesion($idconcesion) {
 function buscarNombreJur($nombre,$apat,$amat){
 	include('db.php');//nombre y apellido pat
 	if ($nombre !="" and $apat!="" and $amat=="") :
-		// $query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] 
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'
-		// ORDER BY [personas].[id_per]";
 
-	$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per]";
 
 		//nombre y apellidos
 	elseif ($nombre!="" and $apat!="" and $amat!="") :
-	// $query = "SELECT distinct distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-	// 	inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-	// 	inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-	// 	inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-	// 	AND [concesiones].[ind_pre] = 1 AND [personas].[nombre] LIKE '%$nombre%' 
-	// 	AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' 
-	// 	ORDER BY [personas].[id_per]";
 
-	$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per]";
 
 	//Apellidos
 	elseif ($nombre=="" and $apat!="" and $amat!="") :
-		// $query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per]";
 
 		//Nombre
 	elseif ($nombre!="" and $apat=="" and $amat=="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[nombre] LIKE '%$nombre%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' ORDER BY [personas].[id_per]";
 
 		//Paterno
 	elseif ($nombre=="" and $apat!="" and $amat=="") :
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		AND [concesiones].[ind_pre] = 1 AND [personas].[a_paterno] LIKE '%$apat%' 
-		ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per]";
+
 		//Materno
 	elseif ($nombre=="" and $apat=="" and $amat!="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per]";
+
 		//Nombre y Materno
 	elseif ($nombre !="" and $apat=="" and $amat!="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[nombre] LIKE '%$nombre%' 
-		// AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per]";
 	endif;
+
 	$result = sqlsrv_query($con, $query);
 	if (sqlsrv_has_rows($result)!=0) {
 			while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
@@ -283,85 +233,36 @@ function buscarNombreJur($nombre,$apat,$amat){
 function buscarPaginacionJur($nombre,$apat,$amat,$offset,$limit){
 	include('db.php');//nombre y apellido pat
 	if ($nombre !="" and $apat!="" and $amat=="") :
-		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] 
-		AND [concesiones].[ind_pre] = 1 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 		//nombre y apellidos
 	elseif ($nombre!="" and $apat!="" and $amat!="") :
-	// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-	// 	inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-	// 	inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-	// 	inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-	// 	AND [concesiones].[ind_pre] = 1 AND [personas].[nombre] LIKE '%$nombre%' 
-	// 	AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] 
-	// 	OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] 
-		OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 	//Apellidos
 	elseif ($nombre=="" and $apat!="" and $amat!="") :
-		// $query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] 
-		// LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] 
-		LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 		//Nombre
 	elseif ($nombre!="" and $apat=="" and $amat=="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[nombre] LIKE '%$nombre%' 
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 		//Paterno
 	elseif ($nombre=="" and $apat!="" and $amat=="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[a_paterno] LIKE '%$apat%' 
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' 
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 		//Materno
 	elseif ($nombre=="" and $apat=="" and $amat!="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 		//Nombre y Materno
 	elseif ($nombre !="" and $apat=="" and $amat!="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 1 AND [personas].[nombre] LIKE '%$nombre%' 
-		// AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 	endif;
 	$result = sqlsrv_query($con, $query);
 	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
@@ -373,86 +274,37 @@ function buscarPaginacionJur($nombre,$apat,$amat,$offset,$limit){
 function buscarNombre($nombre,$apat,$amat){
 	include('db.php');//nombre y apellido pat
 	if ($nombre !="" and $apat!="" and $amat=="") :
-		// $query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] 
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'
-			ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per]";
 
 		//nombre y apellidos
 	elseif ($nombre!="" and $apat!="" and $amat!="") :
-	// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-	// 	inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-	// 	inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-	// 	inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-	// 	AND [concesiones].[ind_pre] = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-	// 	AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' 
-	// 	ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per]";
+
 	//Apellidos
 	elseif ($nombre=="" and $apat!="" and $amat!="") :
-		// $query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per]";
 		//Nombre
 	elseif ($nombre!="" and $apat=="" and $amat=="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' ORDER BY [personas].[id_per]";
+
 		//Paterno
 	elseif ($nombre=="" and $apat!="" and $amat=="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[a_paterno] LIKE '%$apat%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per]";
 		//Materno
 	elseif ($nombre=="" and $apat=="" and $amat!="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per]";
+
 		//Nombre y Materno
 	elseif ($nombre !="" and $apat=="" and $amat!="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		// AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per]";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per]";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per]";
+
 	endif;
 	$result = sqlsrv_query($con, $query);
 	if (sqlsrv_has_rows($result)!=0) {
@@ -466,85 +318,38 @@ function buscarNombre($nombre,$apat,$amat){
 function buscarPaginacion($nombre,$apat,$amat,$offset,$limit){
 	include('db.php');//nombre y apellido pat
 	if ($nombre !="" and $apat!="" and $amat=="") :
-		// $query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] 
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%'
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 		//nombre y apellidos
 	elseif ($nombre!="" and $apat!="" and $amat!="") :
-	// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-	// 	inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-	// 	inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-	// 	inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-	// 	AND [concesiones].[ind_pre] = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-	// 	AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] 
-	// 	OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] 
-		OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 	//Apellidos
 	elseif ($nombre=="" and $apat!="" and $amat!="") :
-		// $query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] 
-		// LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] 
-		LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 		//Nombre
 	elseif ($nombre!="" and $apat=="" and $amat=="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 		//Paterno
 	elseif ($nombre=="" and $apat!="" and $amat=="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[a_paterno] LIKE '%$apat%' 
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' 
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_paterno] LIKE '%$apat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 		//Materno
 	elseif ($nombre=="" and $apat=="" and $amat!="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+
 		//Nombre y Materno
 	elseif ($nombre !="" and $apat=="" and $amat!="") :
-		// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] FROM [SistBusquedas].[dbo].[personas] 
-		// inner join [SistBusquedas].[dbo].[per_carp] on [personas].[id_per] = [per_carp].[id_per] 
-		// inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] 
-		// inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc]
-		// AND [concesiones].[ind_pre] = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		// AND [personas].[a_materno] LIKE '%$amat%' 
-		// ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 
-		$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' 
-		AND [personas].[a_materno] LIKE '%$amat%' 
-		ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+		$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 0 where personas.limpio = 0 AND [personas].[nombre] LIKE '%$nombre%' AND [personas].[a_materno] LIKE '%$amat%' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 	endif;
 	$result = sqlsrv_query($con, $query);
 	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
