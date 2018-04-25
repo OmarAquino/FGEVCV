@@ -10,7 +10,7 @@
    	<div class="col-3"><input type="text" name="p" class="form-control" value="<?php echo($_GET['p'])?>" placeholder="Nombre(s)..."></textarea></div>
     <div class="col-3"><input type="text" name="s" class="form-control" value="<?php echo($_GET['s'])?>" placeholder="Ap. Paterno..."></textarea></div>
     <div class="col-3"><input type="text" name="t" class="form-control" value="<?php echo($_GET['t'])?>" placeholder="Ap. Materno..."></textarea></div>
-	<div class="col-2" align="center"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
+	<div class="col-2" align="center"><button id="buscar-submit" type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
 </form>
 	<div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    		<div class="row">
@@ -168,5 +168,22 @@
    	</div>   	
 		<?php endif ?>
 			<div class="col-2" align="center">
-            	<a href="lista-concesionarios.php"><button type="button" class="btn btn-secondary">Regresar</button></a>
+            	<a href="lista-concesionarios.php"><button type="button" id="regresar-lista" class="btn btn-secondary">Regresar</button></a>
     		</div>
+
+
+
+        <div class="loaderContainer">
+            <div class="loader"></div>
+        </div>
+        <script>
+           $('.page-item').click(function() {
+              $('.loaderContainer').css('display', 'block');
+           });
+           $('#buscar-submit').click(function() {
+              $('.loaderContainer').css('display', 'block');
+           });
+           $('#regresar-lista').click(function() {
+              $('.loaderContainer').css('display', 'block');
+           });
+        </script>
