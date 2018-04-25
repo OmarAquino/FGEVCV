@@ -46,7 +46,7 @@ input[type=checkbox].css-checkbox:checked + label.css-label {
   animation: spin 2s linear infinite;
   margin: 0 auto;
   position: relative;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 }
 
