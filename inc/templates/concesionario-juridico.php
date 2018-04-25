@@ -37,6 +37,7 @@
     $nota = $_POST['fgevcv-nota'];
     $idconcesion = $_POST['idconcesion'];
     guardarNota($idconcesion,$nota);
+    echo '<script>window.close()</script>';
     ?>
 <?php endif ?>
 <h3>Detalle de la concesión</h3>

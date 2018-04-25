@@ -40,6 +40,7 @@
         $nota = "Sin Observaciones";
         guardarNota($idconcesion,$nota);
     }
+    echo '<script>window.close()</script>';
     ?>
 <?php endif ?>
 <h3>Detalle de la concesión</h3>
