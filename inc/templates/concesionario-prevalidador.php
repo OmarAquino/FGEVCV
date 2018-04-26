@@ -77,7 +77,7 @@
                             var status = response.trim();
                             console.log(status);
                             if (status==editando) {
-                                // $('#editingModal').modal('show');
+                                $('#editingModal').modal('show');
                             }
                         }
                     });
@@ -373,6 +373,7 @@
             $auto = 1;
             if($auto == 1) {
                 foreach ($consulta as $resultado):
+                //var_dump($consulta);
                     if ($resultado) {
                         $placa      = $resultado['placa'];
                         $vin        = $resultado['vin'];
@@ -380,8 +381,8 @@
                         $marca      = $resultado['marca'];
                         $submarca   = $resultado['submarca'];
                         $num_eco    = $resultado['num_economico'];
-                        $nota    = $resultado['nota'];
-                     } 
+                        $nota       = $resultado['nota'];
+                    }
                 $placa = $resultado['placa'];
                 $auto = 0;
                 endforeach; 
@@ -483,7 +484,7 @@
                 <div class="col-9">
                     <textarea name="fgevcv-nota" id="" cols="30" rows="3">
                         <?php if ($nota): ?>
-                            <?php echo $resultado['nota']; ?>
+                            <?php echo $nota; ?>
                         <?php endif ?>
                     </textarea>
                 </div>

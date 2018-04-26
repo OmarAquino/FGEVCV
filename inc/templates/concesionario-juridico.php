@@ -482,7 +482,9 @@
     <div class="row rowDato">
         <div class="col-3">Nota:</div>
         <div class="col-9">
-            <textarea name="fgevcv-nota" id="" cols="50" rows="4"><?php echo $nota; ?></textarea>
+            <textarea name="fgevcv-nota" id="" cols="50" rows="4">
+                <?php echo $nota; ?>
+            </textarea>
         </div>
     </div>
     <script>
