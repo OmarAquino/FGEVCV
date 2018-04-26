@@ -1,13 +1,13 @@
 <?php if (isset($_POST['fgevcv-guardar'])): ?>
-    <?php if (isset($_POST['ci'])): ?>
-        <?php actualizarCarpetasPropietario($_POST['ci']); ?>
-    <?php endif ?>
-    <?php if (isset($_POST['cia'])): ?>
-        <?php actualizarCarpetasAuto($_POST['cia']); ?>
-    <?php endif ?>
-    <?php if (isset($_POST['cim'])): ?>
-        <?php actualizarMandamientos($_POST['cim']); ?>
-    <?php endif ?>
+    <?php //if (isset($_POST['ci'])): ?>
+        <?php //actualizarCarpetasPropietario($_POST['ci']); ?>
+    <?php //endif ?>
+    <?php //if (isset($_POST['cia'])): ?>
+        <?php //actualizarCarpetasAuto($_POST['cia']); ?>
+    <?php //endif ?>
+    <?php //if (isset($_POST['cim'])): ?>
+        <?php //actualizarMandamientos($_POST['cim']); ?>
+    <?php //endif ?>
     <?php
     $nota = $_POST['fgevcv-nota'];
     $idconcesion = $_POST['idconcesion'];
@@ -24,15 +24,15 @@
     <?php endif ?>
 <?php endif ?>
 <?php if (isset($_POST['fgevcv-guardar-draft'])): ?>
-    <?php if (isset($_POST['ci'])): ?>
-        <?php actualizarCarpetasPropietario($_POST['ci']); ?>
-    <?php endif ?>
-    <?php if (isset($_POST['cia'])): ?>
-        <?php actualizarCarpetasAuto($_POST['cia']); ?>
-    <?php endif ?>
-    <?php if (isset($_POST['cim'])): ?>
-        <?php actualizarMandamientos($_POST['cim']); ?>
-    <?php endif ?>
+    <?php //if (isset($_POST['ci'])): ?>
+        <?php //actualizarCarpetasPropietario($_POST['ci']); ?>
+    <?php //endif ?>
+    <?php //if (isset($_POST['cia'])): ?>
+        <?php //actualizarCarpetasAuto($_POST['cia']); ?>
+    <?php //endif ?>
+    <?php //if (isset($_POST['cim'])): ?>
+        <?php //actualizarMandamientos($_POST['cim']); ?>
+    <?php //endif ?>
     <?php
     $nota = $_POST['fgevcv-nota'];
     $idconcesion = $_POST['idconcesion'];
@@ -134,8 +134,30 @@
                                             jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
                                                 if(this.checked) {
                                                     jQuery("#cih-<?php echo $labelCounter; ?>").val('1');
+                                                    jQuery.ajax({
+                                                        type : 'POST',
+                                                        url : 'inc/functions/actualizar-carpeta-investigacion.php',
+                                                        data : { 
+                                                                    statusCI : 1,
+                                                                    idCI     : <?php echo $resultado['id']; ?> 
+                                                               },
+                                                        success : function(response) {
+                                                            // $('#ajaxresult2').html(response);
+                                                        }
+                                                    });
                                                 }else {
                                                     jQuery("#cih-<?php echo $labelCounter; ?>").val('0');
+                                                    jQuery.ajax({
+                                                        type : 'POST',
+                                                        url : 'inc/functions/actualizar-carpeta-investigacion.php',
+                                                        data : { 
+                                                                    statusCI : 0,
+                                                                    idCI     : <?php echo $resultado['id']; ?> 
+                                                               },
+                                                        success : function(response) {
+                                                            // $('#ajaxresult2').html(response);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         </script>
@@ -174,8 +196,30 @@
                                             jQuery("#cim-<?php echo $labelCounterM; ?>").change(function() {
                                                 if(this.checked) {
                                                     jQuery("#cihm-<?php echo $labelCounterM; ?>").val('1');
+                                                    jQuery.ajax({
+                                                        type : 'POST',
+                                                        url : 'inc/functions/actualizar-mandamiento-judicial.php',
+                                                        data : { 
+                                                                    statusCI : 1,
+                                                                    idCI     : <?php echo $resultado['id']; ?> 
+                                                               },
+                                                        success : function(response) {
+                                                            // $('#ajaxresult2').html(response);
+                                                        }
+                                                    });
                                                 } else {
                                                     jQuery("#cihm-<?php echo $labelCounterM; ?>").val('0');
+                                                    jQuery.ajax({
+                                                        type : 'POST',
+                                                        url : 'inc/functions/actualizar-mandamiento-judicial.php',
+                                                        data : { 
+                                                                    statusCI : 0,
+                                                                    idCI     : <?php echo $resultado['id']; ?> 
+                                                               },
+                                                        success : function(response) {
+                                                            // $('#ajaxresult2').html(response);
+                                                        }
+                                                    });
                                                 }
                                             });
                                         </script>
@@ -223,8 +267,30 @@
                                         jQuery("#ci2-<?php echo $labelCounter2; ?>").change(function() {
                                             if(this.checked) {
                                                 jQuery("#cih2-<?php echo $labelCounter2; ?>").val('1');
+                                                jQuery.ajax({
+                                                    type : 'POST',
+                                                    url : 'inc/functions/actualizar-carpeta-investigacion.php',
+                                                    data : { 
+                                                                statusCI : 1,
+                                                                idCI     : <?php echo $resultado['id']; ?> 
+                                                           },
+                                                    success : function(response) {
+                                                        // $('#ajaxresult2').html(response);
+                                                    }
+                                                });
                                             }else {
                                                 jQuery("#cih2-<?php echo $labelCounter2; ?>").val('0');
+                                                jQuery.ajax({
+                                                    type : 'POST',
+                                                    url : 'inc/functions/actualizar-carpeta-investigacion.php',
+                                                    data : { 
+                                                                statusCI : 0,
+                                                                idCI     : <?php echo $resultado['id']; ?> 
+                                                           },
+                                                    success : function(response) {
+                                                        // $('#ajaxresult2').html(response);
+                                                    }
+                                                });
                                             }
                                         });
                                     </script>
@@ -259,8 +325,30 @@
                                         jQuery("#cim2-<?php echo $labelCounterM2; ?>").change(function() {
                                             if(this.checked) {
                                                 jQuery("#cihm2-<?php echo $labelCounterM2; ?>").val('1');
+                                                jQuery.ajax({
+                                                    type : 'POST',
+                                                    url : 'inc/functions/actualizar-mandamiento-judicial.php',
+                                                    data : { 
+                                                                statusCI : 1,
+                                                                idCI     : <?php echo $resultado['id']; ?> 
+                                                           },
+                                                    success : function(response) {
+                                                        // $('#ajaxresult2').html(response);
+                                                    }
+                                                });
                                             } else {
                                                 jQuery("#cihm2-<?php echo $labelCounterM2; ?>").val('0');
+                                                jQuery.ajax({
+                                                    type : 'POST',
+                                                    url : 'inc/functions/actualizar-mandamiento-judicial.php',
+                                                    data : { 
+                                                                statusCI : 0,
+                                                                idCI     : <?php echo $resultado['id']; ?> 
+                                                           },
+                                                    success : function(response) {
+                                                        // $('#ajaxresult2').html(response);
+                                                    }
+                                                });
                                             }
                                         });
                                     </script>
@@ -346,8 +434,30 @@
                                     jQuery("#ci3-<?php echo $labelCounter3; ?>").change(function() {
                                         if(this.checked) {
                                             jQuery("#cih3-<?php echo $labelCounter3; ?>").val('1');
+                                            jQuery.ajax({
+                                                type : 'POST',
+                                                url : 'inc/functions/actualizar-carpeta-investigacion-auto.php',
+                                                data : { 
+                                                            statusCI : 1,
+                                                            idCI     : <?php echo $resultado['id']; ?> 
+                                                       },
+                                                success : function(response) {
+                                                    // $('#ajaxresult2').html(response);
+                                                }
+                                            });
                                         }else {
                                             jQuery("#cih3-<?php echo $labelCounter3; ?>").val('0');
+                                            jQuery.ajax({
+                                                type : 'POST',
+                                                url : 'inc/functions/actualizar-carpeta-investigacion-auto.php',
+                                                data : { 
+                                                            statusCI : 0,
+                                                            idCI     : <?php echo $resultado['id']; ?> 
+                                                       },
+                                                success : function(response) {
+                                                    // $('#ajaxresult2').html(response);
+                                                }
+                                            });
                                         }
                                     });
                                 </script>

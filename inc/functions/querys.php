@@ -122,8 +122,6 @@ function actualizarMandamientos($arrayCI) {
 	}
 	sqlsrv_close($con);
 }
-
-
 function actualizarCarpetasAuto($arrayCIA) {
 	include('db.php');
 	foreach($arrayCIA as $autoCI => $statusCI) {
