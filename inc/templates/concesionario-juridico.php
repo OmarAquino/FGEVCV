@@ -422,11 +422,12 @@
                             <div class="col-3">
                                 <div class="row">
                                     <div class="col">
-                                        <a href="#"><?php echo $resultado['carpeta']; ?></a>
+                                        <!-- <a href="#"><?php echo $resultado['carpeta']; ?></a> -->
+                                        <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['region']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-3">
                                 <input id="cih3-<?php echo $labelCounter3; ?>" type="hidden" name="cia[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                 <input id="ci3-<?php echo $labelCounter3; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
                                 <label for="ci3-<?php echo $labelCounter3; ?>" class="css-label">No relevante</label>
@@ -461,6 +462,13 @@
                                         }
                                     });
                                 </script>
+                            </div>
+                            <div class="col-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['region']); ?>/Averiguaciones/asuntos/SEC_11-VEHICULOS/MUESTRAVEHICULO.asp?IdVehiculo=<?php echo $resultado['idVehiculo']; ?>" target="_blank">Detalle del auto</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     <?php $labelCounter3++; ?>

@@ -94,7 +94,7 @@ function consultarCarpetasAuto($idconcesion) {
 	if (is_numeric($idconcesion)) {
 		include('db.php');
 		// $query = "SELECT [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [per_conc].[rol], [concesiones].[id_conc], [per_carp].[id], [per_carp].[carpeta], [per_carp].[borrado], [per_carp].[origen] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] inner join [SistBusquedas].[dbo].[per_carp] on [per_carp].[id_per] = [personas].[id_per] and [concesiones].[id_conc] = $idconcesion";
-		$query = "SELECT vehiculos_carpetas.id, vehiculos_carpetas.carpeta, vehiculos_carpetas.status, vehiculos_carpetas.id_conc,vehiculos_carpetas.borrado, concesiones.id_conc, concesiones.vin, concesiones.placa from [SistBusquedas].[dbo].[vehiculos_carpetas] inner join [SistBusquedas].[dbo].[concesiones] on [vehiculos_carpetas].[id_conc] = [concesiones].[id_conc] and [concesiones].[id_conc] = $idconcesion";
+		$query = "SELECT vehiculos_carpetas.id, vehiculos_carpetas.idVehiculo, vehiculos_carpetas.region, vehiculos_carpetas.carpeta, vehiculos_carpetas.status, vehiculos_carpetas.id_conc,vehiculos_carpetas.borrado, concesiones.id_conc, concesiones.vin, concesiones.placa from [SistBusquedas].[dbo].[vehiculos_carpetas] inner join [SistBusquedas].[dbo].[concesiones] on [vehiculos_carpetas].[id_conc] = [concesiones].[id_conc] and [concesiones].[id_conc] = $idconcesion";
 		$result = sqlsrv_query($con, $query);
 		if (sqlsrv_has_rows($result)!=0) {
 			while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
