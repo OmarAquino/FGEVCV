@@ -601,7 +601,7 @@
         <h3>Esta concesión ya está siendo revisada</h3>
       </div>
       <div class="modal-footer">
-        <button id="cerrar-ventana"  type="button" class="btn btn-dark" onclick="cerrarVentana();">Regresar</button>
+        <button id="cerrar-ventana" type="button" class="btn btn-dark" onclick="cerrarVentana();">Regresar</button>
       </div>
     </div>
   </div>
