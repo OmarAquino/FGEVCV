@@ -1,3 +1,54 @@
+<?php if (isset($_POST['fgevcv-guardar-aceptar'])): ?>
+    <?php //if (isset($_POST['ci'])): ?>
+        <?php //actualizarCarpetasPropietario($_POST['ci']); ?>
+    <?php //endif ?>
+    <?php //if (isset($_POST['cia'])): ?>
+        <?php //actualizarCarpetasAuto($_POST['cia']); ?>
+    <?php //endif ?>
+    <?php //if (isset($_POST['cim'])): ?>
+        <?php //actualizarMandamientos($_POST['cim']); ?>
+    <?php //endif ?>
+    <?php
+    $nota = $_POST['fgevcv-nota'];
+    $idconcesion = $_POST['idconcesion'];
+    if ($nota!=""){
+        guardarNota($idconcesion,$nota);
+    }else{
+        $nota = "Sin Observaciones";
+        guardarNota($idconcesion,$nota);
+    }
+    ?>
+    <?php actualizarHistorial($_POST['usuario'], $_POST['idconcesion'], 2); ?>
+    <?php //if (isset($_POST['actualizarcicon'])): ?>
+    <?php actualizarIndicadorConcesion(2, $_POST['idconcesion']); ?>
+    <?php //endif ?>
+<?php endif ?>
+<?php if (isset($_POST['fgevcv-guardar-rechazar'])): ?>
+    <?php //if (isset($_POST['ci'])): ?>
+        <?php //actualizarCarpetasPropietario($_POST['ci']); ?>
+    <?php //endif ?>
+    <?php //if (isset($_POST['cia'])): ?>
+        <?php //actualizarCarpetasAuto($_POST['cia']); ?>
+    <?php //endif ?>
+    <?php //if (isset($_POST['cim'])): ?>
+        <?php //actualizarMandamientos($_POST['cim']); ?>
+    <?php //endif ?>
+    <?php
+    $nota = $_POST['fgevcv-nota'];
+    $idconcesion = $_POST['idconcesion'];
+    if ($nota!=""){
+        guardarNota($idconcesion,$nota);
+    }else{
+        $nota = "Sin Observaciones";
+        guardarNota($idconcesion,$nota);
+    }
+    ?>
+    <?php actualizarHistorial($_POST['usuario'], $_POST['idconcesion'], 3); ?>
+    <?php //if (isset($_POST['actualizarcicon'])): ?>
+    <?php actualizarIndicadorConcesion(3, $_POST['idconcesion']); ?>
+    <?php //endif ?>
+<?php endif ?>
+<!-- código viejito -->
 <?php if (isset($_POST['fgevcv-guardar'])): ?>
     <?php //if (isset($_POST['ci'])): ?>
         <?php //actualizarCarpetasPropietario($_POST['ci']); ?>
@@ -118,51 +169,53 @@
                         <?php $labelCounter = 1; ?>
                         <?php foreach ($consultaCi as $resultado) : ?>
                             <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['origen']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
+                                <?php if ($resultado['borrado']!=1): ?>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['origen']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col-5">
+                                            <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                            <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                            <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label>
+                                            <script>
+                                                jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
+                                                    if(this.checked) {
+                                                        jQuery("#cih-<?php echo $labelCounter; ?>").val('1');
+                                                        jQuery.ajax({
+                                                            type : 'POST',
+                                                            url : 'inc/functions/actualizar-carpeta-investigacion.php',
+                                                            data : { 
+                                                                        statusCI : 1,
+                                                                        idCI     : <?php echo $resultado['id']; ?> 
+                                                                   },
+                                                            success : function(response) {
+                                                                // $('#ajaxresult2').html(response);
+                                                            }
+                                                        });
+                                                    }else {
+                                                        jQuery("#cih-<?php echo $labelCounter; ?>").val('0');
+                                                        jQuery.ajax({
+                                                            type : 'POST',
+                                                            url : 'inc/functions/actualizar-carpeta-investigacion.php',
+                                                            data : { 
+                                                                        statusCI : 0,
+                                                                        idCI     : <?php echo $resultado['id']; ?> 
+                                                                   },
+                                                            success : function(response) {
+                                                                // $('#ajaxresult2').html(response);
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            </script>
+                                        </div>
                                     </div>
-                                    <div class="col-5">
-                                        <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
-                                        <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                        <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label>
-                                        <script>
-                                            jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
-                                                if(this.checked) {
-                                                    jQuery("#cih-<?php echo $labelCounter; ?>").val('1');
-                                                    jQuery.ajax({
-                                                        type : 'POST',
-                                                        url : 'inc/functions/actualizar-carpeta-investigacion.php',
-                                                        data : { 
-                                                                    statusCI : 1,
-                                                                    idCI     : <?php echo $resultado['id']; ?> 
-                                                               },
-                                                        success : function(response) {
-                                                            // $('#ajaxresult2').html(response);
-                                                        }
-                                                    });
-                                                }else {
-                                                    jQuery("#cih-<?php echo $labelCounter; ?>").val('0');
-                                                    jQuery.ajax({
-                                                        type : 'POST',
-                                                        url : 'inc/functions/actualizar-carpeta-investigacion.php',
-                                                        data : { 
-                                                                    statusCI : 0,
-                                                                    idCI     : <?php echo $resultado['id']; ?> 
-                                                               },
-                                                        success : function(response) {
-                                                            // $('#ajaxresult2').html(response);
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
+                                <?php endif ?>
                             <?php endif ?>
                             <?php $labelCounter++; ?>
                         <?php endforeach ?>
@@ -180,51 +233,53 @@
                         <?php $labelCounterM = 1; ?>
                         <?php foreach ($consultaMand as $resultado) : ?>
                             <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
-                                <div class="row">
-                                    <div class="col-3">
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
+                                <?php if ($resultado['borrado']!=1): ?>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="col-5">
+                                            <input id="cihm-<?php echo $labelCounterM; ?>" type="hidden" name="cim[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                            <input id="cim-<?php echo $labelCounterM; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                            <label for="cim-<?php echo $labelCounterM; ?>" class="css-label">No relevante</label>
+                                            <script>
+                                                jQuery("#cim-<?php echo $labelCounterM; ?>").change(function() {
+                                                    if(this.checked) {
+                                                        jQuery("#cihm-<?php echo $labelCounterM; ?>").val('1');
+                                                        jQuery.ajax({
+                                                            type : 'POST',
+                                                            url : 'inc/functions/actualizar-mandamiento-judicial.php',
+                                                            data : { 
+                                                                        statusCI : 1,
+                                                                        idCI     : <?php echo $resultado['id']; ?> 
+                                                                   },
+                                                            success : function(response) {
+                                                                // $('#ajaxresult2').html(response);
+                                                            }
+                                                        });
+                                                    } else {
+                                                        jQuery("#cihm-<?php echo $labelCounterM; ?>").val('0');
+                                                        jQuery.ajax({
+                                                            type : 'POST',
+                                                            url : 'inc/functions/actualizar-mandamiento-judicial.php',
+                                                            data : { 
+                                                                        statusCI : 0,
+                                                                        idCI     : <?php echo $resultado['id']; ?> 
+                                                                   },
+                                                            success : function(response) {
+                                                                // $('#ajaxresult2').html(response);
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            </script>
+                                        </div>
                                     </div>
-                                    <div class="col-5">
-                                        <input id="cihm-<?php echo $labelCounterM; ?>" type="hidden" name="cim[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
-                                        <input id="cim-<?php echo $labelCounterM; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                        <label for="cim-<?php echo $labelCounterM; ?>" class="css-label">No relevante</label>
-                                        <script>
-                                            jQuery("#cim-<?php echo $labelCounterM; ?>").change(function() {
-                                                if(this.checked) {
-                                                    jQuery("#cihm-<?php echo $labelCounterM; ?>").val('1');
-                                                    jQuery.ajax({
-                                                        type : 'POST',
-                                                        url : 'inc/functions/actualizar-mandamiento-judicial.php',
-                                                        data : { 
-                                                                    statusCI : 1,
-                                                                    idCI     : <?php echo $resultado['id']; ?> 
-                                                               },
-                                                        success : function(response) {
-                                                            // $('#ajaxresult2').html(response);
-                                                        }
-                                                    });
-                                                } else {
-                                                    jQuery("#cihm-<?php echo $labelCounterM; ?>").val('0');
-                                                    jQuery.ajax({
-                                                        type : 'POST',
-                                                        url : 'inc/functions/actualizar-mandamiento-judicial.php',
-                                                        data : { 
-                                                                    statusCI : 0,
-                                                                    idCI     : <?php echo $resultado['id']; ?> 
-                                                               },
-                                                        success : function(response) {
-                                                            // $('#ajaxresult2').html(response);
-                                                        }
-                                                    });
-                                                }
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
+                                <?php endif ?>
                             <?php endif ?>
                         <?php endforeach ?>
                     <?php endif ?>
@@ -251,51 +306,53 @@
                     <?php $labelCounter2 = 1; ?>
                     <?php foreach ($consultaCi as $resultado) : ?>
                         <?php if ($idPersona==$resultado['id_per']) : ?>
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="row">
-                                        <div class="col">
-                                            <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['origen']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
+                            <?php if ($resultado['borrado']!=1): ?>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['origen']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="col-5">
+                                        <input id="cih2-<?php echo $labelCounter2; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                        <input id="ci2-<?php echo $labelCounter2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                        <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label">No relevante</label>
+                                        <script>
+                                            jQuery("#ci2-<?php echo $labelCounter2; ?>").change(function() {
+                                                if(this.checked) {
+                                                    jQuery("#cih2-<?php echo $labelCounter2; ?>").val('1');
+                                                    jQuery.ajax({
+                                                        type : 'POST',
+                                                        url : 'inc/functions/actualizar-carpeta-investigacion.php',
+                                                        data : { 
+                                                                    statusCI : 1,
+                                                                    idCI     : <?php echo $resultado['id']; ?> 
+                                                               },
+                                                        success : function(response) {
+                                                            // $('#ajaxresult2').html(response);
+                                                        }
+                                                    });
+                                                }else {
+                                                    jQuery("#cih2-<?php echo $labelCounter2; ?>").val('0');
+                                                    jQuery.ajax({
+                                                        type : 'POST',
+                                                        url : 'inc/functions/actualizar-carpeta-investigacion.php',
+                                                        data : { 
+                                                                    statusCI : 0,
+                                                                    idCI     : <?php echo $resultado['id']; ?> 
+                                                               },
+                                                        success : function(response) {
+                                                            // $('#ajaxresult2').html(response);
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
-                                <div class="col-5">
-                                    <input id="cih2-<?php echo $labelCounter2; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
-                                    <input id="ci2-<?php echo $labelCounter2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                    <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label">No relevante</label>
-                                    <script>
-                                        jQuery("#ci2-<?php echo $labelCounter2; ?>").change(function() {
-                                            if(this.checked) {
-                                                jQuery("#cih2-<?php echo $labelCounter2; ?>").val('1');
-                                                jQuery.ajax({
-                                                    type : 'POST',
-                                                    url : 'inc/functions/actualizar-carpeta-investigacion.php',
-                                                    data : { 
-                                                                statusCI : 1,
-                                                                idCI     : <?php echo $resultado['id']; ?> 
-                                                           },
-                                                    success : function(response) {
-                                                        // $('#ajaxresult2').html(response);
-                                                    }
-                                                });
-                                            }else {
-                                                jQuery("#cih2-<?php echo $labelCounter2; ?>").val('0');
-                                                jQuery.ajax({
-                                                    type : 'POST',
-                                                    url : 'inc/functions/actualizar-carpeta-investigacion.php',
-                                                    data : { 
-                                                                statusCI : 0,
-                                                                idCI     : <?php echo $resultado['id']; ?> 
-                                                           },
-                                                    success : function(response) {
-                                                        // $('#ajaxresult2').html(response);
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    </script>
-                                </div>
-                            </div>
+                            <?php endif ?>   
                         <?php endif ?> 
                         <?php $labelCounter2++; ?>
                     <?php endforeach ?>
@@ -309,51 +366,53 @@
                     <?php $labelCounterM2 = 1; ?>
                     <?php foreach ($consultaMand as $resultado) : ?>
                         <?php if ($idPersona==$resultado['id_per']) : ?>
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="row">
-                                        <div class="col">
-                                            <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <input id="cihm2-<?php echo $labelCounterM2; ?>" type="hidden" name="cim[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
-                                    <input id="cim2-<?php echo $labelCounterM2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                    <label for="cim2-<?php echo $labelCounterM2; ?>" class="css-label">No relevante</label>
-                                    <script>
-                                        jQuery("#cim2-<?php echo $labelCounterM2; ?>").change(function() {
-                                            if(this.checked) {
-                                                jQuery("#cihm2-<?php echo $labelCounterM2; ?>").val('1');
-                                                jQuery.ajax({
-                                                    type : 'POST',
-                                                    url : 'inc/functions/actualizar-mandamiento-judicial.php',
-                                                    data : { 
-                                                                statusCI : 1,
-                                                                idCI     : <?php echo $resultado['id']; ?> 
-                                                           },
-                                                    success : function(response) {
-                                                        // $('#ajaxresult2').html(response);
-                                                    }
-                                                });
-                                            } else {
-                                                jQuery("#cihm2-<?php echo $labelCounterM2; ?>").val('0');
-                                                jQuery.ajax({
-                                                    type : 'POST',
-                                                    url : 'inc/functions/actualizar-mandamiento-judicial.php',
-                                                    data : { 
-                                                                statusCI : 0,
-                                                                idCI     : <?php echo $resultado['id']; ?> 
-                                                           },
-                                                    success : function(response) {
-                                                        // $('#ajaxresult2').html(response);
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    </script>
-                                </div>
-                            </div>
+                            <?php if ($resultado['borrado']!=1): ?>
+                               <div class="row">
+                                   <div class="col-3">
+                                       <div class="row">
+                                           <div class="col">
+                                               <a href="http://192.108.24.26/ConsultaProc/asuntos/SEC_01-GENERALES/VISUALIZA_GENERALES.asp?IdAsunto=<?php echo $resultado['mand_jud']; ?>" target="_blank"><?php echo $resultado['mand_jud']; ?></a>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-5">
+                                       <input id="cihm2-<?php echo $labelCounterM2; ?>" type="hidden" name="cim[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                       <input id="cim2-<?php echo $labelCounterM2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                       <label for="cim2-<?php echo $labelCounterM2; ?>" class="css-label">No relevante</label>
+                                       <script>
+                                           jQuery("#cim2-<?php echo $labelCounterM2; ?>").change(function() {
+                                               if(this.checked) {
+                                                   jQuery("#cihm2-<?php echo $labelCounterM2; ?>").val('1');
+                                                   jQuery.ajax({
+                                                       type : 'POST',
+                                                       url : 'inc/functions/actualizar-mandamiento-judicial.php',
+                                                       data : { 
+                                                                   statusCI : 1,
+                                                                   idCI     : <?php echo $resultado['id']; ?> 
+                                                              },
+                                                       success : function(response) {
+                                                           // $('#ajaxresult2').html(response);
+                                                       }
+                                                   });
+                                               } else {
+                                                   jQuery("#cihm2-<?php echo $labelCounterM2; ?>").val('0');
+                                                   jQuery.ajax({
+                                                       type : 'POST',
+                                                       url : 'inc/functions/actualizar-mandamiento-judicial.php',
+                                                       data : { 
+                                                                   statusCI : 0,
+                                                                   idCI     : <?php echo $resultado['id']; ?> 
+                                                              },
+                                                       success : function(response) {
+                                                           // $('#ajaxresult2').html(response);
+                                                       }
+                                                   });
+                                               }
+                                           });
+                                       </script>
+                                   </div>
+                               </div> 
+                            <?php endif ?>
                         <?php endif ?>
                         <?php $labelCounterM2++; ?>
                     <?php endforeach ?>
@@ -418,59 +477,61 @@
             <?php if ($consultaCiAuto): ?>
                 <?php $labelCounter3 = 1; ?>
                 <?php foreach ($consultaCiAuto as $resultado) : ?>
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <!-- <a href="#"><?php echo $resultado['carpeta']; ?></a> -->
-                                        <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['region']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
+                        <?php if ($resultado['borrado']!=1): ?>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <!-- <a href="#"><?php echo $resultado['carpeta']; ?></a> -->
+                                            <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['region']); ?>/Averiguaciones/asuntos/SEC_01-GENERALES/AFormato.asp?IdAsunto=<?php echo $resultado['carpeta']; ?>" target="_blank"><?php echo $resultado['carpeta']; ?></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <input id="cih3-<?php echo $labelCounter3; ?>" type="hidden" name="cia[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                    <input id="ci3-<?php echo $labelCounter3; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                    <label for="ci3-<?php echo $labelCounter3; ?>" class="css-label">No relevante</label>
+                                    <script>
+                                        jQuery("#ci3-<?php echo $labelCounter3; ?>").change(function() {
+                                            if(this.checked) {
+                                                jQuery("#cih3-<?php echo $labelCounter3; ?>").val('1');
+                                                jQuery.ajax({
+                                                    type : 'POST',
+                                                    url : 'inc/functions/actualizar-carpeta-investigacion-auto.php',
+                                                    data : { 
+                                                                statusCI : 1,
+                                                                idCI     : <?php echo $resultado['id']; ?> 
+                                                           },
+                                                    success : function(response) {
+                                                        // $('#ajaxresult2').html(response);
+                                                    }
+                                                });
+                                            }else {
+                                                jQuery("#cih3-<?php echo $labelCounter3; ?>").val('0');
+                                                jQuery.ajax({
+                                                    type : 'POST',
+                                                    url : 'inc/functions/actualizar-carpeta-investigacion-auto.php',
+                                                    data : { 
+                                                                statusCI : 0,
+                                                                idCI     : <?php echo $resultado['id']; ?> 
+                                                           },
+                                                    success : function(response) {
+                                                        // $('#ajaxresult2').html(response);
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                                <div class="col-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['region']); ?>/Averiguaciones/asuntos/SEC_11-VEHICULOS/MUESTRAVEHICULO.asp?IdVehiculo=<?php echo $resultado['idVehiculo']; ?>" target="_blank">Detalle del auto</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <input id="cih3-<?php echo $labelCounter3; ?>" type="hidden" name="cia[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
-                                <input id="ci3-<?php echo $labelCounter3; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                <label for="ci3-<?php echo $labelCounter3; ?>" class="css-label">No relevante</label>
-                                <script>
-                                    jQuery("#ci3-<?php echo $labelCounter3; ?>").change(function() {
-                                        if(this.checked) {
-                                            jQuery("#cih3-<?php echo $labelCounter3; ?>").val('1');
-                                            jQuery.ajax({
-                                                type : 'POST',
-                                                url : 'inc/functions/actualizar-carpeta-investigacion-auto.php',
-                                                data : { 
-                                                            statusCI : 1,
-                                                            idCI     : <?php echo $resultado['id']; ?> 
-                                                       },
-                                                success : function(response) {
-                                                    // $('#ajaxresult2').html(response);
-                                                }
-                                            });
-                                        }else {
-                                            jQuery("#cih3-<?php echo $labelCounter3; ?>").val('0');
-                                            jQuery.ajax({
-                                                type : 'POST',
-                                                url : 'inc/functions/actualizar-carpeta-investigacion-auto.php',
-                                                data : { 
-                                                            statusCI : 0,
-                                                            idCI     : <?php echo $resultado['id']; ?> 
-                                                       },
-                                                success : function(response) {
-                                                    // $('#ajaxresult2').html(response);
-                                                }
-                                            });
-                                        }
-                                    });
-                                </script>
-                            </div>
-                            <div class="col-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <a href="http://192.108.24.103/<?php echo preg_replace('/\s+/', '', $resultado['region']); ?>/Averiguaciones/asuntos/SEC_11-VEHICULOS/MUESTRAVEHICULO.asp?IdVehiculo=<?php echo $resultado['idVehiculo']; ?>" target="_blank">Detalle del auto</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php endif ?>
                     <?php $labelCounter3++; ?>
                 <?php endforeach ?>
             <?php endif ?>
@@ -519,14 +580,21 @@
         }
     </script>
     <div class="row rowDato">
+        <input type="hidden" name="idconcesion" value="<?php echo $_GET['id_conc']; ?>">
+        <input type="hidden" name="actualizarcicon" id="actualizarcicon" value="3">
+        <input type="hidden" name="usuario" value="<?php echo $_SESSION['user']; ?>">
         <div class="col-2">
-            <input type="hidden" name="idconcesion" value="<?php echo $_GET['id_conc']; ?>">
-            <input type="hidden" name="actualizarcicon" id="actualizarcicon" value="3">
-            <input type="hidden" name="usuario" value="<?php echo $_SESSION['user']; ?>">
-            <button id="concesionario-form-submit" type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
-                <i class="far fa-save"></i> Guardar
+            <button id="" name="fgevcv-guardar-aceptar" type="submit" class="btn btn-dark">
+                <i class="fas fa-check"></i> Aceptar
             </button>
         </div>
+        <div class="col-2">
+            <button id="" name="fgevcv-guardar-rechazar" type="submit" class="btn btn-dark">
+                <i class="fas fa-times"></i> Rechazar
+            </button>
+        </div>
+    </div>
+    <div class="row rowDato">
         <div class="col-2">
             <button type="button" class="btn btn-secondary" onclick="self.close()">
                 <i class="far fa-arrow-alt-circle-left"></i> Regresar
@@ -584,9 +652,9 @@
 </form>
 <script>
     function cerrarVentana() {
-        jQuery('#cerrar-ventana').click(function(){
+        // jQuery('#cerrar-ventana').click(function(){
             window.close();
-        });
+        // });
     }
 </script>
 <!-- Modal -->
@@ -600,7 +668,7 @@
         <h3>Esta concesión ya está siendo revisada</h3>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" onclick="cerrarVentana();">Regresar</button>
+        <button id="#cerrar-ventana" type="button" class="btn btn-dark" onclick="cerrarVentana();">Regresar</button>
       </div>
     </div>
   </div>
