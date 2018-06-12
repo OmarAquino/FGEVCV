@@ -67,6 +67,7 @@
                 $( document ).ready(function() {
                     var editando = 'editando';
                     var libre = 'libre';
+                    
                     $.ajax({
                         type : 'POST',
                         url : 'inc/functions/editando.php',
@@ -106,6 +107,8 @@
                 <div class="col-3">Nombre:</div>
                     <?php foreach ($consulta as $resultado): ?>
                         <?php
+                        $contP=0;
+                        $contC=0;
                         if ($resultado['rol']=='P') {
                             $idPersonaPropietario  = $resultado['id_per']; 
                             $nombre     = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
@@ -133,7 +136,7 @@
                                             </div>
                                             
                                             <div class="col-5">
-                                                <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                                <input id="cih-<?php echo $labelCounter; $contP++;?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                                 <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
                                                 <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label>
                                                 <script>
@@ -172,6 +175,33 @@
                                     <?php endif ?>
                                     <?php $labelCounter++; ?>
                                 <?php endforeach ?>
+                                <?php if($contP>2) :?>
+                                        <div class="row rowDato">
+                                            <div class="col-3"></div></div>
+                                            <div class="col-9">
+                                                <label for="ciT-<?php echo $idPersonaPropietario; ?>" class="css-label">Marcar todas las carpetas de concesionario como No relevante</label>
+                                                <input id="ciT-<?php echo $idPersonaPropietario; ?>" name="" type="checkbox" class="css-checkbox">
+                                            </div>
+                                            <script>
+                                                $("#ciT-<?php echo $idPersonaPropietario; ?>").change(function() {
+                                                    $('.loaderContainer').css('display', 'block');
+                                                    var checkboxes = $("input[id^='ci-']");
+                                                    if(this.checked){                                                    
+                                                        $.each( checkboxes, function( key, value ) {
+                                                            $("#"+value.id).prop('checked', true);
+                                                            $("#"+value.id).change();
+                                                        });
+                                                    }else{
+                                                        $.each( checkboxes, function( key, value ) {
+                                                            $("#"+value.id).prop('checked', false);
+                                                            $("#"+value.id).change();
+                                                        });
+                                                    }
+                                                    $('.loaderContainer').css('display', 'none');
+                                                });
+                                            </script>
+                                        </div>
+                                    <?php endif ?>
                             <?php endif ?>
                         <?php endif ?>
                     <?php endforeach ?>
@@ -268,7 +298,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-5">
-                                                    <input id="cih2-<?php echo $labelCounter2; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                                    <input id="cih2-<?php echo $labelCounter2; $contC++;?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                                     <input id="ci2-<?php echo $labelCounter2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
                                                     <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label">No relevante</label>
                                                     <script>
@@ -307,7 +337,7 @@
                                         <?php endif ?> 
                                         <?php $labelCounter2++; ?>
                                     <?php endforeach ?>
-                                    <?php if($labelCounter2>1) :?>
+                                    <?php if($contC>2) :?>
                                         <div class="row rowDato">
                                             <div class="col-3"></div></div>
                                             <div class="col-9">
