@@ -63,6 +63,7 @@
                 var minutos  = d.getMinutes();
                 var segundos = d.getSeconds();
                 var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+                
                 $( document ).ready(function() {
                     var editando = 'editando';
                     var libre = 'libre';
@@ -98,6 +99,7 @@
                         ajaxTimer();
                     }, 120000);
                 });
+                
             </script>  
             <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
             <div class="row rowDato">
@@ -129,6 +131,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-5">
                                                 <input id="cih-<?php echo $labelCounter; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
                                                 <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
@@ -246,7 +249,9 @@
                     </div>
                     <?php if ($idPersonaPropietario!=$resultado['id_per']) { ?>
                         <div class="row rowDato">
-                            <div class="col-3">Carpetas de Investigación</div>
+                            <div class="col-3">
+                                Carpetas de Investigación
+                            </div>
                             <div class="col-9">
                                 <?php $idPersona = $resultado['id_per']; ?>
                                 <?php if ($consultaCi): ?>
@@ -302,6 +307,33 @@
                                         <?php endif ?> 
                                         <?php $labelCounter2++; ?>
                                     <?php endforeach ?>
+                                    <?php if($labelCounter2>1) :?>
+                                        <div class="row rowDato">
+                                            <div class="col-3"></div></div>
+                                            <div class="col-9">
+                                                <label for="ci2T-<?php echo $idPersonaPropietario; ?>" class="css-label">Marcar todas las carpetas de conductor como No relevante</label>
+                                                <input id="ci2T-<?php echo $idPersonaPropietario; ?>" name="" type="checkbox" class="css-checkbox">
+                                            </div>
+                                            <script>
+                                                $("#ci2T-<?php echo $idPersonaPropietario; ?>").change(function() {
+                                                    $('.loaderContainer').css('display', 'block');
+                                                    var checkboxes = $("input[id^='ci2-']");
+                                                    if(this.checked){                                                    
+                                                        $.each( checkboxes, function( key, value ) {
+                                                            $("#"+value.id).prop('checked', true);
+                                                            $("#"+value.id).change();
+                                                        });
+                                                    }else{
+                                                        $.each( checkboxes, function( key, value ) {
+                                                            $("#"+value.id).prop('checked', false);
+                                                            $("#"+value.id).change();
+                                                        });
+                                                    }
+                                                    $('.loaderContainer').css('display', 'none');
+                                                });
+                                            </script>
+                                        </div>
+                                    <?php endif ?>
                                 <?php endif ?>
                             </div>
                         </div>
@@ -607,3 +639,6 @@
   </div>
 </div>
 
+<div class="loaderContainer">
+    <div class="loader"></div>
+</div>
