@@ -6,11 +6,15 @@
     <?php endif ?>
     <div class="Concesionarios-contenedor">
 <h3>Lista de concesionarios</h3>
-<form method="GET" action="buscar.php?p=$_GET['p']&s=$_GET['s']&t=$_GET['t']" class="row">
+<form method="GET" action="buscar.php?p=$_GET['p']&s=$_GET['s']&t=$_GET['t']&t=$_GET['placa']&t=$_GET['serie']&t=$_GET['eco']" class="row">
    	<div class="col-3"><input type="text" name="p" class="form-control" value="<?php echo($_GET['p'])?>" placeholder="Nombre(s)..."></textarea></div>
     <div class="col-3"><input type="text" name="s" class="form-control" value="<?php echo($_GET['s'])?>" placeholder="Ap. Paterno..."></textarea></div>
     <div class="col-3"><input type="text" name="t" class="form-control" value="<?php echo($_GET['t'])?>" placeholder="Ap. Materno..."></textarea></div>
-	<div class="col-2" align="center"><button id="buscar-submit" type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
+	<div class="col-3"></div>
+    <div class="col-3"><input type="text" name="placa" class="form-control" value="<?php echo($_GET['placa'])?>" placeholder="Placa"></textarea></div>
+    <div class="col-3"><input type="text" name="serie" class="form-control" value="<?php echo($_GET['serie'])?>" placeholder="Serie/VIN"></textarea></div>
+    <div class="col-3"><input type="text" name="eco" class="form-control" value="<?php echo($_GET['eco'])?>" placeholder="Num. Económico"></textarea></div>
+	<div class="col-3" align="center"><button id="buscar-submit" type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
 </form>
 	<div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    		<div class="row">
@@ -22,14 +26,17 @@
 		<?php //if (isset($_GET['fgevcv-buscar'])): 
     		$nombre = $_GET['p'];
     		$apat = $_GET['s'];
-    		$amat = $_GET['t'];
-    		if ($nombre=="" and $apat=="" and $amat==""):?>
+			$amat = $_GET['t'];
+			$placa = $_GET['placa'];
+			$serie = $_GET['serie'];
+			$eco = $_GET['eco'];
+    		if ($nombre=="" and $apat=="" and $amat=="" and $placa=="" and $serie=="" and $eco==""):?>
     		<br>
     			<div class="alert alert-danger" align="center">
               		<strong>No ha ingresado criterios para realizar la busqueda</strong>
             	</div>
             <?php else:
-	    	$consulta = buscarNombre($nombre, $apat, $amat);
+	    	$consulta = buscarNombre($nombre, $apat, $amat,$placa, $serie, $eco);
         if ($consulta) {
           $res=count($consulta);
         } else {
@@ -46,7 +53,7 @@
       			$offset = 0;
    			}
    			if ($res!=0):
-   			$cons=buscarPaginacion($nombre,$apat,$amat,$offset,$limit);
+   			$cons=buscarPaginacion($nombre,$apat,$amat,$placa, $serie, $eco,$offset,$limit);
    			$ajaxCounter = 1; ?>
 			<script>
 			    var d        = new Date();

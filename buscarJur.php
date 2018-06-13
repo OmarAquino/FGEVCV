@@ -10,7 +10,11 @@
     <div class="col-3"><input type="text" name="p" class="form-control" value="<?php echo($_GET['p'])?>" placeholder="Nombre(s)..."></textarea></div>
     <div class="col-3"><input type="text" name="s" class="form-control" value="<?php echo($_GET['s'])?>" placeholder="Ap. Paterno..."></textarea></div>
     <div class="col-3"><input type="text" name="t" class="form-control" value="<?php echo($_GET['t'])?>" placeholder="Ap. Materno..."></textarea></div>
-    <div class="col-1"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
+    <div class="col-3"></div>
+    <div class="col-3"><input type="text" name="placa" class="form-control" value="<?php echo($_GET['placa'])?>" placeholder="Placa"></textarea></div>
+    <div class="col-3"><input type="text" name="serie" class="form-control" value="<?php echo($_GET['serie'])?>" placeholder="Serie/VIN"></textarea></div>
+    <div class="col-3"><input type="text" name="eco" class="form-control" value="<?php echo($_GET['eco'])?>" placeholder="Num. Económico"></textarea></div>
+    <div class="col-3"><button type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
 </form>
   <div class="Concesionarios-lista">
       <div class="row">
@@ -22,13 +26,13 @@
         $nombre = $_GET['p'];
         $apat = $_GET['s'];
         $amat = $_GET['t'];
-        if ($nombre=="" and $apat=="" and $amat==""):?>
+        if ($nombre=="" and $apat=="" and $amat=="" and $placa=="" and $serie=="" and $eco==""):?>
         <br>
           <div class="alert alert-danger" align="center">
                   <strong>No ha ingresado criterios para realizar la busqueda</strong>
           </div>
             <?php else:
-        $consulta = buscarNombreJur($nombre, $apat, $amat);
+        $consulta = buscarNombreJur($nombre, $apat, $amat,$placa, $serie, $eco);
         if ($consulta) {
           $res=count($consulta);
         } else {
@@ -45,7 +49,7 @@
             $offset = 0;
         }
         if ($res!=0):
-        $cons=buscarPaginacionJur($nombre,$apat,$amat,$offset,$limit);?>
+        $cons=buscarPaginacionJur($nombre,$apat,$amat,$placa, $serie, $eco,$offset,$limit);?>
         <?php $ajaxCounter = 1; ?>
         <script>
            var d        = new Date();

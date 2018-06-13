@@ -1,9 +1,13 @@
 <h3>Prevalidador</h3>
 <form method="GET" action="buscar.php" class="row">
-      <div class="col-4"><input type="text" name="p" class="form-control" placeholder="Nombre(s)..."></textarea></div>
+      <div class="col-3"><input type="text" name="p" class="form-control" placeholder="Nombre(s)..."></textarea></div>
       <div class="col-3"><input type="text" name="s" class="form-control" placeholder="Ap. Paterno..."></textarea></div>
       <div class="col-3"><input type="text" name="t" class="form-control" placeholder="Ap. Materno..."></textarea></div>
-      <div class="col-2" align="center"><button id="buscar-submit" type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
+      <div class="col-3"></div>
+      <div class="col-3"><input type="text" name="placa" class="form-control" placeholder="Placa"></textarea></div>
+      <div class="col-3"><input type="text" name="serie" class="form-control" placeholder="Serie/VIN"></textarea></div>
+      <div class="col-3"><input type="text" name="eco" class="form-control" placeholder="Num. Económico"></textarea></div>
+      <div class="col-3" align="center"><button id="buscar-submit" type="submit" class="btn btn-secondary" name="fgevcv-buscar">Buscar</button><br></br></div>
 </form>
 <div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    <div class="row">

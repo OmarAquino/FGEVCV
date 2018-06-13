@@ -63,7 +63,7 @@
                 var minutos  = d.getMinutes();
                 var segundos = d.getSeconds();
                 var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-                
+                /*
                 $( document ).ready(function() {
                     var editando = 'editando';
                     var libre = 'libre';
@@ -100,7 +100,7 @@
                         ajaxTimer();
                     }, 120000);
                 });
-                
+                */
             </script>  
             <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
             <div class="row rowDato">
@@ -120,10 +120,11 @@
             <div class="row rowDato">
                 <div class="col-3">Carpetas de Investigación</div>
                 <div class="col-9">
+                    <?php $labelCounter = 1; ?>
                     <?php foreach ($consulta as $resultado): ?>
                         <?php if ($resultado['rol']=='P') : ?>
                             <?php if ($consultaCi): ?>
-                                <?php $labelCounter = 1; ?>
+                                
                                 <?php foreach ($consultaCi as $resultado) : ?>
                                     <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
                                         <div class="row">
@@ -175,14 +176,17 @@
                                     <?php endif ?>
                                     <?php $labelCounter++; ?>
                                 <?php endforeach ?>
-                                <?php if($contP>2) :?>
-                                        <div class="row rowDato">
-                                            <div class="col-3"></div></div>
+                            <?php endif ?>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                    <?php if($contP>2) :?>
+                        <div class="row rowDato">
+                                            <div class="col-3"></div>
                                             <div class="col-9">
                                                 <label for="ciT-<?php echo $idPersonaPropietario; ?>" class="css-label">Marcar todas las carpetas de concesionario como No relevante</label>
                                                 <input id="ciT-<?php echo $idPersonaPropietario; ?>" name="" type="checkbox" class="css-checkbox">
                                             </div>
-                                            <script>
+                            <script>
                                                 $("#ciT-<?php echo $idPersonaPropietario; ?>").change(function() {
                                                     $('.loaderContainer').css('display', 'block');
                                                     var checkboxes = $("input[id^='ci-']");
@@ -199,12 +203,9 @@
                                                     }
                                                     $('.loaderContainer').css('display', 'none');
                                                 });
-                                            </script>
-                                        </div>
-                                    <?php endif ?>
-                            <?php endif ?>
-                        <?php endif ?>
-                    <?php endforeach ?>
+                            </script>
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
             <div class="row rowDato">
@@ -269,6 +270,7 @@
                 </div>
             </div>
             <h4 class="Concesionario-tituloSeccion">Conductor</h4>
+            <?php $labelCounter2 = 1; ?>
             <?php foreach ($consulta as $resultado): ?>
                 <?php
                 if ($resultado['rol']=='C') { 
@@ -285,7 +287,6 @@
                             <div class="col-9">
                                 <?php $idPersona = $resultado['id_per']; ?>
                                 <?php if ($consultaCi): ?>
-                                    <?php $labelCounter2 = 1; ?>
                                     <?php $ciCounter = 1; ?>
                                     <?php foreach ($consultaCi as $resultado) : ?>
                                         <?php if ($idPersona==$resultado['id_per']) : ?>
@@ -339,7 +340,7 @@
                                     <?php endforeach ?>
                                     <?php if($contC>2) :?>
                                         <div class="row rowDato">
-                                            <div class="col-3"></div></div>
+                                            <div class="col-3"></div>
                                             <div class="col-9">
                                                 <label for="ci2T-<?php echo $idPersonaPropietario; ?>" class="css-label">Marcar todas las carpetas de conductor como No relevante</label>
                                                 <input id="ci2T-<?php echo $idPersonaPropietario; ?>" name="" type="checkbox" class="css-checkbox">
