@@ -107,8 +107,8 @@
                 <div class="col-3">Nombre:</div>
                     <?php foreach ($consulta as $resultado): ?>
                         <?php
-                        $contP=0;
-                        $contC=0;
+                        $propCount=0;
+                        $contCarp=0;
                         if ($resultado['rol']=='P') {
                             $idPersonaPropietario  = $resultado['id_per']; 
                             $nombre     = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
@@ -137,13 +137,13 @@
                                             </div>
                                             
                                             <div class="col-5">
-                                                <input id="cih-<?php echo $labelCounter; $contP++;?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
-                                                <input id="ci-<?php echo $labelCounter; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                                <label for="ci-<?php echo $labelCounter; ?>" class="css-label">No relevante</label>
+                                                <input id="cih-<?php $contCarp++; echo $propCount.'-'.$contCarp;?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                                <input id="ci-<?php echo $propCount.'-'.$contCarp; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                                <label for="ci-<?php echo $propCount.'-'.$contCarp; ?>" class="css-label">No relevante</label>
                                                 <script>
-                                                    jQuery("#ci-<?php echo $labelCounter; ?>").change(function() {
+                                                    jQuery("#ci-<?php echo $propCount.'-'.$contCarp; ?>").change(function() {
                                                         if(this.checked) {
-                                                            jQuery("#cih-<?php echo $labelCounter; ?>").val('1');
+                                                            jQuery("#cih-<?php echo $propCount.'-'.$contCarp; ?>").val('1');
                                                             jQuery.ajax({
                                                                 type : 'POST',
                                                                 url : 'inc/functions/actualizar-carpeta-investigacion.php',
@@ -156,7 +156,7 @@
                                                                 }
                                                             });
                                                         }else {
-                                                            jQuery("#cih-<?php echo $labelCounter; ?>").val('0');
+                                                            jQuery("#cih-<?php echo $propCount.'-'.$contCarp; ?>").val('0');
                                                             jQuery.ajax({
                                                                 type : 'POST',
                                                                 url : 'inc/functions/actualizar-carpeta-investigacion.php',
@@ -179,15 +179,15 @@
                             <?php endif ?>
                         <?php endif ?>
                     <?php endforeach ?>
-                    <?php if($contP>2) :?>
+                    <?php if($contCarp>2) :?>
                         <div class="row rowDato">
                                             <div class="col-3"></div>
                                             <div class="col-9">
-                                                <label for="ciT-<?php echo $idPersonaPropietario; ?>" class="css-label">Marcar todas las carpetas de concesionario como No relevante</label>
-                                                <input id="ciT-<?php echo $idPersonaPropietario; ?>" name="" type="checkbox" class="css-checkbox">
+                                                <label for="ciT-<?php echo $propCount.'-'.$contCarp; ?>" class="css-label">Marcar todas las carpetas de concesionario como No relevante</label>
+                                                <input id="ciT-<?php echo $propCount.'-'.$contCarp; ?>" name="" type="checkbox" class="css-checkbox">
                                             </div>
                             <script>
-                                                $("#ciT-<?php echo $idPersonaPropietario; ?>").change(function() {
+                                                $("#ciT-<?php echo $propCount.'-'.$contCarp; ?>").change(function() {
                                                     $('.loaderContainer').css('display', 'block');
                                                     var checkboxes = $("input[id^='ci-']");
                                                     if(this.checked){                                                    
@@ -271,8 +271,11 @@
             </div>
             <h4 class="Concesionario-tituloSeccion">Conductor</h4>
             <?php $labelCounter2 = 1; ?>
+            <?php $conductorCount = 0; ?>
             <?php foreach ($consulta as $resultado): ?>
                 <?php
+                $contCarp=0;
+                $conductorCount++;
                 if ($resultado['rol']=='C') { 
                     $nombre = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno']; ?>
                     <div class="row rowDato">
@@ -299,13 +302,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-5">
-                                                    <input id="cih2-<?php echo $labelCounter2; $contC++;?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
-                                                    <input id="ci2-<?php echo $labelCounter2; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
-                                                    <label for="ci2-<?php echo $labelCounter2; ?>" class="css-label">No relevante</label>
+                                                    <input id="cih2-<?php $contCarp++;echo $conductorCount.'-'.$contCarp; ?>" type="hidden" name="ci[<?php echo $resultado['id']; ?>]" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>">
+                                                    <input id="ci2-<?php echo $conductorCount.'-'.$contCarp; ?>" name="" type="checkbox" value="<?php if($resultado['borrado']==NULL){echo '0';}else{echo $resultado['borrado'];} ?>" <?php if($resultado['borrado']==1){echo 'checked';} ?> class="css-checkbox">
+                                                    <label for="ci2-<?php echo $conductorCount.'-'.$contCarp;?>" class="css-label">No relevante</label>
                                                     <script>
-                                                        jQuery("#ci2-<?php echo $labelCounter2; ?>").change(function() {
+                                                        jQuery("#ci2-<?php echo $conductorCount.'-'.$contCarp; ?>").change(function() {
                                                             if(this.checked) {
-                                                                jQuery("#cih2-<?php echo $labelCounter2; ?>").val('1');
+                                                                jQuery("#cih2-<?php echo $conductorCount.'-'.$contCarp; ?>").val('1');
                                                                 jQuery.ajax({
                                                                     type : 'POST',
                                                                     url : 'inc/functions/actualizar-carpeta-investigacion.php',
@@ -318,7 +321,7 @@
                                                                     }
                                                                 });
                                                             }else {
-                                                                jQuery("#cih2-<?php echo $labelCounter2; ?>").val('0');
+                                                                jQuery("#cih2-<?php echo $conductorCount.'-'.$contCarp; ?>").val('0');
                                                                 jQuery.ajax({
                                                                     type : 'POST',
                                                                     url : 'inc/functions/actualizar-carpeta-investigacion.php',
@@ -338,17 +341,18 @@
                                         <?php endif ?> 
                                         <?php $labelCounter2++; ?>
                                     <?php endforeach ?>
-                                    <?php if($contC>2) :?>
+                                    <?php if($contCarp>2) :?>
                                         <div class="row rowDato">
                                             <div class="col-3"></div>
                                             <div class="col-9">
-                                                <label for="ci2T-<?php echo $idPersonaPropietario; ?>" class="css-label">Marcar todas las carpetas de conductor como No relevante</label>
-                                                <input id="ci2T-<?php echo $idPersonaPropietario; ?>" name="" type="checkbox" class="css-checkbox">
+                                                <label for="ci2T-<?php echo $conductorCount.'-'.$contCarp; ?>" class="css-label">Marcar todas las carpetas de conductor como No relevante</label>
+                                                <input id="ci2T-<?php echo $conductorCount.'-'.$contCarp; ?>" name="" type="checkbox" class="css-checkbox">
                                             </div>
                                             <script>
-                                                $("#ci2T-<?php echo $idPersonaPropietario; ?>").change(function() {
+                                                $("#ci2T-<?php echo $conductorCount.'-'.$contCarp; ?>").change(function() {
                                                     $('.loaderContainer').css('display', 'block');
-                                                    var checkboxes = $("input[id^='ci2-']");
+                                                    
+                                                    var checkboxes = $("input[id^='ci2-<?php echo $conductorCount.'-'?>']");
                                                     if(this.checked){                                                    
                                                         $.each( checkboxes, function( key, value ) {
                                                             $("#"+value.id).prop('checked', true);
@@ -361,6 +365,7 @@
                                                         });
                                                     }
                                                     $('.loaderContainer').css('display', 'none');
+                                                    
                                                 });
                                             </script>
                                         </div>
