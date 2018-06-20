@@ -38,15 +38,19 @@ function consultarConcesionariosPrevalidadorPaginacion($offset, $limit) {
 	sqlsrv_close($con);
 }
 function consultarConcesionariosJuridicoPaginacion($offset, $limit) {
+	$array=[];
 	include('db.php');
 	// $query = "SELECT [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [per_conc].[rol], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 and [per_conc].[rol] = 'P' ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
 	// $query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 ORDER BY [personas].[id_per] OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
+	//$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio =0 order by nombre OFFSET $offset ROWS FETCH NEXT 1 ROWS ONLY;";
 	$query = "SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], [concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico] from [SistBusquedas].[dbo].[personas] inner join SistBusquedas.dbo.per_carp on personas.id_per = per_carp.id_per inner join [SistBusquedas].[dbo].[per_conc] on [per_carp].[id_per] = [per_conc].[id_per] inner join [SistBusquedas].[dbo].[concesiones] on [concesiones].[id_conc] = [per_conc].[id_conc] and [concesiones].[ind_pre] = 1 where personas.limpio =0 order by nombre OFFSET $offset ROWS FETCH NEXT $limit ROWS ONLY";
-	$result = sqlsrv_query($con, $query);
-	while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
-		$array[] = $row;
+	$result = sqlsrv_query($con, $query,null,array("QueryTimeout"=>60));
+	if (sqlsrv_has_rows($result)!=0) {
+		while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+			$array[] = $row;
+		}
+		return($array);
 	}
-	return($array);
 	sqlsrv_close($con);
 }
 function consultarConcesion($idconcesion) {

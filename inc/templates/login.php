@@ -24,10 +24,18 @@
                     <div class="form-group row">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <input type="submit" name="fgevcv-login" value="Ingresar" class="btn btn-secondary">
+                            <input type="submit" name="fgevcv-login" id="fgevcv-login" value="Ingresar" class="btn btn-secondary">
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 	</div>
+    <div class="loaderContainer">
+        <div class="loader"></div>
+    </div>
+<script>
+    $("#fgevcv-login").click(function(){
+        $('.loaderContainer').css('display', 'block');
+    });
+</script>

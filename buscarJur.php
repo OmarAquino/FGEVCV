@@ -6,7 +6,7 @@
     <?php endif ?>
     <div class="Concesionarios-contenedor">
 <h3>Lista de concesionarios</h3>
-<form method="GET" action="buscarJur.php?p=$_GET['p']&s=$_GET['s']&t=$_GET['t']" class="row">
+<form method="GET" action="buscar.php?p=$_GET['p']&s=$_GET['s']&t=$_GET['t']&t=$_GET['placa']&t=$_GET['serie']&t=$_GET['eco']" class="row">
     <div class="col-3"><input type="text" name="p" class="form-control" value="<?php echo($_GET['p'])?>" placeholder="Nombre(s)..."></textarea></div>
     <div class="col-3"><input type="text" name="s" class="form-control" value="<?php echo($_GET['s'])?>" placeholder="Ap. Paterno..."></textarea></div>
     <div class="col-3"><input type="text" name="t" class="form-control" value="<?php echo($_GET['t'])?>" placeholder="Ap. Materno..."></textarea></div>
