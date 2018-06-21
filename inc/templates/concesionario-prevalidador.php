@@ -63,7 +63,7 @@
                 var minutos  = d.getMinutes();
                 var segundos = d.getSeconds();
                 var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-                /*
+                
                 $( document ).ready(function() {
                     var editando = 'editando';
                     var libre = 'libre';
@@ -100,22 +100,26 @@
                         ajaxTimer();
                     }, 120000);
                 });
-                */
+                
             </script>  
             <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
             <div class="row rowDato">
-                <div class="col-3">Nombre:</div>
+                
                     <?php foreach ($consulta as $resultado): ?>
                         <?php
                         $propCount=0;
                         $contCarp=0;
+                        $idPersonaPropietarioArray=[];
                         if ($resultado['rol']=='P') {
-                            $idPersonaPropietario  = $resultado['id_per']; 
+                            echo "<div class='col-3'>Nombre:</div>";
+                            //$idPersonaPropietario  = $resultado['id_per']; 
+                            array_push($idPersonaPropietarioArray,$resultado['id_per']);
                             $nombre     = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
+                            echo "<div class='col-9'>".$nombre."</div>";
                         }  
                         ?>
                     <?php endforeach ?>
-                <div class="col-9"><?php echo $nombre; ?></div>
+                
             </div>
             <div class="row rowDato">
                 <div class="col-3">Carpetas de Investigación</div>
@@ -126,7 +130,10 @@
                             <?php if ($consultaCi): ?>
                                 
                                 <?php foreach ($consultaCi as $resultado) : ?>
-                                    <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
+                                    <?php 
+                                        //if ($idPersonaPropietario==$resultado['id_per']) : 
+                                        if (in_array($resultado['id_per'],$idPersonaPropietarioArray)) :
+                                    ?>
                                         <div class="row">
                                             <div class="col-3">
                                                 <div class="row">
@@ -216,7 +223,10 @@
                             <?php if ($consultaMand): ?>
                                 <?php $labelCounterM = 1; ?>
                                 <?php foreach ($consultaMand as $resultado) : ?>
-                                    <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
+                                    <?php 
+                                        //if ($idPersonaPropietario==$resultado['id_per']) : 
+                                            if (in_array($resultado['id_per'],$idPersonaPropietarioArray)) :
+                                    ?>
                                         <div class="row">
                                             <div class="col-3">
                                                 <div class="row">
@@ -282,7 +292,10 @@
                         <div class="col-3">Nombre:</div>
                         <div class="col-9"><?php echo $nombre; ?></div>
                     </div>
-                    <?php if ($idPersonaPropietario!=$resultado['id_per']) { ?>
+                    <?php 
+                        //if ($idPersonaPropietario!=$resultado['id_per']) { 
+                        if (! in_array($resultado['id_per'],$idPersonaPropietarioArray)) {
+                    ?>
                         <div class="row rowDato">
                             <div class="col-3">
                                 Carpetas de Investigación
