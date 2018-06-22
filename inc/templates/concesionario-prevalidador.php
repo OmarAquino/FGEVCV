@@ -63,7 +63,7 @@
                 var minutos  = d.getMinutes();
                 var segundos = d.getSeconds();
                 var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-                /*
+                
                 $( document ).ready(function() {
                     var editando = 'editando';
                     var libre = 'libre';
@@ -83,7 +83,7 @@
                             }
                         }
                     });
-                    */
+                    
                     function ajaxTimer() {
                         $.ajax({
                             type : 'POST',
