@@ -218,9 +218,9 @@ function buscarNombreJur($nombre,$apat,$amat,$placa,$serie,$eco){
 			sqlsrv_close($con);
 		}
 	}
-function buscarPaginacionJur($nombre,$apat,$amat,$offset,$limit){
+function buscarPaginacionJur($nombre,$apat,$amat,$placa,$serie,$eco,$offset,$limit){
 	include('db.php');//nombre y apellido pat
-	$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], ".
+	$query="SELECT distinct [concesiones].[folio],[concesiones].[etapa],[personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], ".
 		"[concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico], [concesiones].[vin] ".
 		 "from [SistBusquedas].[dbo].[personas] ".
 		 "inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] ".
@@ -286,7 +286,7 @@ function buscarNombre($nombre,$apat,$amat,$placa,$serie,$eco){
 function buscarPaginacion($nombre,$apat,$amat,$placa,$serie,$eco,$offset,$limit){
 	include('db.php');//nombre y apellido pat
 
-	$query="SELECT distinct [personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], ".
+	$query="SELECT distinct [concesiones].[folio],[concesiones].[etapa],[personas].[id_per], [personas].[nombre], [personas].[a_paterno], [personas].[a_materno], ".
 		"[concesiones].[id_conc], [concesiones].[placa], [concesiones].[num_economico], [concesiones].[vin] ".
 		 "from [SistBusquedas].[dbo].[personas] ".
 		 "inner join [SistBusquedas].[dbo].[per_conc] on [personas].[id_per] = [per_conc].[id_per] ".

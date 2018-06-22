@@ -18,10 +18,11 @@
 </form>
 	<div class="Concesionarios-lista Concesionarios-listaPrevalidador">
    		<div class="row">
-      		<div class="col col-7">Concesionario</div>
-		    <!--<div class="col col-4">Conductor</div>-->
-		    <div class="col col-4">Vehículo</div>
-		    <div class="col col-1">Acción</div>  
+		   <div class="col col-6">Concesionario</div>
+			<div class="col col-2">Placa vehículo</div>
+			<div class="col col-2">Folio concesión</div>
+			<div class="col col-1">Etapa</div>
+			<div class="col col-1">Acción</div>
    		</div>
 		<?php //if (isset($_GET['fgevcv-buscar'])): 
     		$nombre = $_GET['p'];
@@ -68,9 +69,10 @@
 			</script>
     		<?php foreach ($cons as $res): ?>
 	    	<div id="concesion<?php echo $ajaxCounter; ?>" class="row">
-	        	<div class="col col-7"><?php echo $res['nombre'].' '.$res['a_paterno'].' '.$res['a_materno']; ?></div>
-	        	<!--<div class="col col-4"></div>-->
-	        	<div class="col col-4"><?php echo $res['placa']; ?></div>
+				<div class="col col-6"><?php echo $res['nombre'].' '.$res['a_paterno'].' '.$res['a_materno']; ?></div>
+				<div class="col col-2"><?php echo $res['placa']; ?></div>
+				<div class="col col-2"><?php echo $res['folio']; ?></div>
+				<div class="col col-1"><?php echo $res['etapa']; ?></div>
 	        	<div class="col col-1">
             	<a href="concesionario.php?id_conc=<?php echo $res['id_conc']; ?>" target="_blank">
                	<button id="trigger<?php echo $ajaxCounter; ?>" type="button" class="btn btn-secondary"><i class="fas fa-eye"></i></button>
