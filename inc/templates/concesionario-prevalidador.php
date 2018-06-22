@@ -63,7 +63,7 @@
                 var minutos  = d.getMinutes();
                 var segundos = d.getSeconds();
                 var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
-                
+                /*
                 $( document ).ready(function() {
                     var editando = 'editando';
                     var libre = 'libre';
@@ -83,6 +83,7 @@
                             }
                         }
                     });
+                    */
                     function ajaxTimer() {
                         $.ajax({
                             type : 'POST',
@@ -105,17 +106,21 @@
             <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
             <div class="row rowDato">
                 
-                    <?php foreach ($consulta as $resultado): ?>
+                    <?php 
+                        $idPersonaPropietarioArray=[];
+                        foreach ($consulta as $resultado): 
+                    ?>
                         <?php
                         $propCount=0;
                         $contCarp=0;
-                        $idPersonaPropietarioArray=[];
+                        
                         if ($resultado['rol']=='P') {
-                            echo "<div class='col-3'>Nombre:</div>";
-                            //$idPersonaPropietario  = $resultado['id_per']; 
-                            array_push($idPersonaPropietarioArray,$resultado['id_per']);
-                            $nombre     = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
-                            echo "<div class='col-9'>".$nombre."</div>";
+                            if (! in_array($resultado['id_per'],$idPersonaPropietarioArray)){
+                                array_push($idPersonaPropietarioArray,$resultado['id_per']);
+                                $nombre     = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
+                                echo "<div class='col-3'>Nombre:</div>";
+                                echo "<div class='col-9'>".$nombre."</div>";
+                            }
                         }  
                         ?>
                     <?php endforeach ?>
@@ -129,9 +134,10 @@
                         <?php if ($resultado['rol']=='P') : ?>
                             <?php if ($consultaCi): ?>
                                 
-                                <?php foreach ($consultaCi as $resultado) : ?>
+                                <?php 
+                                    foreach ($consultaCi as $resultado) : 
+                                ?>
                                     <?php 
-                                        //if ($idPersonaPropietario==$resultado['id_per']) : 
                                         if (in_array($resultado['id_per'],$idPersonaPropietarioArray)) :
                                     ?>
                                         <div class="row">

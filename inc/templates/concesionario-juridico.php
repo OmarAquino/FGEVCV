@@ -114,6 +114,7 @@
         $( document ).ready(function() {
             var editando = 'editando';
             var libre = 'libre';
+            
             $.ajax({
                 type : 'POST',
                 url : 'inc/functions/editando.php',
@@ -129,6 +130,7 @@
                     }
                 }
             });
+            
             function ajaxTimer() {
                 $.ajax({
                     type : 'POST',
@@ -149,16 +151,24 @@
     </script>
     <h4 class="Concesionario-tituloSeccion">Concesionario</h4>
     <div class="row rowDato">
-        <div class="col-3">Nombre:</div>
-        <?php foreach ($consulta as $resultado): ?>
-            <?php
-            if ($resultado['rol']=='P') {
-                $idPersonaPropietario  = $resultado['id_per']; 
-                $nombre     = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
-            } 
-            ?>
+        <?php 
+            $idPersonaPropietarioArray=[];
+            foreach ($consulta as $resultado): 
+        ?>
+                    <?php
+                        $propCount=0;
+                        $contCarp=0;
+                        
+                        if ($resultado['rol']=='P') {
+                            if (! in_array($resultado['id_per'],$idPersonaPropietarioArray)){
+                                array_push($idPersonaPropietarioArray,$resultado['id_per']);
+                                $nombre     = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
+                                echo "<div class='col-3'>Nombre:</div>";
+                                echo "<div class='col-9'>".$nombre."</div>";
+                            }
+                        }  
+                    ?>
         <?php endforeach ?>
-        <div class="col-9"><?php echo $nombre; ?></div>
     </div>
     <div class="row rowDato">
         <div class="col-3">Carpetas de Investigación</div>
@@ -167,8 +177,14 @@
                 <?php if ($resultado['rol']=='P') : ?>
                     <?php if ($consultaCi): ?>
                         <?php $labelCounter = 1; ?>
-                        <?php foreach ($consultaCi as $resultado) : ?>
-                            <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
+                        
+                        <?php 
+                                    foreach ($consultaCi as $resultado) : 
+                                ?>
+                                    <?php 
+                                        if (in_array($resultado['id_per'],$idPersonaPropietarioArray)) :
+                                    ?>
+
                                 <?php if ($resultado['borrado']!=1): ?>
                                     <div class="row">
                                         <div class="col-3">
@@ -232,7 +248,7 @@
                     <?php if ($consultaMand): ?>
                         <?php $labelCounterM = 1; ?>
                         <?php foreach ($consultaMand as $resultado) : ?>
-                            <?php if ($idPersonaPropietario==$resultado['id_per']) : ?>
+                            <?php if (in_array($resultado['id_per'],$idPersonaPropietarioArray)) : ?>
                                 <?php if ($resultado['borrado']!=1): ?>
                                     <div class="row">
                                         <div class="col-3">
@@ -290,7 +306,7 @@
     <h4 class="Concesionario-tituloSeccion">Conductor</h4>
     <?php foreach ($consulta as $resultado): ?>
         <?php
-        if ($idPersonaPropietario!=$resultado['id_per']) {
+        if (! in_array($resultado['id_per'],$idPersonaPropietarioArray)) {
         if ($resultado['rol']=='C') { 
             $nombre = $resultado['nombre'].' '.$resultado['a_paterno'].' '.$resultado['a_materno'];
         ?>

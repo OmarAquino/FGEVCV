@@ -70,6 +70,7 @@
             var minutos  = d.getMinutes();
             var segundos = d.getSeconds();
             var fechaF   = anio+'-'+mes+'-'+dia+' '+hora+':'+minutos+':'+segundos;
+            /*
             $.ajax({
                type : 'POST',
                url : 'inc/functions/consultar-editando.php',
@@ -96,6 +97,7 @@
                   }
                }
             });
+            */
             setTimeout(ajaxTimer<?php echo $ajaxCounter; ?>, 5000);
          }
          ajaxTimer<?php echo $ajaxCounter; ?>();
